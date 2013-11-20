@@ -8,4 +8,16 @@ public class Cell {
 		this.column = column;
 		this.rawData = rawData;
 	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public String getRawData() {
+		return rawData;
+	}
 }
