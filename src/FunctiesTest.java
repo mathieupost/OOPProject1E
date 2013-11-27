@@ -161,26 +161,27 @@ public class FunctiesTest {
 		
 	@Test
 	public void testProduct() {
-		
-		//Matthijs
-	}
-
-	@Test
-	public void testPower() {
 		double testwaarde1 = 2;
 		double testwaarde2 = 5;
 		assertTrue(Functies.product(testwaarde1, testwaarde2) == 10);
-		//Matthijs
 	}
 	
 	@Test
-	public void testPower2() {
+	public void testProduct2() {
 		double testwaarde1 = 3;
 		double testwaarde2 = 6;
 		double testwaarde3 = 8;
 		assertTrue(Functies.product(testwaarde1, testwaarde2, testwaarde3) == 144);
 	}
 
+	@Test
+	public void testPower() {
+		double testwaarde1 = 2;
+		double testwaarde2 = 3;
+		assertTrue(Functies.power(testwaarde1, testwaarde2) == 8);
+	}
+	
+	
 	@Test
 	public void testMod() {
 		assertTrue(Functies.mod(19, 6)==1);
