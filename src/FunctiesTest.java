@@ -34,9 +34,13 @@ public class FunctiesTest {
 	}
 
 	@Test
-	public void testMakeInt() {
-		
-		//Wilbert
+	public void testMakeIntPositive() {
+		assertEquals(Functies.makeInt(5.234), 5);
+	}
+	
+	@Test
+	public void testMakeIntNegative() {
+		assertEquals(Functies.makeInt(-5.234), -5);
 	}
 
 	@Test
@@ -65,8 +69,7 @@ public class FunctiesTest {
 
 	@Test
 	public void testMax() {
-		
-		//Wilbert
+		assertEquals(Functies.max(3, 8, 1, -3, 8.01), 8.01);
 	}
 
 	@Test
