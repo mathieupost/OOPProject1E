@@ -2,7 +2,7 @@
 public class Functies {
 
 	public static void main(String[] args) {
-		System.out.println(sum(3,4));
+		/*System.out.println(sum(3,4));
 		System.out.println(sqrt(2));
 		System.out.println(sign(30));
 		System.out.println(sign(0));
@@ -10,7 +10,8 @@ public class Functies {
 		System.out.println(roundUp(47587.2453475, 4));
 		System.out.println(roundDown(47587.2453475, -1));
 		System.out.println(proper("hAllo ik ben Wilbert"));
-		System.out.println(isEven(2.9999));
+		System.out.println(isEven(2.9999));*/
+		System.out.println(median(3,5,10,15));
 
 	}
 
@@ -120,6 +121,7 @@ public class Functies {
 	 * @param String wich is to be checked
 	 * @return value true if String is "true","false","TRUE","FALSE" or a variation of uppercase and lowercase. Returns false if the String is anything else
 	 */
+	//TODO: implement other types of logical expressions, e.g. "4>5"
 	public static boolean isLogical(String value) {
 		return value.toLowerCase().equals("true")
 				|| value.toLowerCase().equals("false");
@@ -174,14 +176,21 @@ public class Functies {
 		return res;
 	}
 
-	// TODO:
-	public static double median(double[] values){
+	/**
+	 * Takes a series of doubles and calculates the arithmetic median
+	 * @param values series of Double to be used in calculation
+	 * @return arithmetic median of given series of doubles
+	 */
+	public static double median(double... values){
 		double res = 0;
 		if(values.length %2==0){
-			double a = Math.ceil(values.length);
+			int a = (int) values.length/2-1;
+			int b = (int) values.length/2;
+			res = (values[a]+values[b])/2;
 		}
 		else if(values.length %2 != 0){
-
+			int a = (values.length-1)/2;
+			res = values[a];
 		}
 		return res;
 	}
