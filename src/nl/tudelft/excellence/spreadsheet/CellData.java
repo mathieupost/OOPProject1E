@@ -1,3 +1,4 @@
+package nl.tudelft.excellence.spreadsheet;
 public class CellData {
 	String rawData;
 

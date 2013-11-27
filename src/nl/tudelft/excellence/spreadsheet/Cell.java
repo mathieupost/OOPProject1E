@@ -1,6 +1,5 @@
+package nl.tudelft.excellence.spreadsheet;
 public class Cell {
-	private long row;
-	private long column;
 	private CellData cellData;
 
 	public Cell(String rawData) {

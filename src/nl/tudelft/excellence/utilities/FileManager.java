@@ -1,3 +1,8 @@
+package nl.tudelft.excellence.utilities;
+import nl.tudelft.excellence.spreadsheet.Cell;
+import nl.tudelft.excellence.spreadsheet.CellCoord;
+import nl.tudelft.excellence.spreadsheet.SpreadSheet;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -5,12 +10,14 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.TreeMap;
 
 public class FileManager {
-
-	public static void parseXML(String file) {
+	
+	public static SpreadSheet parseXML(File file) {
 		final TreeMap<CellCoord, Cell> grid = new TreeMap<CellCoord, Cell>();
 		try {
 
@@ -44,7 +51,7 @@ public class FileManager {
 				@Override
 				public void characters(char[] ch, int start, int length) throws SAXException {
 					if (cell) {
-						data = new String(ch, start, length).replaceAll("(?m)^[ \t]*\r?\n+$", "");
+						data = new String(ch, start, length).replaceAll("\n|\t", "");
 						System.out.println("Content: " + data);
 						cell = false;
 					}
@@ -55,8 +62,6 @@ public class FileManager {
 
 			saxParser.parse(file, handler);
 
-			// TODO notfiy listener
-
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -64,5 +69,7 @@ public class FileManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		return new SpreadSheet(grid);
 	}
 }
