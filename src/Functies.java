@@ -2,7 +2,7 @@
 public class Functies {
 
 	public static void main(String[] args) {
-		/*System.out.println(sum(3,4));
+		System.out.println(sum(3,4));
 		System.out.println(sqrt(2));
 		System.out.println(sign(30));
 		System.out.println(sign(0));
@@ -10,8 +10,9 @@ public class Functies {
 		System.out.println(roundUp(47587.2453475, 4));
 		System.out.println(roundDown(47587.2453475, -1));
 		System.out.println(proper("hAllo ik ben Wilbert"));
-		System.out.println(isEven(2.9999));*/
+		System.out.println(isEven(2.9999));
 		System.out.println(median(3,5,10,15));
+		System.out.println(testIf("3 < 4", "istrue", "isfalse"));
 
 	}
 
@@ -113,7 +114,7 @@ public class Functies {
 	 * @return result of the rounded down double
 	 */
 	public int makeInt(double value){		
-		return (int) Math.floor(value);
+		return (int) value;
 	}
 
 	/**
@@ -315,10 +316,10 @@ public class Functies {
 	}
 	
 	/**
-	 * 
-	 * @param a
-	 * @param values
-	 * @return
+	 * Returns the minimum of all inserted values
+	 * @param a 1st value
+	 * @param values all next values
+	 * @return minimum
 	 */
 	public static double min(double a, double... values){
 		double min = a;
