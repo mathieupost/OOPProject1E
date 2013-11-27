@@ -113,7 +113,7 @@ public class Functies {
 	 * @param value double to be rounded down
 	 * @return result of the rounded down double
 	 */
-	public int makeInt(double value){		
+	public static int makeInt(double value){		
 		return (int) value;
 	}
 
@@ -167,7 +167,7 @@ public class Functies {
 	 * @param values the rest of the doubles
 	 * @return maximum of given doubles
 	 */
-	public static Double max(double a, double... values) {
+	public static double max(double a, double... values) {
 		double res = a;
 		for (int i = 0; i < values.length; i++) {
 			if (values[i] > res) {
