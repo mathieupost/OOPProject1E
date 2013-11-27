@@ -55,14 +55,26 @@ public class FunctiesTest {
 
 	@Test
 	public void testIsEven() {
-		
-		//Matthijs
+		double testwaarde = 4;
+		assertEquals(Functies.isEven(testwaarde), true);
+	}
+	
+	@Test
+	public void testIsNotEven(){
+		double testwaarde = 5;
+		assertEquals(Functies.isEven(testwaarde), false);
 	}
 
 	@Test
 	public void testIsNumber() {
-		
-		//Matthijs
+		String testString = "8";
+		assertEquals(Functies.isNumber(testString), true);
+	}
+	
+	@Test
+	public void testIsNotNumber(){
+		String testString = "tekst";
+		assertEquals(Functies.isNumber(testString), false);
 	}
 
 	@Test
@@ -92,14 +104,24 @@ public class FunctiesTest {
 
 	@Test
 	public void testSum() {
-		
-		//Matthijs
+		double testwaarde1 = 2;
+		double testwaarde2 = 4;
+		assertTrue(Functies.sum(testwaarde1, testwaarde2)==6);
+	}
+	
+	@Test
+	public void testSum2() {
+		double testwaarde1 = 1;
+		double testwaarde2 = 3;
+		double testwaarde3 = 5;
+		double testwaarde4 = 10;
+		assertTrue(Functies.sum(testwaarde1, testwaarde2, testwaarde3, testwaarde4)==19);
 	}
 
 	@Test
 	public void testSqrt() {
-		
-		//Matthijs
+		double testwaarde1 = 9;
+		assertTrue(Functies.sqrt(testwaarde1) == 3);
 	}
 
 	@Test
@@ -145,8 +167,18 @@ public class FunctiesTest {
 
 	@Test
 	public void testPower() {
-		
+		double testwaarde1 = 2;
+		double testwaarde2 = 5;
+		assertTrue(Functies.product(testwaarde1, testwaarde2) == 10);
 		//Matthijs
+	}
+	
+	@Test
+	public void testPower2() {
+		double testwaarde1 = 3;
+		double testwaarde2 = 6;
+		double testwaarde3 = 8;
+		assertTrue(Functies.product(testwaarde1, testwaarde2, testwaarde3) == 144);
 	}
 
 	@Test
