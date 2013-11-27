@@ -279,14 +279,61 @@ public class Functies {
 		return b.toString();
 	}
 
+	/**
+	 * Multiplies all numbers given as arguments
+	 * @param a 1st variable
+	 * @param b 2nd variable
+	 * @param values all other values
+	 * @return product of all arguments
+	 */
+	public static double product(double a, double b, double... values){
+		double result = a * b;
+		for(double value: values){
+			result *= value;
+		}
+		return result;
+	}
+	
+	/**
+	 * Returns a raised to the power b
+	 * @param a base
+	 * @param b exponent
+	 * @return result
+	 */
+	public static double power(double a, double b){
+		return Math.pow(a, b);
+	}
+	
+	/**
+	 * returns a mod b
+	 * @param a number
+	 * @param b divisor
+	 * @return remainder
+	 */
+	public static double mod(double a, double b){
+		return a%b;
+	}
+	
+	/**
+	 * 
+	 * @param a
+	 * @param values
+	 * @return
+	 */
+	public static double min(double a, double... values){
+		double min = a;
+		for(double value: values){
+			if(value < a){
+				min = value;
+			}
+		}
+		return min;
+	}
+	
 	/*TODO:
-		sumIf
-		product
-		power
-		or
-		not
-		mod - Casper
-		min - Casper*/
-
+	sumIf
+	or
+	not
+	*/
 
 }
