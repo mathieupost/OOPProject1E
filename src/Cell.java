@@ -1,23 +1,13 @@
 public class Cell {
-	private int row;
-	private int column;
-	private String rawData;
+	private long row;
+	private long column;
+	private CellData cellData;
 
-	public Cell(int row, int column, String rawData) {
-		this.row = row;
-		this.column = column;
-		this.rawData = rawData;
+	public Cell(String rawData) {
+		this.cellData = new CellData(rawData);
 	}
 
-	public int getRow() {
-		return row;
-	}
-
-	public int getColumn() {
-		return column;
-	}
-
-	public String getRawData() {
-		return rawData;
+	public CellData getCellData() {
+		return cellData;
 	}
 }
