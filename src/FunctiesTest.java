@@ -7,7 +7,8 @@ public class FunctiesTest {
 
 	@Test
 	public void testAverage() {
-		
+		assertTrue(Functies.average(1,2,3,4)==2.5);
+		assertTrue(Functies.average(1.2456,6.23456,4874.893)==1627.45772);
 		//Casper
 	}
 
@@ -58,9 +59,13 @@ public class FunctiesTest {
 	}
 
 	@Test
-	public void testLower() {
-		
-		//Casper
+	public void testLower1() {
+		assertTrue(Functies.lower("DIT IS EEN TESTBERICHT").equals("dit is een testbericht"));
+	}
+	
+	@Test
+	public void testLower2() {
+		assertTrue(Functies.lower("DiT Is eEn TeStBeRiChT").equals("dit is een testbericht"));
 	}
 
 	@Test
@@ -70,9 +75,13 @@ public class FunctiesTest {
 	}
 
 	@Test
-	public void testMedian() {
-		
-		//Casper
+	public void testMedianEven() {
+		assertTrue(Functies.median(1,2,3,4)==2.5);
+	}
+	
+	@Test
+	public void testMedinUneven() {
+		assertTrue(Functies.median(1,2,5,6,7)==5);
 	}
 
 	@Test
@@ -106,11 +115,15 @@ public class FunctiesTest {
 	}
 
 	@Test
-	public void testProper() {
-		
-		//Casper
+	public void testProper1() {
+		assertTrue(Functies.proper("Dit is een testbericht").equals("Dit Is Een Testbericht"));	
 	}
-
+	
+	@Test
+	public void testProper2() {
+		assertTrue(Functies.proper("DIT IS EEN TESTBERICHT").equals("Dit Is Een Testbericht"));
+	}
+		
 	@Test
 	public void testProduct() {
 		
@@ -131,8 +144,7 @@ public class FunctiesTest {
 
 	@Test
 	public void testMin() {
-		
-		//Casper
+		assertTrue(Functies.min(5.6,9,1,1000,-6.7)==-6.7);
 	}
 
 }
