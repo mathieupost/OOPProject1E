@@ -1,4 +1,4 @@
-package nl.tudelft.excellence.spreadsheet;
+package nl.tudelft.excellence.spreadsheet.cells;
 public class CellCoord {
 	private long column, row;
 	private boolean valid = true;

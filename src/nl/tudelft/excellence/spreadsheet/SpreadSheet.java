@@ -5,6 +5,8 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import nl.tudelft.excellence.spreadsheet.cells.Cell;
+import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 import nl.tudelft.excellence.utilities.FileManager;
 
 
@@ -48,7 +50,7 @@ public class SpreadSheet {
 		String result = "SpreadSheet toString output:\n==============================================\n";
 		for(Entry<CellCoord, Cell> cell: sheet.entrySet()){
 			result += "Coord:\t(" + cell.getKey().getColumn() + ", " + cell.getKey().getRow() + ")\n";
-			result += "Content:\t'" + cell.getValue().getCellData().getRawData() + "'\n\n";
+			result += "Content:\t'" + cell.getValue().getRawData() + "'\n\n";
 		}
 		return result;
 	}

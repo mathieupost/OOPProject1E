@@ -1,6 +1,6 @@
 package nl.tudelft.excellence.utilities;
-import nl.tudelft.excellence.spreadsheet.Cell;
-import nl.tudelft.excellence.spreadsheet.CellCoord;
+import nl.tudelft.excellence.spreadsheet.cells.Cell;
+import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 
 import org.xml.sax.Attributes;
