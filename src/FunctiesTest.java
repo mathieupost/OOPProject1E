@@ -6,10 +6,13 @@ import org.junit.Test;
 public class FunctiesTest {
 
 	@Test
-	public void testAverage() {
+	public void testAverageInt() {
 		assertTrue(Functies.average(1,2,3,4)==2.5);
-		assertTrue(Functies.average(1.2456,6.23456,4874.893)==1627.45772);
-		//Casper
+	}
+	
+	@Test
+	public void testAverageDouble() {
+		assertTrue(Functies.average(1.2456,  6.23456, 4874.893)==1627.45772);
 	}
 
 	@Test
@@ -74,7 +77,7 @@ public class FunctiesTest {
 
 	@Test
 	public void testMax() {
-		assertEquals(Functies.max(3, 8, 1, -3, 8.01), 8.01);
+		assertTrue(Functies.max(3, 8, 1, -3, 8.01)==8.01);
 	}
 
 	@Test
@@ -100,21 +103,28 @@ public class FunctiesTest {
 	}
 
 	@Test
-	public void testSign() {
-		
-		//Wilbert
+	public void testSignPositive() {
+		assertTrue(Functies.sign(20)==1);
+	}
+	
+	@Test
+	public void testSignZero() {
+		assertTrue(Functies.sign(0)==0);
+	}
+	
+	@Test
+	public void testSignNegative() {
+		assertTrue(Functies.sign(-20)==-1);
 	}
 
 	@Test
 	public void testRoundUp() {
-		
-		//Wilbert
+		assertTrue(Functies.roundUp(1234.5678, 3)==1234.568);
 	}
 
 	@Test
 	public void testRoundDown() {
-		
-		//Wilbert
+		assertTrue(Functies.roundDown(1234.5678, 3)==1234.567);
 	}
 
 	@Test
@@ -141,8 +151,7 @@ public class FunctiesTest {
 
 	@Test
 	public void testMod() {
-		
-		//Wilbert
+		assertTrue(Functies.mod(19, 6)==1);
 	}
 
 	@Test
