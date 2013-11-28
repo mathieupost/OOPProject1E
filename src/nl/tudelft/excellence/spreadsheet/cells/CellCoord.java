@@ -1,5 +1,5 @@
 package nl.tudelft.excellence.spreadsheet.cells;
-public class CellCoord {
+public class CellCoord implements Comparable<CellCoord> {
 	private long column, row;
 	private boolean valid = true;
 	
@@ -50,6 +50,11 @@ public class CellCoord {
 		
 		CellCoord that = (CellCoord) other;
 		return this.column == that.column && this.row == that.row;
+	}
+
+	@Override
+	public int compareTo(CellCoord other) {
+		return  Long.signum(this.row==other.row? this.column-other.column : this.row-other.row);
 	}
 	
 }
