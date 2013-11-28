@@ -11,6 +11,7 @@ public class Main {
 		} else {
 			System.out.println("Input file:");
 			fileName = Utility.askString();
+			if (fileName.equals("1")) fileName = "assets/spreadsheet.xml";
 		}
 		SpreadSheet.current = SpreadSheet.openFile(fileName);
 		

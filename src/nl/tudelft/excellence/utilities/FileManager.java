@@ -45,6 +45,7 @@ public class FileManager {
 				public void endElement(String uri, String localName, String qName) throws SAXException {
 					if (cell) {
 						grid.put(new CellCoord(column, row), new Cell(data));
+						cell = false;
 					}
 				}
 
@@ -53,7 +54,6 @@ public class FileManager {
 					if (cell) {
 						data = new String(ch, start, length).replaceAll("\n|\t", "");
 						System.out.println("Content: " + data);
-						cell = false;
 					}
 				}
 
