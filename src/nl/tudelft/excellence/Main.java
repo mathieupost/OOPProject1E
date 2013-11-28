@@ -16,6 +16,11 @@ public class Main {
 		SpreadSheet.current = SpreadSheet.openFile(fileName);
 		
 		System.out.println(SpreadSheet.current.toString());
+		
+		System.out.println("\nSave again?");
+		if(Utility.askConfirmation()){
+			SpreadSheet.current.saveToFile(fileName);
+		}
 	}
 	
 	

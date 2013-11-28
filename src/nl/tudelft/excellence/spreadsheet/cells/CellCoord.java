@@ -57,4 +57,8 @@ public class CellCoord implements Comparable<CellCoord> {
 		return  Long.signum(this.row==other.row? this.column-other.column : this.row-other.row);
 	}
 	
+	public String serialize(){
+		return "row=\""+row+"\" column=\""+column+"\"";
+	}
+	
 }

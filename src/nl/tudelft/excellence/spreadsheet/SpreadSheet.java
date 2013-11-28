@@ -46,6 +46,35 @@ public class SpreadSheet {
 		return FileManager.parseXML(file);
 	}
 	
+	public boolean saveToFile(String fileName){
+		if(fileName==null){
+			//TODO Report error to user in a proper way. (FI: by throwing a (custom) exception)
+			System.out.println("File Name should not be null, what are you even trying to do?");
+			return false;
+		}
+		
+		
+		
+		File file = new File(fileName);
+		file.mkdirs();
+		if(!file.canWrite()){
+			//TODO Report problem to the user.
+			return false;
+		}
+		
+		return FileManager.saveToFile(file, this.serialize());
+	}
+	
+	public String serialize(){
+		String result = "<?xml version=\"1.0\"?>\n<SPREADSHEET>\n";
+		for(Entry<CellCoord, Cell> entry: sheet.entrySet()){
+			result += "\t<CELL "+entry.getKey().serialize()+">\n";
+			result += "\t"+entry.getValue().serialize()+"\n";
+			result += "\t</CELL>\n";
+		}
+		return result + "</SPREADSHEET>";		
+	}
+	
 	public String toString(){
 		String result = "SpreadSheet toString output:\n==============================================\n";
 		for(Entry<CellCoord, Cell> cell: sheet.entrySet()){

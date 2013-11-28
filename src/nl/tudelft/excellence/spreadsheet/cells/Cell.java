@@ -15,4 +15,8 @@ public /*abstract*/ class Cell {
 	public CellType getType() {
 		return type;
 	}
+	
+	public String serialize(){
+		return "\t" + rawData;
+	}
 }

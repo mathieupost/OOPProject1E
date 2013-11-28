@@ -40,4 +40,8 @@ public class Utility {
 		}
 		return result;
 	}
+	
+	public static boolean askConfirmation(){
+		return askString("y", "n").equals("y");
+	}
 }

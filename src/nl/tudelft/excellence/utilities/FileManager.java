@@ -12,7 +12,9 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.TreeMap;
 
 public class FileManager {
@@ -71,5 +73,19 @@ public class FileManager {
 		}
 
 		return new SpreadSheet(grid);
+	}
+	
+	public static boolean saveToFile(File file, String content){
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		writer.write(content);
+		writer.close();
+		return true;
 	}
 }
