@@ -1,3 +1,4 @@
+package nl.tudelft.excellence.functions;
 
 public class Functies {
 
@@ -225,17 +226,7 @@ public class Functies {
 	 * @return sign
 	 */
 	public static double sign(double x){
-		if(x > 0.0){
-			return 1.0;
-		}
-
-		else if(x == 0.0){
-			return 0.0;
-		}
-
-		else{
-			return -1.0;
-		}
+		return Double.compare(x, 0);
 	}
 
 	/**
