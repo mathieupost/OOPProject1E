@@ -5,13 +5,15 @@ package nl.tudelft.excellence.functions;
  * <b>Syntax:</b> LOWER(String value)
  */
 public class LOWER extends StringFunction{
+	
+	private String lower;
+	
 	public LOWER(String value){
-		
+		lower = value;
 	}
 
 	@Override
 	public String execute() {
-		// TODO Auto-generated method stub
-		return null;
+		return lower.toLowerCase();
 	}
 }
