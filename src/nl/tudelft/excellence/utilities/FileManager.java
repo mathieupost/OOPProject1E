@@ -1,6 +1,5 @@
 package nl.tudelft.excellence.utilities;
-import nl.tudelft.excellence.spreadsheet.cells.Cell;
-import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
+import nl.tudelft.excellence.spreadsheet.cells.*;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 
 import org.xml.sax.Attributes;
@@ -46,7 +45,17 @@ public class FileManager {
 				@Override
 				public void endElement(String uri, String localName, String qName) throws SAXException {
 					if (cell) {
-						grid.put(new CellCoord(column, row), new Cell(data));
+						CellCoord coord = new CellCoord(column,row);
+						if (data.startsWith("=")) {
+							grid.put(coord, new FunctionCell(data));
+						} else {
+							try {
+								Double.parseDouble(data);
+								grid.put(coord, new NumberCell(data));
+							} catch (NumberFormatException e) {
+								grid.put(coord, new StringCell(data));
+							}
+						}
 						cell = false;
 					}
 				}
