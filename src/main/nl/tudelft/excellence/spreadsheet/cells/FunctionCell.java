@@ -20,8 +20,9 @@ public class FunctionCell extends Cell implements Observer {
 	 * <b>Note:</b> Output can be a number.
 	 * @return The the result of this function
 	 */
-	public String getData(){
-		return ""; //TODO Parse function
+	@Override
+	public String getData() {
+		return getRawData(); // TODO return function result
 	}
 	
 	
