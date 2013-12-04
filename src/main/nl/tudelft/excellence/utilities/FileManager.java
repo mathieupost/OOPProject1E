@@ -50,8 +50,8 @@ public class FileManager {
 							grid.put(coord, new FunctionCell(data));
 						} else {
 							try {
-								Double.parseDouble(data);
-								grid.put(coord, new NumberCell(data));
+								double number = Double.parseDouble(data);
+								grid.put(coord, new NumberCell(number));
 							} catch (NumberFormatException e) {
 								grid.put(coord, new StringCell(data));
 							}
