@@ -5,5 +5,13 @@ package nl.tudelft.excellence.functions;
  * <b>Syntax:</b> COUNT(String a[, String b, String c...])
  */
 public class COUNT extends NumberFunction {
+	public COUNT(String a, String...strings ){
+		
+	}
 
+	@Override
+	public double execute() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

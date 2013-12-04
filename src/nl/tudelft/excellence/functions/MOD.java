@@ -1,8 +1,13 @@
 package nl.tudelft.excellence.functions;
 
-public class COUNTA extends NumberFunction{
+/**
+ * Returns a mod b
+ * <b>Syntax:</b> MOD(double a, double b)
+ */
+
+public class MOD extends NumberFunction{
 	
-	public COUNTA(String a, String...strings ){
+	public MOD(double a, double b){
 		
 	}
 
