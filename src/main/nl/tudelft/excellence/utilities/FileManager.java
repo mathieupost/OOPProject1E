@@ -46,7 +46,7 @@ public class FileManager {
 				public void endElement(String uri, String localName, String qName) throws SAXException {
 					if (cell) {
 						CellCoord coord = new CellCoord(column,row);
-						if (data.startsWith("=")) {
+						if (data.startsWith("=") && data.length()>1) {
 							grid.put(coord, new FunctionCell(data));
 						} else {
 							try {

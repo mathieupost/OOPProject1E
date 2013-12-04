@@ -115,7 +115,7 @@ public class Utility {
 	        if (file.isDirectory()) {
 	            assert !file.getName().contains(".");
 	            classes.addAll(findClasses(file, packageName + "." + file.getName()));
-	        } else if (file.getName().endsWith(".class") && !file.getName().matches("*(Test|Function).class")) {
+	        } else if (file.getName().endsWith(".class") && !file.getName().matches("(Test|Function).class")) {
 	            classes.add(Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - 6)));
 	        }
 	    }

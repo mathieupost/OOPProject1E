@@ -1,16 +1,18 @@
 package nl.tudelft.excellence;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
+import java.lang.reflect.Constructor;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
+import nl.tudelft.excellence.utilities.FunctionManager;
 import nl.tudelft.excellence.utilities.Utility;
 
 public class Main {
 
 	public static void main(String[] args) {
-		HashMap<String, Class<? extends Object/*Function*/>> banaan = Utility.getFunctions();
-		for(Entry<String, Class<? extends Object>> c: banaan.entrySet()){
-			System.out.println(c.getKey());
+		System.out.println("CellCoord constructors:");
+		for(Constructor<?> c: FunctionManager.getFunctionByName("CellCoord").getConstructors()){
+			System.out.println("String:\t\t" + c.toString());
+			for(Class<?> cl: c.getParameterTypes()){
+				System.out.println(cl.getName());
+			}
 		}
 		
 		String fileName = "";

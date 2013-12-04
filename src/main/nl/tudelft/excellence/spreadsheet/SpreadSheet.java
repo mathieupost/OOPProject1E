@@ -1,20 +1,17 @@
 package nl.tudelft.excellence.spreadsheet;
 import java.io.File;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 
 import nl.tudelft.excellence.spreadsheet.cells.Cell;
 import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 import nl.tudelft.excellence.utilities.FileManager;
-import nl.tudelft.excellence.utilities.Utility;
 
 
 public class SpreadSheet {
 	public static SpreadSheet current;
 	private SortedMap<CellCoord, Cell> sheet;
-	private HashMap<String, Class<? extends Object/*Function*/>> functionList = new HashMap<String, Class<? extends Object/*Function*/>>();
 	
 	/**
 	 * Create a new SpreadSheet object with sheet as (base) structure
@@ -22,7 +19,6 @@ public class SpreadSheet {
 	 */
 	public SpreadSheet(SortedMap<CellCoord, Cell> sheet) {
 		this.sheet = Collections.synchronizedSortedMap(sheet);
-		functionList = Utility.getFunctions();
 	}
 	
 	/**
