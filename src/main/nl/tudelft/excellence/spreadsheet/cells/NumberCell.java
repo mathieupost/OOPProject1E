@@ -7,17 +7,21 @@ public class NumberCell extends Cell {
 	 * Create a new NumberCell Object
 	 * @param rawData The raw String present in the cell
 	 */
-	public NumberCell(String rawData) {
-		super(rawData);
-		this.data = Double.parseDouble(rawData);
+	public NumberCell(Double rawData) {
+		super(rawData.toString());
+		this.data = rawData;
 	}
 	
 	/**
 	 * The double present in the cell
 	 * @return The double present in the cell
 	 */
-	public double getData() {
-		return data;
+	@Override
+	public String getData() {
+		return getRawData();
 	}
 
+	public double getNumber() {
+		return data;
+	}
 }

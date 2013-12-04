@@ -14,6 +14,7 @@ public class StringCell extends Cell {
 	 * Get the String present in the cell
 	 * @return The String present in the cell
 	 */
+	@Override
 	public String getData(){
 		return getRawData();
 	}
