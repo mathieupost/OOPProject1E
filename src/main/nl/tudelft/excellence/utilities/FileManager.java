@@ -95,6 +95,6 @@ public class FileManager {
 		
 		writer.write(content);
 		writer.close();
-		return true;
+		return !writer.checkError();
 	}
 }

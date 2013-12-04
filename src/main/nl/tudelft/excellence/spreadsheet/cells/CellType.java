@@ -22,10 +22,20 @@ public enum CellType {
 		this.c = c;
 	}
 	
+	/**
+	 * Get the CellType from a String containing the name (<b>not</b> case sensitive)
+	 * @param name The Name of the CellType
+	 * @return The CellType belonging to name
+	 */
 	public static CellType fromName(String name) {
 		return NAME_MAP.get(name.toUpperCase());
 	}
 	
+	/**
+	 * Get the CellType from a Class that extends Cell
+	 * @param cl The Class to get the CellType of
+	 * @return The CellType linked to cl
+	 */
 	public static CellType fromClass(Class<? extends Cell> cl){
 		return CLASS_MAP.get(cl);
 	}
