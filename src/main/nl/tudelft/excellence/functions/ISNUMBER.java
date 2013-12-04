@@ -7,14 +7,20 @@ package nl.tudelft.excellence.functions;
 
 public class ISNUMBER extends BooleanFunction{
 	
+	private String input;
+	
 	public ISNUMBER(String value){
-		
+		input = value;
 	}
 
 	@Override
 	public boolean execute() {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			Double.parseDouble(input);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
 	}
 
 }

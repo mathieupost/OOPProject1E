@@ -7,14 +7,21 @@ package nl.tudelft.excellence.functions;
 
 public class PROPER extends StringFunction{
 	
+	private String proper;
+	
 	public PROPER(String input){
-		
+		proper = input;
 	}
 
 	@Override
 	public String execute() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder b = new StringBuilder(proper.toLowerCase());
+		int i = 0;
+		do {
+			b.replace(i, i + 1, b.substring(i,i + 1).toUpperCase());
+			i =  b.indexOf(" ", i) + 1;
+		} while (i > 0 && i < b.length());
+		return b.toString();
 	}
 
 }

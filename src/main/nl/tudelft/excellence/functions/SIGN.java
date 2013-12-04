@@ -7,14 +7,15 @@ package nl.tudelft.excellence.functions;
 
 public class SIGN extends NumberFunction{
 	
+	private double sign;
+	
 	public SIGN(double x){
-		
+		sign = x;
 	}
 
 	@Override
 	public double execute() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Double.compare(sign, 0);
 	}
 
 }
