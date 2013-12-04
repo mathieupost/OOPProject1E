@@ -1,5 +1,14 @@
 package nl.tudelft.excellence.functions;
 
+/**
+ * Calculates the maximum value of a given number of doubles
+ * 
+ * @param a
+ *            the first double
+ * @param values
+ *            the rest of the doubles
+ * @return maximum of given doubles
+ */
 public class MAX extends NumberFunction {
 	private double[] input;
 
