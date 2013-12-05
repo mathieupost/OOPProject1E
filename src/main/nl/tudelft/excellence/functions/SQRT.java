@@ -10,12 +10,13 @@ package nl.tudelft.excellence.functions;
 public class SQRT extends NumberFunction {
 	private double input;
 
-	public SQRT() {
+	public SQRT(double in) {
+		input = in;
 	}
 
 	@Override
 	public double execute() {
-		return input;
+		return Math.sqrt(input);
 	}
 
 }

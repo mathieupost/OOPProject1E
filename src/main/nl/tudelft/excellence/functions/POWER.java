@@ -1,21 +1,25 @@
 package nl.tudelft.excellence.functions;
 
 /**
- * Returns a raised to the power b
+ * Returns base raised to the power exp
  * 
- * @param a
+ * @param base
  *            base
- * @param b
+ * @param exp
  *            exponent
  * @return result
  */
 public class POWER extends NumberFunction {
 
-	public POWER() {
-
+private double base;
+private double exp;
+	
+	public POWER(double a, double b) {
+		base = a;
+		exp = b;
 	}
 
 	public double execute() {
-		return 0;
+		return Math.pow(base, exp);
 	}
 }

@@ -5,13 +5,14 @@ package nl.tudelft.excellence.functions;
  * <b>Syntax:</b> ISLOGICAL(String value) 
  */
 public class ISLOGICAL extends BooleanFunction{
-	public ISLOGICAL(String value){
-		
+	private String value;
+	
+	public ISLOGICAL(String input){
+		value = input;
 	}
 
 	@Override
 	public boolean execute() {
-		// TODO Auto-generated method stub
-		return false;
+		return value.toLowerCase().equals("true")|| value.toLowerCase().equals("false");
 	}
 }

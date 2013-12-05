@@ -10,14 +10,20 @@ package nl.tudelft.excellence.functions;
  * @return rounddown x
  */
 public class ROUNDDOWN extends NumberFunction {
-	private double[] input;
 
-	public ROUNDDOWN() {
+	private double a, b;
 
+	public ROUNDDOWN(double x, double digits) {
+		a = x;
+		b = digits;
 	}
 
+	@Override
 	public double execute() {
-		return 0;
+		a *= Math.pow(10, b);
+		a = (int) a;
+		a /= Math.pow(10, b);
+		return a;
 	}
 
 }
