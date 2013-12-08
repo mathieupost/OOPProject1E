@@ -5,14 +5,16 @@ package nl.tudelft.excellence.functions;
  * <b>Syntax:</b> NOT(boolean value)
  */
 public class NOT extends BooleanFunction {
+	
+	boolean input;
+	
 	public NOT(boolean value){
-		
+		input = value;
 	}
 
 
 	@Override
 	public boolean execute() {
-		// TODO Auto-generated method stub
-		return false;
+		return !input;
 	}
 }
