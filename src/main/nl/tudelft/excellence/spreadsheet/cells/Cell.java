@@ -30,7 +30,10 @@ public abstract class Cell extends Observable{
 	public CellType getType() {
 		return type;
 	}
-	
+
+    @Override
+    public abstract boolean equals(Object other);
+
 	/**
 	 * Get a serialized version of this Cell that can be parsed to a Cell object
 	 * @return A String representation of this Cell

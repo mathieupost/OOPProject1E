@@ -9,8 +9,20 @@ public class StringCell extends Cell {
 	public StringCell(String rawData) {
 		super(rawData);
 	}
-	
-	/**
+
+    @Override
+    public boolean equals(Object other) {
+        if(this==other)
+            return true;
+
+        if(other==null || !(other instanceof StringCell))
+            return false;
+
+        StringCell that = (StringCell) other;
+        return this.getData().equals(that.getData());
+    }
+
+    /**
 	 * Get the String present in the cell
 	 * @return The String present in the cell
 	 */

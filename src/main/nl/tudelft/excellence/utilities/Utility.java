@@ -1,5 +1,6 @@
 package nl.tudelft.excellence.utilities;
 
+import nl.tudelft.excellence.functions.Function;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,11 +62,13 @@ public class Utility {
 	 * Get an array of all the Function classes available
 	 * @return The array of Function classes
 	 */
-	public static HashMap<String, Class<? extends Object/*Function*/>> getFunctions(){ //TODO Change result to Function Classes Array
-		HashMap<String, Class<? extends Object/*Function*/>> functionList = new HashMap<String, Class<? extends Object/*Function*/>>();
+	public static HashMap<String, Class<? extends Function>> getFunctions(){ //TODO Change result to Function Classes Array
+		HashMap<String, Class<? extends Function>> functionList = new HashMap<String, Class<? extends Function>>();
 		try {
-			for(Class<? extends Object/*Function*/> c: getClasses("nl.tudelft.excellence.functions")){
-				functionList.put(c.getSimpleName(), c);
+			for(Class<? extends Object> c: getClasses("nl.tudelft.excellence.functions", ".*(Test|Function).class")){
+                if(Function.class.isAssignableFrom(c)) {
+                    functionList.put(c.getSimpleName(), c.asSubclass(Function.class));
+                }
 			}
 		} catch (ClassNotFoundException | IOException e) {}
 		return functionList;
@@ -75,12 +78,17 @@ public class Utility {
 	 * Scans all classes accessible from the context class loader which belong to the given package and subpackages.
 	 *
 	 * @param packageName The base package
+     * @param exclusionRegex A regular expression that can be used to exclude certain classes (empty = no exclusion)
 	 * @return The classes
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-	private static ArrayList<Class<? extends Object>> getClasses(String packageName)
+	private static ArrayList<Class<? extends Object>> getClasses(String packageName, String exclusionRegex)
 	        throws ClassNotFoundException, IOException {
+        if(exclusionRegex==null){exclusionRegex = "";}
+        ArrayList<Class<? extends Object>> classes = new ArrayList<Class<? extends Object>>();
+        if(packageName==null){return classes;}
+
 	    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 	    assert classLoader != null;
 	    String path = packageName.replace('.', '/');
@@ -90,9 +98,9 @@ public class Utility {
 	        URL resource = resources.nextElement();
 	        dirs.add(new File(resource.getFile()));
 	    }
-	    ArrayList<Class<? extends Object>> classes = new ArrayList<Class<? extends Object>>();
+
 	    for (File directory : dirs) {
-	        classes.addAll(findClasses(directory, packageName));
+	        classes.addAll(findClasses(directory, packageName, exclusionRegex));
 	    }
 	    return classes;
 	}
@@ -102,10 +110,11 @@ public class Utility {
 	 *
 	 * @param directory   The base directory
 	 * @param packageName The package name for classes found inside the base directory
+     * @param exclusionRegex A regular expression that can be used to exclude certain classes (empty = no exclusion)
 	 * @return The classes
 	 * @throws ClassNotFoundException
 	 */
-	private static List<Class<? extends Object>> findClasses(File directory, String packageName) throws ClassNotFoundException {
+	private static List<Class<? extends Object>> findClasses(File directory, String packageName, String exclusionRegex) throws ClassNotFoundException {
 	    List<Class<? extends Object>> classes = new ArrayList<Class<? extends Object>>();
 	    if (!directory.exists()) {
 	        return classes;
@@ -114,8 +123,8 @@ public class Utility {
 	    for (File file : files) {
 	        if (file.isDirectory()) {
 	            assert !file.getName().contains(".");
-	            classes.addAll(findClasses(file, packageName + "." + file.getName()));
-	        } else if (file.getName().endsWith(".class") && !file.getName().matches("(Test|Function).class")) {
+	            classes.addAll(findClasses(file, packageName + "." + file.getName(), exclusionRegex));
+	        } else if (file.getName().endsWith(".class") && !file.getName().matches(exclusionRegex)) {
 	            classes.add(Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - 6)));
 	        }
 	    }

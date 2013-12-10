@@ -1,12 +1,12 @@
 package nl.tudelft.excellence.spreadsheet;
+import nl.tudelft.excellence.spreadsheet.cells.Cell;
+import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
+import nl.tudelft.excellence.utilities.FileManager;
+
 import java.io.File;
 import java.util.Collections;
 import java.util.Map.Entry;
 import java.util.SortedMap;
-
-import nl.tudelft.excellence.spreadsheet.cells.Cell;
-import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
-import nl.tudelft.excellence.utilities.FileManager;
 
 
 public class SpreadSheet {
@@ -111,15 +111,34 @@ public class SpreadSheet {
 		}
 		return result + "</SPREADSHEET>";		
 	}
-	
+
+    @Override
+    public boolean equals(Object other){
+        if(this==other)
+            return true;
+
+        if(other==null || !(other instanceof SpreadSheet))
+            return false;
+
+        SpreadSheet that = (SpreadSheet) other;
+        if(this.sheet.size()!=that.sheet.size())
+            return false;
+
+        for(Entry<CellCoord, Cell> entry: this.sheet.entrySet()){
+            if(!(that.sheet.containsKey(entry.getKey()) && entry.getValue().equals(that.sheet.get(entry.getKey())))){
+                return false;
+            }
+        }
+        return true;
+    }
+
 	@Override
 	public String toString(){
 		String result = "SpreadSheet toString output:\n==============================================\n";
 		for(Entry<CellCoord, Cell> cell: sheet.entrySet()){
 			result += "Coord:\t(" + cell.getKey().getColumn() + ", " + cell.getKey().getRow() + ")\n";
-			result += "Content:\t'" + cell.getValue().getRawData() + "'\n\n";
+			result += "Content:'" + cell.getValue().getRawData() + "'\n\n";
 		}
 		return result;
-	}
-
+    }
 }

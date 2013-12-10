@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.spreadsheet.cells;
 
+import nl.tudelft.excellence.utilities.Utility;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,8 +16,26 @@ public class FunctionCell extends Cell implements Observer {
 	public FunctionCell(String rawData) {
 		super(rawData);
 	}
-	
-	/**
+
+    @Override
+    public boolean equals(Object other) {
+        if(this==other)
+            return true;
+
+        if(other==null || !(other instanceof FunctionCell))
+            return false;
+
+        FunctionCell that = (FunctionCell) other;
+        if(Utility.isNumber(this.getData()) && Utility.isNumber(that.getData())){
+            return Double.parseDouble(this.getData())==Double.parseDouble(that.getData());
+        } else if(Utility.isBoolean(this.getData()) && Utility.isBoolean(that.getData())){
+            return Boolean.parseBoolean(this.getData())==Boolean.parseBoolean(that.getData());
+        } else {
+            return this.getData().equals(that.getData());
+        }
+    }
+
+    /**
 	 * Return the result of the Function as a String
 	 * <b>Note:</b> Output can be a number.
 	 * @return The the result of this function
@@ -23,20 +43,6 @@ public class FunctionCell extends Cell implements Observer {
 	@Override
 	public String getData() {
 		return getRawData(); // TODO return function result
-	}
-	
-	
-	/**
-	 * Get if the output of this function is a double or a String
-	 * @return 
-	 */
-	public boolean isNumber(){
-		try{
-			Double.parseDouble(getRawData());
-			return true;
-		} catch(NumberFormatException e){
-			return false;
-		}
 	}
 
 	@Override
