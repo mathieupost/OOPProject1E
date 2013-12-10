@@ -73,15 +73,11 @@ public class FileManager {
 
 			saxParser.parse(file, handler);
 
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		}
 
-		return new SpreadSheet(grid);
+        return new SpreadSheet(grid);
 	}
 	
 	public static boolean saveToFile(File file, String content){

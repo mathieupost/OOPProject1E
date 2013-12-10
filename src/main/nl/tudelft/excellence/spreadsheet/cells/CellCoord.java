@@ -42,7 +42,7 @@ public class CellCoord implements Comparable<CellCoord> {
 		
 		try{
 			row = Long.parseLong(coord.substring(rowSplitIndex));
-		} catch (NumberFormatException e){}
+		} catch (NumberFormatException ignored){}
 		if(row <= 0 || column <= 0){
 			valid = false;
 		}

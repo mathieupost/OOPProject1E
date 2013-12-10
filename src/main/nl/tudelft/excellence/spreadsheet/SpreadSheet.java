@@ -11,7 +11,7 @@ import java.util.SortedMap;
 
 public class SpreadSheet {
 	public static SpreadSheet current;
-	private SortedMap<CellCoord, Cell> sheet;
+	private final SortedMap<CellCoord, Cell> sheet;
 	
 	/**
 	 * Create a new SpreadSheet object with sheet as (base) structure
@@ -45,8 +45,8 @@ public class SpreadSheet {
 	/**
 	 * Put the Cell at the given CellCoord (synchronizes on sheet)
 	 * Overrides a Cell if one was already present at CellCoord
-	 * @param coord
-	 * @param cell
+	 * @param coord The Coordinate to put the Cell at
+	 * @param cell The Cell to put at the requested CellCoord
 	 */
 	public void putCell(CellCoord coord, Cell cell){
 		synchronized(sheet){

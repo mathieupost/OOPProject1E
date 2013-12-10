@@ -5,13 +5,7 @@ import nl.tudelft.excellence.functions.Function;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Utility {
 	private static Scanner sc = new Scanner(System.in);
@@ -40,7 +34,9 @@ public class Utility {
 				System.out.println(error);
 				result = null;
 				continue;
-			}
+			} catch (NoSuchElementException e){
+                return "";
+            }
 			if(optList.size()>0 && !optList.contains(result)){
 				System.out.println(error);
 				result = null;
@@ -65,12 +61,12 @@ public class Utility {
 	public static HashMap<String, Class<? extends Function>> getFunctions(){ //TODO Change result to Function Classes Array
 		HashMap<String, Class<? extends Function>> functionList = new HashMap<String, Class<? extends Function>>();
 		try {
-			for(Class<? extends Object> c: getClasses("nl.tudelft.excellence.functions", ".*(Test|Function).class")){
+			for(Class<?> c: getClasses("nl.tudelft.excellence.functions", ".*(Test|Function).class")){
                 if(Function.class.isAssignableFrom(c)) {
                     functionList.put(c.getSimpleName(), c.asSubclass(Function.class));
                 }
 			}
-		} catch (ClassNotFoundException | IOException e) {}
+		} catch (ClassNotFoundException | IOException ignored) {}
 		return functionList;
 	}
 	
@@ -83,10 +79,10 @@ public class Utility {
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-	private static ArrayList<Class<? extends Object>> getClasses(String packageName, String exclusionRegex)
+	private static ArrayList<Class<?>> getClasses(String packageName, String exclusionRegex)
 	        throws ClassNotFoundException, IOException {
         if(exclusionRegex==null){exclusionRegex = "";}
-        ArrayList<Class<? extends Object>> classes = new ArrayList<Class<? extends Object>>();
+        ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
         if(packageName==null){return classes;}
 
 	    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -114,12 +110,16 @@ public class Utility {
 	 * @return The classes
 	 * @throws ClassNotFoundException
 	 */
-	private static List<Class<? extends Object>> findClasses(File directory, String packageName, String exclusionRegex) throws ClassNotFoundException {
-	    List<Class<? extends Object>> classes = new ArrayList<Class<? extends Object>>();
+	private static List<Class<?>> findClasses(File directory, String packageName, String exclusionRegex) throws ClassNotFoundException {
+	    List<Class<?>> classes = new ArrayList<Class<?>>();
 	    if (!directory.exists()) {
 	        return classes;
 	    }
 	    File[] files = directory.listFiles();
+        if(files==null){
+            return classes;
+        }
+
 	    for (File file : files) {
 	        if (file.isDirectory()) {
 	            assert !file.getName().contains(".");

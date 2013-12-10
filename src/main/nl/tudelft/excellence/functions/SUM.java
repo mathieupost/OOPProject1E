@@ -12,17 +12,15 @@ public class SUM extends NumberFunction {
 		input = new double[values.length+2];
 		input[0] = a;
 		input[1] = b;
-		for(int i = 0; i<values.length;i++){
-			input[i+2] = values[i];
-		}
+        System.arraycopy(values, 0, input, 2, values.length);
 	}
 
 	@Override
 	public double execute() {
 		double sum = 0;
-		for (int i = 0; i < input.length; i++){
-			sum += input[i];
-		}
+        for (double value : input) {
+            sum += value;
+        }
 		return sum;
 	}
 }
