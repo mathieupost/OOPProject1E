@@ -1,17 +1,20 @@
 package nl.tudelft.excellence;
-import java.lang.reflect.Constructor;
+
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 import nl.tudelft.excellence.utilities.FunctionManager;
 import nl.tudelft.excellence.utilities.Utility;
 
+import java.lang.reflect.Constructor;
+
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("CellCoord constructors:");
-		for(Constructor<?> c: FunctionManager.getFunctionByName("CellCoord").getConstructors()){
+		System.out.println("SUM constructors:");
+		for(Constructor<?> c: FunctionManager.getFunctionByName("SUM").getConstructors()){
 			System.out.println("String:\t\t" + c.toString());
+            System.out.println("Accepts variable number of args: "+(c.isVarArgs()?"yes":"no"));
 			for(Class<?> cl: c.getParameterTypes()){
-				System.out.println(cl.getName());
+				System.out.println(cl.getSimpleName());
 			}
 		}
 		
