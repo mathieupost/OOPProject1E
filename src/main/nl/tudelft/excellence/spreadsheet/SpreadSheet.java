@@ -38,9 +38,12 @@ public class SpreadSheet {
 	 * @return The Cell at the requested CellCoord
 	 */
 	public Cell getCell(CellCoord coord){
-		synchronized(sheet){
-			return sheet.get(coord);
+		if(coord.isValid()){
+			synchronized(sheet){
+				return sheet.get(coord);
+			}
 		}
+		return null;
 	}
 	
 	/**
@@ -50,8 +53,10 @@ public class SpreadSheet {
 	 * @param cell The Cell to put at the requested CellCoord
 	 */
 	public void putCell(CellCoord coord, Cell cell){
-		synchronized(sheet){
-			sheet.put(coord, cell);
+		if(coord.isValid()){
+			synchronized(sheet){
+				sheet.put(coord, cell);
+			}
 		}
 	}
 	
