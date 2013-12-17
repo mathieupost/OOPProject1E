@@ -28,17 +28,16 @@ public class FileManager {
 			DefaultHandler handler = new DefaultHandler() {
 				boolean cell = false;
 				String data;
-				long row;
-				long column;
+				int row;
+				int column;
 
 				@Override
 				public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-					System.out.println("Element: " + qName);
 
 					if (qName.equalsIgnoreCase("CELL")) {
 						cell = true;
-						row = Long.parseLong(attributes.getValue("row"));
-						column = Long.parseLong(attributes.getValue("column"));
+						row = Integer.parseInt(attributes.getValue("row"));
+						column = Integer.parseInt(attributes.getValue("column"));
 					}
 				}
 
@@ -64,7 +63,6 @@ public class FileManager {
 				public void characters(char[] ch, int start, int length) throws SAXException {
 					if (cell) {
 						data = new String(ch, start, length).replaceAll("\n|\t", "");
-						System.out.println("Content: " + data);
 					}
 				}
 

@@ -1,6 +1,6 @@
 package nl.tudelft.excellence.spreadsheet.cells;
 public class CellCoord implements Comparable<CellCoord> {
-	private long column = 0, row = 0;
+	private int column = 0, row = 0;
 	private boolean valid = true;
 	
 	/**
@@ -8,7 +8,7 @@ public class CellCoord implements Comparable<CellCoord> {
 	 * @param column The column of the coordinate (x-axis)
 	 * @param row The row of the coordinate (y-axis)
 	 */
-	public CellCoord(long column, long row){
+	public CellCoord(int column, int row){
 		if(row <= 0 || column <= 0){
 			valid = false;
 		} else {
@@ -41,7 +41,7 @@ public class CellCoord implements Comparable<CellCoord> {
 		}
 		
 		try{
-			row = Long.parseLong(coord.substring(rowSplitIndex));
+			row = Integer.parseInt(coord.substring(rowSplitIndex));
 		} catch (NumberFormatException ignored){}
 		if(row <= 0 || column <= 0){
 			valid = false;
@@ -52,7 +52,7 @@ public class CellCoord implements Comparable<CellCoord> {
 	 * Get the column of this coordinate (x-axis)
 	 * @return The column of this coordinate
 	 */
-	public long getColumn() {
+	public int getColumn() {
 		return column;
 	}
 	
@@ -60,7 +60,7 @@ public class CellCoord implements Comparable<CellCoord> {
 	 * Get the row of this coordinate (y-axis)
 	 * @return The row of this coordinate
 	 */
-	public long getRow() {
+	public int getRow() {
 		return row;
 	}
 	
@@ -118,7 +118,7 @@ public class CellCoord implements Comparable<CellCoord> {
 
 	@Override
 	public int compareTo(CellCoord other) {
-		return  Long.signum(this.row==other.row? this.column-other.column : this.row-other.row);
+		return  Integer.signum(this.row==other.row? this.column-other.column : this.row-other.row);
 	}
 	
 	/**

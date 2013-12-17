@@ -6,6 +6,7 @@ import nl.tudelft.excellence.utilities.FileManager;
 import java.io.File;
 import java.util.Collections;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.SortedMap;
 
 
@@ -27,7 +28,7 @@ public class SpreadSheet {
 	 * @param row The row of the Cell
 	 * @return The Cell at the requested position
 	 */
-	public Cell getCell(long column, long row){
+	public Cell getCell(int column, int row){
 		return getCell(new CellCoord(column, row));
 	}
 	
@@ -140,5 +141,22 @@ public class SpreadSheet {
 			result += "Content:'" + cell.getValue().getRawData() + "'\n\n";
 		}
 		return result;
+    }
+
+    public int getRowCount(){
+        try{
+            return sheet.lastKey().getRow();
+        } catch (NoSuchElementException e){
+            return 1;
+        }
+    }
+
+    public int getColumnCount(){
+        int count = 1;
+        for(CellCoord c: sheet.keySet()){
+            if(c.getColumn()>count)
+                count = c.getColumn();
+        }
+        return count;
     }
 }
