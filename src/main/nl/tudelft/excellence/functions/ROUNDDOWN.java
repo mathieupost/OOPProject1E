@@ -4,16 +4,17 @@ import java.math.BigDecimal;
 
 /**
  * Rounds down x to zero, at digits amount of digits
- *<b>Syntax:</b> ROUNDDOWN(String x, int digits)
+ *<b>Syntax:</b> ROUNDDOWN(double x, double digits)
  */
 public class ROUNDDOWN extends NumberFunction {
 
 	private BigDecimal a;
 	private int  b;
 
-	public ROUNDDOWN(String x, int digits) {
-		a = new BigDecimal(x);
-		b = digits;
+	public ROUNDDOWN(double x, double digits) {
+		String c = x + "";
+		a = new BigDecimal(c);
+		b = (int) digits;
 	}
 
 	@Override
