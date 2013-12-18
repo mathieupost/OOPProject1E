@@ -8,7 +8,7 @@ public class IfTest {
 
 	@Test
 	public void testIfEqualFalse() {
-		IF i = new IF("8 = 7", "ja", "nee");
+		IF i = new IF("8 =7", "ja", "nee");
 		assertEquals(i.execute(), "nee");
 	}
 	
@@ -51,6 +51,18 @@ public class IfTest {
 	@Test
 	public void testIfBiggerEqualFalse() {
 		IF i = new IF("8 >= 5", "ja", "nee");
+		assertEquals(i.execute(), "ja");
+	}
+	
+	@Test
+	public void testIfNotEqualsFalse() {
+		IF i = new IF("8!= 8", "ja", "nee");
+		assertEquals(i.execute(), "nee");
+	}
+	
+	@Test
+	public void testIfNotEqualsTrue() {
+		IF i = new IF("8 != 5", "ja", "nee");
 		assertEquals(i.execute(), "ja");
 	}
 

@@ -8,15 +8,11 @@ public class ISLOGICAL extends BooleanFunction{
 	private String value;
 	
 	public ISLOGICAL(String input){
-		value = input;
+		value = input.trim();
 	}
 
 	@Override
 	public boolean execute() {
-		IF i = new IF(value, "ja", "nee");
-		if(i.execute().equals("ja") || i.execute().equals("nee")){
-			return true;
-		}
-		return false;
+		return value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false");
 	}
 }
