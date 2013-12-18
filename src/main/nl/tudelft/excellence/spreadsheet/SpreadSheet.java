@@ -1,4 +1,5 @@
 package nl.tudelft.excellence.spreadsheet;
+import nl.tudelft.excellence.exceptions.SaveNotNeededException;
 import nl.tudelft.excellence.spreadsheet.cells.Cell;
 import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 import nl.tudelft.excellence.utilities.FileManager;
@@ -13,6 +14,7 @@ import java.util.SortedMap;
 public class SpreadSheet {
 	public static SpreadSheet current;
 	private final SortedMap<CellCoord, Cell> sheet;
+	private boolean unsavedChanges = false;
 	
 	/**
 	 * Create a new SpreadSheet object with sheet as (base) structure
@@ -56,6 +58,7 @@ public class SpreadSheet {
 		if(coord.isValid()){
 			synchronized(sheet){
 				sheet.put(coord, cell);
+				unsavedChanges = true;
 			}
 		}
 	}
@@ -84,8 +87,13 @@ public class SpreadSheet {
 	 * Save the SpreadSheet to the output file
 	 * @param fileName The name of/path to the file to save to
 	 * @return Whether or not the file was successfully saved
+	 * @throws SaveNotNeededException When it wasn't necessary to save the spreadsheet
 	 */
-	public boolean saveToFile(String fileName){
+	public boolean saveToFile(String fileName) throws SaveNotNeededException{
+		if(!unsavedChanges){
+			throw new SaveNotNeededException(fileName);
+		}
+		
 		if(fileName==null){
 			//TODO Report error to user in a proper way. (FI: by throwing a (custom) exception)
 			System.out.println("File Name should not be null, what are you even trying to do?");
@@ -100,8 +108,9 @@ public class SpreadSheet {
 			//TODO Report problem to the user.
 			return false;
 		}
+		;
 		
-		return FileManager.saveToFile(file, this.serialize());
+		return !(unsavedChanges = FileManager.saveToFile(file, this.serialize()));
 	}
 	
 	/**
@@ -138,16 +147,6 @@ public class SpreadSheet {
         return true;
     }
 
-	@Override
-	public String toString(){
-		String result = "SpreadSheet toString output:\n==============================================\n";
-		for(Entry<CellCoord, Cell> cell: sheet.entrySet()){
-			result += "Coord:\t(" + cell.getKey().getColumn() + ", " + cell.getKey().getRow() + ")\n";
-			result += "Content:'" + cell.getValue().getRawData() + "'\n\n";
-		}
-		return result;
-    }
-
     public int getRowCount(){
         try{
             return sheet.lastKey().getRow();
@@ -163,5 +162,9 @@ public class SpreadSheet {
                 count = c.getColumn();
         }
         return count;
+    }
+    
+    public boolean hasUnsavedChanges(){
+    	return unsavedChanges;
     }
 }

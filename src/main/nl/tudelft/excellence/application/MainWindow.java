@@ -3,10 +3,12 @@ package nl.tudelft.excellence.application;
 import nl.tudelft.excellence.application.table.MainTable;
 import nl.tudelft.excellence.application.table.RowNumberTable;
 import nl.tudelft.excellence.application.table.model.MainDataModel;
+import nl.tudelft.excellence.exceptions.SaveNotNeededException;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,11 +54,13 @@ public class MainWindow extends JFrame{
         fileSave.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
                 if(SpreadSheet.current!=null){
-                    if(SpreadSheet.current.saveToFile(fileName)){
-                        showMessageDialog(null, "Successfully saved '"+fileName+"'", "", PLAIN_MESSAGE);
-                    } else {
-                        showMessageDialog(null, "An error occurred during saving, please try again.", "Save failed!", ERROR_MESSAGE);
-                    }
+                    try {
+						if(SpreadSheet.current.saveToFile(fileName)){
+						    showMessageDialog(null, "Successfully saved '"+fileName+"'", "", PLAIN_MESSAGE);
+						} else {
+						    showMessageDialog(null, "An error occurred during saving, please try again.", "Save failed!", ERROR_MESSAGE);
+						}
+					} catch (SaveNotNeededException ignore) {}
                 }
             }
         });

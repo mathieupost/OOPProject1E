@@ -32,7 +32,10 @@ public class MainDataModel extends AbstractTableModel{
 		++rowIndex; ++columnIndex; //Increment as JTable uses 0-indexed coordinates
 		CellCoord coord = new CellCoord(columnIndex, rowIndex);
 		if(sheetNotNull() && coord.isValid()){
-			return sheet.getCell(coord).getData();
+			Cell cell = sheet.getCell(coord);
+			if(cell!=null){
+				return cell.getData();
+			}
 		}
 		return "";
 	}
@@ -45,7 +48,6 @@ public class MainDataModel extends AbstractTableModel{
 			String data = (String) aValue;
 			Cell cell = sheet.getCell(coord), newCell;
 			if(cell!=null && !cell.getRawData().equals(data)){
-				
 				if (data.startsWith("=") && data.length()>1) {
 					sheet.putCell(coord, newCell = new FunctionCell(data));
 				} else {
