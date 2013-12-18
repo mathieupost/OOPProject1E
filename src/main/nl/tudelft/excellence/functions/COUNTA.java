@@ -21,7 +21,7 @@ public class COUNTA extends NumberFunction{
 	public double execute() {
 		double result = 0;
 		for(int i = 0; i < cells.length; i++){
-			if(cells[i] != null){
+			if(cells[i] != null && cells[i].length() != 0){
 				result++;
 			}
 		}
