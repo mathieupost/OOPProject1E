@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import java.math.BigDecimal;
+
 /**
  * Rounds down x to zero, at digits amount of digits
  * 
@@ -11,19 +13,20 @@ package nl.tudelft.excellence.functions;
  */
 public class ROUNDDOWN extends NumberFunction {
 
-	private double a, b;
+	private BigDecimal a;
+	private int  b;
 
-	public ROUNDDOWN(double x, double digits) {
-		a = x;
+	public ROUNDDOWN(String x, int digits) {
+		a = new BigDecimal(x);
 		b = digits;
 	}
 
 	@Override
 	public double execute() {
-		a *= Math.pow(10, b);
-		a = (int) a;
-		a /= Math.pow(10, b);
-		return a;
+		
+		a = a.setScale(b);
+	
+		return a.doubleValue();
 	}
 
 }
