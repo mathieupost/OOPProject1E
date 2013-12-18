@@ -7,15 +7,15 @@ import org.junit.Test;
 public class RoundDownTest {
 
 	@Test
-	public void test() {
-		ROUNDDOWN test = new ROUNDDOWN(2.12345678,2);
-		ROUNDDOWN test2 = new ROUNDDOWN(2.12345678,3);
-		ROUNDDOWN test3 = new ROUNDDOWN(2.12345678,4);
-		ROUNDDOWN test4 = new ROUNDDOWN(2.12345678,10);
-		assertEquals(test.execute(),2.12,0);
-		assertEquals(test2.execute(),2.123,0);
-		assertEquals(test3.execute(),2.1234,0);
-		assertEquals(test4.execute(),2.12345678,0);
+	public void testRoundDown() {
+		ROUNDDOWN test = new ROUNDDOWN("2345456766345475.12345678",2);
+		assertEquals(test.execute(), 2345456766345475.12,0);
+	}
+	
+	@Test
+	public void testRoundDown2(){
+		ROUNDDOWN test2 = new ROUNDDOWN("-2345456766345475.12345678",9);
+		assertEquals(test2.execute(), -2345456766345475.123456780,0);
 	}
 
 }

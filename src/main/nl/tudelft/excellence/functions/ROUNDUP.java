@@ -19,12 +19,10 @@ public class ROUNDUP extends NumberFunction {
 	@Override
 	public double execute() {
 		
-		a = a.setScale(b);
+		a = a.setScale(b, BigDecimal.ROUND_UP);
 		
-		double res = a.doubleValue();
-		res += Math.pow(10, -b);
+		return a.doubleValue();
 		
 	
-		return res;
 	}
 }

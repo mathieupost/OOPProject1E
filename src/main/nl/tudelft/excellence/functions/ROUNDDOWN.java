@@ -19,7 +19,7 @@ public class ROUNDDOWN extends NumberFunction {
 	@Override
 	public double execute() {
 		
-		a = a.setScale(b);
+		a = a.setScale(b, BigDecimal.ROUND_DOWN);
 	
 		return a.doubleValue();
 	}
