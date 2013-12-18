@@ -4,12 +4,7 @@ import java.math.BigDecimal;
 
 /**
  * Rounds down x to zero, at digits amount of digits
- * 
- * @param x
- *            number
- * @param digits
- *            amount of digits
- * @return rounddown x
+ *<b>Syntax:</b> ROUNDDOWN(String x, int digits)
  */
 public class ROUNDDOWN extends NumberFunction {
 
