@@ -8,7 +8,8 @@ public class CountTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		COUNT c = new COUNT("asdf", "435", "s45");
+		assertEquals(c.execute(), 1,0);
 	}
 
 }

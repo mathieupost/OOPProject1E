@@ -19,8 +19,11 @@ public class COUNT extends NumberFunction {
 	public double execute() {
 		double res = 0;
 		for(int i=0;i<input.length;i++){
-			if(input[i].matches(".*\\d.*")){
+			try{
+				Double.parseDouble(input[i]);
 				res++;
+			}
+			catch(Exception e){
 			}
 		}
 		return res;

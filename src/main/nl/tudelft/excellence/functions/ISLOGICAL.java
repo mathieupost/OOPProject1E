@@ -13,6 +13,10 @@ public class ISLOGICAL extends BooleanFunction{
 
 	@Override
 	public boolean execute() {
-		return value.toLowerCase().equals("true")|| value.toLowerCase().equals("false");
+		IF i = new IF(value, "ja", "nee");
+		if(i.execute().equals("ja") || i.execute().equals("nee")){
+			return true;
+		}
+		return false;
 	}
 }

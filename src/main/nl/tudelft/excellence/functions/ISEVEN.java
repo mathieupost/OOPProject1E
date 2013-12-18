@@ -5,13 +5,15 @@ package nl.tudelft.excellence.functions;
  * <b>Syntax:</b> ISEVEN(double value) 
  */
 public class ISEVEN extends BooleanFunction {
+	
+	private double result;
+	
 	public ISEVEN(double value){
-		
+		result = value;
 	}
 
 	@Override
 	public boolean execute() {
-		// TODO Auto-generated method stub
-		return false;
+		return (int)result % 2 == 0? true : false;
 	}
 }

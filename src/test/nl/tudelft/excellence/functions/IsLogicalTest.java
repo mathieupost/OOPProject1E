@@ -8,8 +8,8 @@ public class IsLogicalTest {
 
 	@Test
 	public void test() {
-		COUNT c = new COUNT("aasdf", "3", "4", "8aad");
-		assertEquals(c.execute(), 2, 0);
+		ISLOGICAL i = new ISLOGICAL("7 < 5");
+		assertEquals(i.execute(), true);
 	}
 
 }
