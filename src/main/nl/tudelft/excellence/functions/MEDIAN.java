@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import java.util.Arrays;
+
 /**
  * Takes a series of doubles and calculates the arithmetic median.
  * <b>Syntax:</b> MEDIAN(double a[, double b, double c...])
@@ -19,6 +21,7 @@ public class MEDIAN extends NumberFunction{
 
 	@Override
 	public double execute() {
+		Arrays.sort(input);
 		double res = 0;
 		if(input.length %2==0){
 			int a = (int) input.length/2-1;
