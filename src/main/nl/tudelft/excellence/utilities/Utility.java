@@ -144,4 +144,13 @@ public class Utility {
 			return false;
 		}
 	}
+	
+	/**
+	 * Get if a String is a boolean or not
+	 * @param in The input to check
+	 * @return Whether or not the input is a boolean
+	 */
+	public static boolean isBoolean(String in){
+		return in.equalsIgnoreCase("true")||in.equalsIgnoreCase("false");
+	}
 }

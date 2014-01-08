@@ -22,6 +22,8 @@ public class MainWindow extends JFrame{
     private String fileName;
        public MainWindow(String fileName){
            this.fileName = fileName;
+           System.setProperty("apple.laf.useScreenMenuBar", "true");
+           System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Excellence");
            try {
                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
@@ -41,6 +43,11 @@ public class MainWindow extends JFrame{
         fileNew.setMnemonic(KeyEvent.VK_N);
         fileNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
                 ActionEvent.CTRL_MASK));
+        fileNew.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                
+            }
+        });
 
         JMenuItem fileOpen = new JMenuItem("Open");
         fileOpen.setMnemonic(KeyEvent.VK_O);
