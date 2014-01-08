@@ -1,14 +1,21 @@
 package nl.tudelft.excellence.utilities;
 
+import nl.tudelft.excellence.functions.BooleanFunction;
 import nl.tudelft.excellence.functions.Function;
+import nl.tudelft.excellence.functions.NumberFunction;
+import nl.tudelft.excellence.functions.StringFunction;
+import nl.tudelft.excellence.spreadsheet.SpreadSheet;
+import nl.tudelft.excellence.spreadsheet.cells.Cell;
+import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class FunctionManager {
 	private static HashMap<String, Class<? extends Function>> functionList = new HashMap<String, Class<? extends Function>>();
     private static final List<String> operators = Arrays.asList(new String[]{"+", "-", "*", "/", "^", "<", ">", "=", "!"});
-	
+
 	static{
 		functionList = Utility.getFunctions();
 	}
@@ -35,37 +42,48 @@ public class FunctionManager {
         }
     }
 	
-	public static String parseFunction(String function){
-        if(function.startsWith("=")){
-            return parseFunction(ExpressionParser.infixToRPN(function.substring(1)));
-        }
+	public static String parseFunction(String functionString){
+        String res = "";
+		if (functionString.startsWith("="))
+			functionString = functionString.substring(1);
 
-        int openBrackets = 0, startIndex = 0;
+		String functionName = functionString.substring(0, functionString.indexOf("("));
 
-        String[] split = new String[function.length()];
-        System.arraycopy(function.split(""), 1, split, 0, split.length);
 
-        String curChar, buffer = "";
-        for(int i = 0; i<split.length; i++){
-            curChar = split[i];
-            if(operators.contains(curChar)){
-                if(openBrackets==0){
-                    return evaluate(parseFunction(buffer), parseFunction(function.substring(i+1)), curChar.charAt(0));
-                } else {
+		String[] args = functionString.substring(functionString.indexOf("(") + 1, functionString.indexOf(")")).split(";");
 
-                }
-            } else if(curChar.equals("(")){
+		for (int i = 0; i < args.length; i++) {
+//			System.out.print(args[i]);
+			CellCoord coord =  new CellCoord(args[i]);
+			Cell cell = SpreadSheet.current.getCell(coord);
+			if (cell!=null)
+				args[i] = cell.getData();
+//			System.out.println(" = " + args[i]);
+		}
 
-            } else if(curChar.equals(",")){
+		try {
+			Class<? extends Function> clazz = getFunctionByName(functionName);
+			Function function = (Function) clazz.getConstructors()[0].newInstance(new Object[]{args});
+			if(NumberFunction.class.isAssignableFrom(clazz)){
+				NumberFunction numberFunction = (NumberFunction) function;
+				res = Double.toString(numberFunction.execute());
+			} else if (BooleanFunction.class.isAssignableFrom(clazz)) {
+				BooleanFunction booleanFunction = (BooleanFunction) function;
+				res = Boolean.toString(booleanFunction.execute());
+			} else if (StringFunction.class.isAssignableFrom(clazz)) {
+				StringFunction stringFunction = (StringFunction) function;
+				res = stringFunction.execute();
+			}
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
 
-            } else if(curChar.equals(")")){
-
-            } else if(!curChar.equals(" ")){
-                buffer += curChar;
-            }
-        }
-
-        return function; //TODO return result
+		System.out.println(functionString + " = " + res);
+		return res; //TODO return result
     }
 
     /**

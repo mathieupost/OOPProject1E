@@ -17,7 +17,7 @@ public class FunctionCell extends Cell implements Observer {
 	 */
 	public FunctionCell(String rawData) {
 		super(rawData);
-        this.result = rawData; //TODO Remove temp bypass after parsing code is finished
+//        this.result = rawData; //TODO Remove temp bypass after parsing code is finished
 	}
 
     @Override
@@ -45,10 +45,7 @@ public class FunctionCell extends Cell implements Observer {
 	 */
 	@Override
 	public String getData() {
-		if(this.result == null){
-            result = FunctionManager.parseFunction(this.getRawData());
-        }
-        return result;
+		return FunctionManager.parseFunction(this.getRawData());
 	}
 
     @Override
