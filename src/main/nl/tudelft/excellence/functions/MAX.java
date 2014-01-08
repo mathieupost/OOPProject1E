@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 /**
  * Calculates the maximum value of a given number of doubles
  * 
@@ -9,14 +11,21 @@ package nl.tudelft.excellence.functions;
  *            the rest of the doubles
  * @return maximum of given doubles
  */
-public class MAX extends NumberFunction {
+public class MAX extends NumberFunction{
+	final static int MIN_ARGS = 1;
+	
 	private double[] input;
 
-	public MAX(double a, double... values) {
-		input = new double[values.length + 1];
-		input[0] = a;
+	public MAX(String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, values);
+		input = new double[values.length];
+		
 		for (int i = 0; i < values.length; i++) {
-			input[i + 1] = values[i];
+			try{
+				input[i] = Double.parseDouble(values[i]);
+			}catch(NumberFormatException e){
+				throw new IllegalFunctionArgumentsException(e);
+			}
 		}
 	}
 

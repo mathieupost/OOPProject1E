@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,14 +9,20 @@ import java.math.BigDecimal;
  * <b>Syntax:</b> ROUNDUP(double x, double digits)
  */
 public class ROUNDUP extends NumberFunction {
+	final static int MIN_ARGS = 2;
 	
 	private BigDecimal a;
 	private int b;
 	
-	public ROUNDUP(double x, double digits){
-		String c = x + "";
-		a = new BigDecimal(c);
-		b = (int) digits;
+	public ROUNDUP(String... digits) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, digits);
+		
+		try{
+			a = new BigDecimal(digits[0]);
+			b = Integer.parseInt(digits[1]);
+		}catch(NumberFormatException e){
+			throw new IllegalFunctionArgumentsException(e);
+		}
 	}
 
 	@Override

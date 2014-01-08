@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 /**
  * Returns the square root of double x
  * 
@@ -8,10 +10,18 @@ package nl.tudelft.excellence.functions;
  * @return square root
  */
 public class SQRT extends NumberFunction {
+	final static int MIN_ARGS = 1;
+	
 	private double input;
 
-	public SQRT(double in) {
-		input = in;
+	public SQRT(String in) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, in);
+		
+		try{
+			input = Double.parseDouble(in);
+		}catch(NumberFormatException e){
+			throw new IllegalFunctionArgumentsException(e);
+		}
 	}
 
 	@Override

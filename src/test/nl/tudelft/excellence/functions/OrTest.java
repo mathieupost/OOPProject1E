@@ -8,13 +8,13 @@ public class OrTest {
 
 	@Test
 	public void testOr() {
-		OR a = new OR(true, false);
+		OR a = new OR("true", "false");
 		assertEquals(a.execute(), true);
 	}
 	
 	@Test
 	public void testOr2(){
-		OR b = new OR(false, false);
+		OR b = new OR("false", "false");
 		assertEquals(b.execute(), false);
 	}
 

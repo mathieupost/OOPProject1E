@@ -1,19 +1,25 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 /**
  * This function counts how many cells in a given range are not empty.
  * <b>Syntax:</b> COUNTA(String a[, String b, String c...])
  */
 
 public class COUNTA extends NumberFunction{
+	final static int MIN_ARGS = 1;
 	
 	private String[] cells;
 	
-	public COUNTA(String a, String...strings ){
-		cells = new String[strings.length + 1];
-		cells[0] = a;
+	public COUNTA(String...strings ) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, strings);
+		
+		cells = new String[strings.length];
+		
 		for(int i = 0; i < strings.length; i++){
-			cells[i+1] = strings[i];
+
+			cells[i] = strings[i];
 		}
 	}
 
