@@ -21,7 +21,9 @@ public class MainWindow extends JFrame{
     private static String fileName;
 	private final int MODIFIER = Utility.getOS().equals("MAC") ? ActionEvent.META_MASK : ActionEvent.CTRL_MASK;
        public MainWindow(String fileName){
-           this.fileName = fileName;
+           MainWindow.fileName = fileName;
+           System.setProperty("apple.laf.useScreenMenuBar", "true");
+           System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Excellence");
            try {
                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
