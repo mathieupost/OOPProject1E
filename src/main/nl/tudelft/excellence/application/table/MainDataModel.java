@@ -1,13 +1,9 @@
-package nl.tudelft.excellence.application.table.model;
-
-import javax.swing.table.AbstractTableModel;
+package nl.tudelft.excellence.application.table;
 
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
-import nl.tudelft.excellence.spreadsheet.cells.Cell;
-import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
-import nl.tudelft.excellence.spreadsheet.cells.FunctionCell;
-import nl.tudelft.excellence.spreadsheet.cells.NumberCell;
-import nl.tudelft.excellence.spreadsheet.cells.StringCell;
+import nl.tudelft.excellence.spreadsheet.cells.*;
+
+import javax.swing.table.AbstractTableModel;
 
 public class MainDataModel extends AbstractTableModel{
 	private static final long serialVersionUID = 1L;
