@@ -37,7 +37,7 @@ public class FunctionManager {
 	
 	public static String parseFunction(String function){
         if(function.startsWith("=")){
-            return parseFunction(ExpressionParser.infixToRPN(function.substring(1)));
+            //return parseFunction(ExpressionParser.infixToRPN(function.substring(1)));
         }
 
         int openBrackets = 0, startIndex = 0;
