@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 /**
  * Returns the minimum of all inserted values
  * <b>Syntax:</b> MIN(double a, double... values)
@@ -7,12 +9,18 @@ package nl.tudelft.excellence.functions;
 public class MIN extends NumberFunction {
 	
 	private double[] input;
+	final static int MIN_ARGS = 1;
 	
-	public MIN(double a, double... values){
-		input = new double[values.length+1];
-		input[0] = a;
+	public MIN(String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, values);
+		input = new double[values.length];
 		for(int i = 0; i<values.length;i++){
-			input[i+1] = values[i];
+			try{
+				input[1] = Double.parseDouble(values[i]);
+			}
+			catch(NumberFormatException e){
+				throw new IllegalFunctionArgumentsException(e);
+			}
 		}
 	}
 

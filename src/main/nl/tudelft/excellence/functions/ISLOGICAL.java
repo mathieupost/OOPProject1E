@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 /**
  * Checks if a given String is a representation of a logical value
  * <b>Syntax:</b> ISLOGICAL(String value) 
@@ -7,7 +9,10 @@ package nl.tudelft.excellence.functions;
 public class ISLOGICAL extends BooleanFunction{
 	private String value;
 	
-	public ISLOGICAL(String input){
+	final static int MIN_ARGS = 1;
+	
+	public ISLOGICAL(String input) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, input);
 		value = input.trim();
 	}
 

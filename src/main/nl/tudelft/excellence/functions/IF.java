@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 /**
  * Converts a String into a logical condition and tests that condition
  * Returns a given String if the test returns true, returns another given String if the test returns false
@@ -13,14 +15,17 @@ public class IF extends StringFunction {
 	private String iftrue;
 	private String iffalse;
 	private boolean isLogicValue;
+	
+	final static int MIN_ARGS = 3;
 
-	public IF(String logictest, String iftrue1, String iffalse1) {
-		logictest = logictest.trim();
+	public IF(String...strings) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS,strings);
+		logictest = strings[0].trim();
 		isLogicValue = logictest.equalsIgnoreCase("true") || logictest.equalsIgnoreCase("false");
 			
 		this.logictest = logictest.replaceFirst("((!?=)|((<|>)=?))", "|$0|");;
-		iftrue = iftrue1;
-		iffalse = iffalse1;
+		iftrue = strings[1];
+		iffalse = strings[2];
 	}
 
 	@Override

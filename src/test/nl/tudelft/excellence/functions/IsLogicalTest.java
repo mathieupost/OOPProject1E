@@ -9,7 +9,7 @@ public class IsLogicalTest {
 	@Test
 	public void test() {
 		ISLOGICAL i = new ISLOGICAL("7 < 5");
-		assertEquals(i.execute(), true);
+		assertEquals(i.execute(), false);
 	}
 
 }

@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 import java.math.BigDecimal;
 
 /**
@@ -10,11 +12,18 @@ public class ROUNDDOWN extends NumberFunction {
 
 	private BigDecimal a;
 	private int  b;
+	
+	final static int MIN_ARGS = 2;
 
-	public ROUNDDOWN(double x, double digits) {
-		String c = x + "";
-		a = new BigDecimal(c);
-		b = (int) digits;
+	public ROUNDDOWN(String... values) throws IllegalFunctionArgumentsException {
+		super(MIN_ARGS, values);
+		try{
+		a = new BigDecimal(values[0]);
+		b = Integer.parseInt(values[1]);
+		}
+		catch(NumberFormatException e){
+			throw new IllegalFunctionArgumentsException(e);
+		}
 	}
 
 	@Override
