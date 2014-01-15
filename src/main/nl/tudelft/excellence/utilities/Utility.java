@@ -185,29 +185,4 @@ public class Utility {
 		}
 		return "";
 	}
-
-	public static Cell[] getCells(String from, String to) {
-		ArrayList<Cell> cellArrayList = new ArrayList<>();
-		CellCoord fromCoord = new CellCoord(from);
-		CellCoord toCoord = new CellCoord(to);
-		if (fromCoord.isValid() && toCoord.isValid()) {
-			int fromCollumn = fromCoord.getColumn();
-			int fromRow = fromCoord.getRow();
-			int toCollumn = toCoord.getColumn();
-			int toRow = toCoord.getRow();
-
-			for (int col = fromCollumn; col <= toCollumn; col++) {
-				for (int row = fromRow; row <= toRow; row++) {
-					cellArrayList.add(SpreadSheet.current.getCell(col, row));
-				}
-			}
-		} else return null;
-
-		Cell[] cells = new Cell[cellArrayList.size()];
-		for (int i = 0; i < cellArrayList.size(); i++) {
-			cells[i] = cellArrayList.get(i);
-		}
-
-		return cells;
-	}
 }

@@ -5,6 +5,7 @@ import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 import nl.tudelft.excellence.utilities.FileManager;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
@@ -48,6 +49,31 @@ public class SpreadSheet {
 			}
 		}
 		return null;
+	}
+
+	public Cell[] getCells(String from, String to) {
+		ArrayList<Cell> cellArrayList = new ArrayList<>();
+		CellCoord fromCoord = new CellCoord(from);
+		CellCoord toCoord = new CellCoord(to);
+		if (fromCoord.isValid() && toCoord.isValid()) {
+			int fromCollumn = fromCoord.getColumn();
+			int fromRow = fromCoord.getRow();
+			int toCollumn = toCoord.getColumn();
+			int toRow = toCoord.getRow();
+
+			for (int col = fromCollumn; col <= toCollumn; col++) {
+				for (int row = fromRow; row <= toRow; row++) {
+					cellArrayList.add(this.getCell(col, row));
+				}
+			}
+		} else return null;
+
+		Cell[] cells = new Cell[cellArrayList.size()];
+		for (int i = 0; i < cellArrayList.size(); i++) {
+			cells[i] = cellArrayList.get(i);
+		}
+
+		return cells;
 	}
 	
 	/**
