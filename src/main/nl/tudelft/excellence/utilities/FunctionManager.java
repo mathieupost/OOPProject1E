@@ -1,5 +1,6 @@
 package nl.tudelft.excellence.utilities;
 
+import nl.tudelft.excellence.exceptions.ParseArgumentsException;
 import nl.tudelft.excellence.functions.BooleanFunction;
 import nl.tudelft.excellence.functions.Function;
 import nl.tudelft.excellence.functions.NumberFunction;
@@ -41,14 +42,19 @@ public class FunctionManager {
 		}
 	}
 
-	public static String parseFunction(String functionString) {
+	public static String parseFunction(String functionString) throws Exception {
 		String res = "";
 		if (functionString.startsWith("="))
 			functionString = functionString.substring(1);
 
 		String functionName = functionString.substring(0, functionString.indexOf("("));
 
-		String[] args = parseArgs(functionString.substring(functionString.indexOf("(") + 1, functionString.length() - 1));
+		String[] args = new String[0];
+		try {
+			args = parseArgs(functionString.substring(functionString.indexOf("(") + 1, functionString.length() - 1));
+		} catch (ParseArgumentsException e) {
+			throw new Exception("Error: " + e.getMessage());
+		}
 
 		for (int i = 0; i < args.length; i++) {
 			CellCoord coord = new CellCoord(args[i]);
@@ -74,25 +80,26 @@ public class FunctionManager {
 				res = stringFunction.execute();
 			}
 		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			throw new Exception("Error: This function does not exists: " + functionName + "\n", e);
+		} catch (NullPointerException e) {
+			throw new Exception("Error: This function does not exists: " + functionName + "\n", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			throw new Exception("Error: " + e.getCause().getMessage() + " in: " + functionString);
+		} catch (Exception e) {
+			throw new Exception("Unknown Error: Contact the developer! \n%s" + e.getStackTrace());
 		}
 
 		System.out.println(functionString + " = " + res);
 		return res; //TODO return result
 	}
 
-	private static String[] parseArgs(String functionString) {
+	private static String[] parseArgs(String functionString) throws ParseArgumentsException{
 		ArrayList<String> res = new ArrayList<>();
 		char[] functionStringChars = functionString.toCharArray();
 		int openBrackets = 0;
 		char previous = ' ';
 		String arg = "";
-		for (int i = 0; i < functionStringChars.length; i++) {
-			char charr = functionStringChars[i];
+		for (char charr : functionStringChars) {
 			switch (charr) {
 				case ':':
 					if (openBrackets == 0) {
@@ -108,22 +115,7 @@ public class FunctionManager {
 					previous = charr;
 					break;
 				case ')':
-//					if (openBrackets == 0) {
-//						if (previous == ':') {
-//							Cell[] cells = Utility.getCells(res.get(res.size() - 1), arg);
-//							System.arraycopy(cells, 1, cells, 0, cells.length-1);
-//							System.out.println(cells);
-//							for (int cell = 0; cell < cells.length; cell++) { // Skip first because it is already added
-//								res.add(cells[cell].getData());
-//							}
-//						} else {
-//							res.add(arg);
-//						}
-//						arg = "";
-//						previous = charr;
-//					} else {
-						arg += charr;
-//					}
+					arg += charr;
 					openBrackets--;
 					break;
 				case ';':
@@ -159,6 +151,11 @@ public class FunctionManager {
 		for (int i = 0; i < resArgs.length; i++) {
 			resArgs[i] = res.get(i);
 		}
+
+		if(openBrackets != 0) {
+			throw new ParseArgumentsException("Check your brackets!");
+		}
+
 		return resArgs;
 	}
 
