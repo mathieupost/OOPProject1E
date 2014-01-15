@@ -31,8 +31,8 @@ public class CellCoord implements Comparable<CellCoord> {
 			valid = false;
 			return;
 		}
-		int rowSplitIndex = 0;
-		while(!Character.isDigit(coord.charAt(rowSplitIndex))) rowSplitIndex++;
+		int rowSplitIndex = 0, length = coord.length();
+		while(rowSplitIndex<length && !Character.isDigit(coord.charAt(rowSplitIndex))) rowSplitIndex++;
 		
 		String temp = coord.substring(0, rowSplitIndex).toUpperCase(); //coord.substring(rowSplitIndex)
 		for(int i = rowSplitIndex-1; i >= 0; i--){
