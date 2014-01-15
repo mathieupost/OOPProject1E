@@ -110,15 +110,26 @@ public class SpreadSheet {
 
 		return FileManager.parseXML(file);
 	}
-	
+
 	/**
 	 * Save the SpreadSheet to the output file
 	 * @param fileName The name of/path to the file to save to
 	 * @return Whether or not the file was successfully saved
 	 * @throws SaveNotNeededException When it wasn't necessary to save the spreadsheet
 	 */
-	public boolean saveToFile(String fileName) throws SaveNotNeededException{
-		if(!unsavedChanges){
+	public boolean saveToFile(String fileName) throws SaveNotNeededException {
+		return saveToFile(fileName, false);
+	}
+
+	/**
+	 * Save the SpreadSheet to the output file
+	 * @param fileName The name of/path to the file to save to
+	 * @param forceSave Save even if there are no unsaved changes.
+	 * @return Whether or not the file was successfully saved
+	 * @throws SaveNotNeededException When it wasn't necessary and forceSave is false to save the spreadsheet
+	 */
+	public boolean saveToFile(String fileName, boolean forceSave) throws SaveNotNeededException{
+		if(!forceSave && !unsavedChanges){
 			throw new SaveNotNeededException(fileName);
 		}
 		
