@@ -61,6 +61,25 @@ public class MainWindow extends JFrame{
                 }
             }
         });
+        
+        JMenuItem fileSaveAs = new JMenuItem("Save As");
+        fileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, MODIFIER + ActionEvent.SHIFT_MASK));
+        fileSaveAs.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                if(SpreadSheet.current!=null){
+                	String newFileName = JOptionPane.showInputDialog(null, "Geef bestandsnaam op");
+                	fileName = newFileName;
+                    try {
+						if(SpreadSheet.current.saveToFile(fileName, true)){
+						    showMessageDialog(null, "Successfully saved '"+fileName+"'", "", PLAIN_MESSAGE);
+						} else {
+						    showMessageDialog(null, "An error occurred during saving, please try again.", "Save failed!", ERROR_MESSAGE);
+						}
+					} catch (SaveNotNeededException ignore) {}
+                	
+                }
+            }
+        });
 
         JMenuItem fileExit = new JMenuItem("Exit"/*, iconExit*/);
         fileExit.setMnemonic(KeyEvent.VK_C);
@@ -82,6 +101,7 @@ public class MainWindow extends JFrame{
         file.add(fileNew);
         file.add(fileOpen);
         file.add(fileSave);
+        file.add(fileSaveAs);
         file.addSeparator();
         file.add(fileExit);
 

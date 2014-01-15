@@ -5,6 +5,7 @@ import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 import nl.tudelft.excellence.utilities.FileManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map.Entry;
@@ -142,7 +143,15 @@ public class SpreadSheet {
 		
 		
 		File file = new File(fileName);
-		file.mkdirs();
+		file.getParentFile().mkdirs();
+		try {
+			if(!file.exists() && !file.createNewFile()){
+				//TODO Report error to user in a proper way
+				System.out.println("bagger");
+				return false;
+			}
+		} catch(IOException ignore){}
+		
 		if(!file.canWrite()){
 			//TODO Report problem to the user.
 			return false;
