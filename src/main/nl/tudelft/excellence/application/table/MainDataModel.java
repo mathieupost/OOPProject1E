@@ -1,13 +1,9 @@
-package nl.tudelft.excellence.application.table.model;
-
-import javax.swing.table.AbstractTableModel;
+package nl.tudelft.excellence.application.table;
 
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
-import nl.tudelft.excellence.spreadsheet.cells.Cell;
-import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
-import nl.tudelft.excellence.spreadsheet.cells.FunctionCell;
-import nl.tudelft.excellence.spreadsheet.cells.NumberCell;
-import nl.tudelft.excellence.spreadsheet.cells.StringCell;
+import nl.tudelft.excellence.spreadsheet.cells.*;
+
+import javax.swing.table.AbstractTableModel;
 
 public class MainDataModel extends AbstractTableModel{
 	private static final long serialVersionUID = 1L;
@@ -19,12 +15,12 @@ public class MainDataModel extends AbstractTableModel{
 	
 	@Override
 	public int getRowCount() {
-		return sheetNotNull()?sheet.getRowCount():1;
+		return SpreadSheet.MAX_ROWS;
 	}
 
 	@Override
 	public int getColumnCount() {
-		return sheetNotNull()?sheet.getColumnCount():1;
+		return SpreadSheet.MAX_COLUMNS;
 	}
 
 	@Override
@@ -47,7 +43,7 @@ public class MainDataModel extends AbstractTableModel{
 		if(sheetNotNull() && coord.isValid() && aValue!=null && aValue instanceof String){
 			String data = (String) aValue;
 			Cell cell = sheet.getCell(coord), newCell;
-			if(cell!=null && !cell.getRawData().equals(data)){
+			if(cell==null || !cell.getRawData().equals(data)){
 				if (data.startsWith("=") && data.length()>1) {
 					sheet.putCell(coord, newCell = new FunctionCell(data));
 				} else {
@@ -58,7 +54,7 @@ public class MainDataModel extends AbstractTableModel{
 						sheet.putCell(coord, newCell = new StringCell(data));
 					}
 				}
-				cell.notifyObservers(newCell);
+				if(cell!=null) cell.notifyObservers(newCell);
 			}
 		}
 	}

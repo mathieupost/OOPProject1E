@@ -1,4 +1,7 @@
 package nl.tudelft.excellence.spreadsheet.cells;
+
+import nl.tudelft.excellence.spreadsheet.SpreadSheet;
+
 public class CellCoord implements Comparable<CellCoord> {
 	private int column = 0, row = 0;
 	private boolean valid = true;
@@ -9,7 +12,7 @@ public class CellCoord implements Comparable<CellCoord> {
 	 * @param row The row of the coordinate (y-axis)
 	 */
 	public CellCoord(int column, int row){
-		if(row <= 0 || column <= 0){
+		if(row <= 0 || column <= 0 || row > SpreadSheet.MAX_ROWS || column > SpreadSheet.MAX_COLUMNS){
 			valid = false;
 		} else {
 			this.column = column;
