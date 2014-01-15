@@ -21,6 +21,8 @@ public class FuncionManagerTest {
 		SpreadSheet s1 = new SpreadSheet(sheet);
 		SpreadSheet.current = s1;
 
-		FunctionManager.parseFunction("=SUM(B1;SUM(B1:B4);B1:B4;SUM(B1;B3))");
+		Cell cell = new FunctionCell("=IF(true;SUM(B1;B2);hoi)");
+		System.out.println("cellRawData = " + cell.getRawData());
+		System.out.println("cellData = " + cell.getData());
 	}
 }
