@@ -45,7 +45,12 @@ public class FunctionCell extends Cell implements Observer {
 	 */
 	@Override
 	public String getData() {
-		return FunctionManager.parseFunction(this.getRawData());
+		try {
+			return FunctionManager.parseFunction(this.getRawData());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
 	}
 
     @Override
