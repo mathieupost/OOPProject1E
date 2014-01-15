@@ -1,15 +1,12 @@
 package nl.tudelft.excellence.application;
 
-import nl.tudelft.excellence.application.table.MainCellEditor;
 import nl.tudelft.excellence.application.table.MainDataModel;
 import nl.tudelft.excellence.application.table.MainTable;
-import nl.tudelft.excellence.application.table.RowNumberTable;
 import nl.tudelft.excellence.exceptions.SaveNotNeededException;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 import nl.tudelft.excellence.utilities.Utility;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -93,24 +90,11 @@ public class MainWindow extends JFrame{
         setJMenuBar(menuBar);
 
         /** Table - Body **/
-        TableModel dataModel = new MainDataModel(SpreadSheet.current);
-
-        MainTable mainTable = new MainTable(dataModel);
-        JScrollPane scrollPane = new JScrollPane(mainTable);
-        JTable rowTable = new RowNumberTable(mainTable);
-        scrollPane.setRowHeaderView(rowTable);
-        scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER,
-                rowTable.getTableHeader());
-
-        mainTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-        getContentPane().add(scrollPane);
-
-	    mainTable.setDefaultEditor(Object.class, new MainCellEditor(SpreadSheet.current));
+        MainTable mainTable = new MainTable(new MainDataModel(SpreadSheet.current), getContentPane());
 
         setIconImages(new ArrayList<>(Arrays.asList(new Image[]{new ImageIcon(getClass().getResource("excellence-icon-small.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-medium.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-large.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-256.png")).getImage()})));
                 setTitle("Excellence - Alpha 0.1");
-        setSize(600, 400);
+        setSize(750, 500);
         setLocationRelativeTo(null);
 	    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
