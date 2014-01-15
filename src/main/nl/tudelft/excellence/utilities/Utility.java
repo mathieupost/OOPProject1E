@@ -1,6 +1,8 @@
 package nl.tudelft.excellence.utilities;
 
 import nl.tudelft.excellence.functions.Function;
+import nl.tudelft.excellence.spreadsheet.SpreadSheet;
+import nl.tudelft.excellence.spreadsheet.cells.Cell;
 import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 
 import java.io.File;
@@ -170,8 +172,8 @@ public class Utility {
 		}
 	}
 
-	public static CellCoord[] getCellCoords(String from, String to) {
-		ArrayList<CellCoord> cellCoordArrayList = new ArrayList<>();
+	public static Cell[] getCells(String from, String to) {
+		ArrayList<Cell> cellArrayList = new ArrayList<>();
 		CellCoord fromCoord = new CellCoord(from);
 		CellCoord toCoord = new CellCoord(to);
 		if (fromCoord.isValid() && toCoord.isValid()) {
@@ -182,16 +184,16 @@ public class Utility {
 
 			for (int col = fromCollumn; col <= toCollumn; col++) {
 				for (int row = fromRow; row <= toRow; row++) {
-					cellCoordArrayList.add(new CellCoord(col, row));
+					cellArrayList.add(SpreadSheet.current.getCell(col, row));
 				}
 			}
 		} else return null;
 
-		CellCoord[] cellCoords = new CellCoord[cellCoordArrayList.size()];
-		for (int i = 0; i < cellCoordArrayList.size(); i++) {
-			cellCoords[i] = cellCoordArrayList.get(i);
+		Cell[] cells = new Cell[cellArrayList.size()];
+		for (int i = 0; i < cellArrayList.size(); i++) {
+			cells[i] = cellArrayList.get(i);
 		}
 
-		return cellCoords;
+		return cells;
 	}
 }
