@@ -185,4 +185,12 @@ public class Utility {
 		}
 		return "";
 	}
+
+	public static String getValue(String value) {
+		CellCoord coord = new CellCoord(value);
+		Cell cell = SpreadSheet.current.getCell(coord);
+		if (cell != null)
+			return cell.getData();
+		return value;
+	}
 }
