@@ -51,7 +51,6 @@ public class FunctionManager {
 		String[] args = parseArgs(functionString.substring(functionString.indexOf("(") + 1, functionString.length() - 1));
 
 		for (int i = 0; i < args.length; i++) {
-//			System.out.print(args[i]);
 			CellCoord coord = new CellCoord(args[i]);
 			Cell cell = SpreadSheet.current.getCell(coord);
 
@@ -59,13 +58,7 @@ public class FunctionManager {
 				args[i] = parseFunction(args[i]);
 			else if (cell != null)
 				args[i] = cell.getData();
-
-//			System.out.println(" = " + args[i]);
 		}
-
-//		for (int i = 0; i < args.length; i++) {
-//			System.out.println(args[i]);
-//		}
 
 		try {
 			Class<? extends Function> clazz = getFunctionByName(functionName);
@@ -93,7 +86,6 @@ public class FunctionManager {
 	}
 
 	private static String[] parseArgs(String functionString) {
-//		System.out.println(functionString);
 		ArrayList<String> res = new ArrayList<>();
 		char[] functionStringChars = functionString.toCharArray();
 		int openBrackets = 0;
@@ -103,7 +95,12 @@ public class FunctionManager {
 			char charr = functionStringChars[i];
 			switch (charr) {
 				case ':':
-					previous = charr;
+					if (openBrackets == 0) {
+						previous = charr;
+						res.add(arg);
+						arg = "";
+					} else
+						arg += charr;
 					break;
 				case '(':
 					arg += charr;
@@ -111,26 +108,29 @@ public class FunctionManager {
 					previous = charr;
 					break;
 				case ')':
-					openBrackets--;
-					if (openBrackets == 0) {
-						if (previous == ':') {
-							Cell[] cells = Utility.getCells(res.get(res.size() - 1), arg);
-							for (int cell = 1; i < cells.length; i++) { // Skip first because it is already added
-								res.add(cells[cell].getData());
-							}
-						} else
-							res.add(arg);
-						arg = "";
-						previous = charr;
-					} else {
+//					if (openBrackets == 0) {
+//						if (previous == ':') {
+//							Cell[] cells = Utility.getCells(res.get(res.size() - 1), arg);
+//							System.arraycopy(cells, 1, cells, 0, cells.length-1);
+//							System.out.println(cells);
+//							for (int cell = 0; cell < cells.length; cell++) { // Skip first because it is already added
+//								res.add(cells[cell].getData());
+//							}
+//						} else {
+//							res.add(arg);
+//						}
+//						arg = "";
+//						previous = charr;
+//					} else {
 						arg += charr;
-					}
+//					}
+					openBrackets--;
 					break;
 				case ';':
 					if (openBrackets == 0) {
 						if (previous == ':') {
-							Cell[] cells = Utility.getCells(res.get(res.size() - 1), arg);
-							for (int cell = 1; i < cells.length; i++) { // Skip first because it is already added
+							Cell[] cells = SpreadSheet.current.getCells(res.get(res.size() - 1), arg);
+							for (int cell = 1; cell < cells.length; cell++) { // Skip first because it is already added
 								res.add(cells[cell].getData());
 							}
 						} else
@@ -146,9 +146,14 @@ public class FunctionManager {
 					break;
 			}
 		}
-//		res.add(arg);
-
-//		System.out.println(res.toString());
+		// add last arg
+		if (previous == ':') {
+			Cell[] cells = SpreadSheet.current.getCells(res.get(res.size() - 1), arg);
+			for (int cell = 1; cell < cells.length; cell++) { // Skip first because it is already added
+				res.add(cells[cell].getData());
+			}
+		} else
+			res.add(arg);
 
 		String[] resArgs = new String[res.size()];
 		for (int i = 0; i < resArgs.length; i++) {

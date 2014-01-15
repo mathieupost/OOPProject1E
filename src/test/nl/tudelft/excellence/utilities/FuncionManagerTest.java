@@ -21,6 +21,6 @@ public class FuncionManagerTest {
 		SpreadSheet s1 = new SpreadSheet(sheet);
 		SpreadSheet.current = s1;
 
-		FunctionManager.parseFunction("=SUM(B1;B2;B3;B4;SUM(B1;B3;SUM(B1;B2));1.0;1)");
+		FunctionManager.parseFunction("=SUM(B1;SUM(B1:B4);B1:B4;SUM(B1;B3))");
 	}
 }
