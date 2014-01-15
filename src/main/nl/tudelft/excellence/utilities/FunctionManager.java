@@ -7,7 +7,6 @@ import nl.tudelft.excellence.functions.NumberFunction;
 import nl.tudelft.excellence.functions.StringFunction;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 import nl.tudelft.excellence.spreadsheet.cells.Cell;
-import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -51,19 +50,19 @@ public class FunctionManager {
 
 		String[] args = new String[0];
 		try {
-			args = parseArgs(functionString.substring(functionString.indexOf("(") + 1, functionString.length() - 1));
-		} catch (ParseArgumentsException e) {
-			throw new Exception("Error: " + e.getMessage());
+			args = parseArgs(functionString.substring(functionString.indexOf("(") + 1, functionString.lastIndexOf(")")));
+		} catch (StringIndexOutOfBoundsException e) {
+			throw new ParseArgumentsException("Error: Check your brackets!");
 		}
 
 		for (int i = 0; i < args.length; i++) {
-			CellCoord coord = new CellCoord(args[i]);
-			Cell cell = SpreadSheet.current.getCell(coord);
-
 			if (args[i].contains("("))
 				args[i] = parseFunction(args[i]);
-			else if (cell != null)
-				args[i] = cell.getData();
+			else
+				args[i] = Utility.getValue(args[i]);
+
+			if (args[i].toUpperCase().contains("ERROR"))
+				throw new ParseArgumentsException("A referenced cell contains an error");
 		}
 
 		try {
@@ -85,8 +84,6 @@ public class FunctionManager {
 			throw new Exception("Error: This function does not exists: " + functionName + "\n", e);
 		} catch (InvocationTargetException e) {
 			throw new Exception("Error: " + e.getCause().getMessage() + " in: " + functionString);
-		} catch (Exception e) {
-			throw new Exception("Unknown Error: Contact the developer! \n%s" + e.getStackTrace());
 		}
 
 		System.out.println(functionString + " = " + res);
@@ -153,7 +150,7 @@ public class FunctionManager {
 		}
 
 		if(openBrackets != 0) {
-			throw new ParseArgumentsException("Check your brackets!");
+			throw new ParseArgumentsException("Error: Check your brackets!");
 		}
 
 		return resArgs;

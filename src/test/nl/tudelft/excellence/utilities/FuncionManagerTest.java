@@ -17,11 +17,11 @@ public class FuncionManagerTest {
 		sheet.put(new CellCoord(2, 2), new NumberCell(1.0));
 		sheet.put(new CellCoord(2, 3), new NumberCell(1.0));
 		sheet.put(new CellCoord(2, 4), new NumberCell(1.0));
-//		sheet.put(new CellCoord(2, 5), new FunctionCell("=SUM(B1;B2)"));
+		sheet.put(new CellCoord(2, 5), new FunctionCell("=IF(2=B2)"));
 		SpreadSheet s1 = new SpreadSheet(sheet);
 		SpreadSheet.current = s1;
 
-		Cell cell = new FunctionCell("=IF(true;SUM(B1;B2);hoi)");
+		Cell cell = new FunctionCell("=IF(B5;SUM(B1:B4);hoi)");
 		System.out.println("cellRawData = " + cell.getRawData());
 		System.out.println("cellData = " + cell.getData());
 	}
