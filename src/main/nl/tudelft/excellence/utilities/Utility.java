@@ -5,6 +5,8 @@ import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 import nl.tudelft.excellence.spreadsheet.cells.Cell;
 import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -12,6 +14,10 @@ import java.util.*;
 
 public class Utility {
 	private static Scanner sc = new Scanner(System.in);
+	private static final JFileChooser fc = new JFileChooser();
+	static{
+		fc.setFileFilter(new FileNameExtensionFilter("All Excellence files (*.xml, *.excellence)", "xml", "excellence"));
+	}
 
 	/**
 	 * Asks the user a String that has to be on of the possible options
@@ -192,5 +198,28 @@ public class Utility {
 		if (cell != null)
 			return cell.getData();
 		return value;
+	}
+
+
+		/**
+		 * Make the user select a file to save to/open
+		 * @param dialogType The dialogType (JFileChooser.OPEN_DIALOG or JFileChooser.SAVE_DIALOG)
+		 * @return The user selected File or null if the user cancelled/closed the dialog
+		 */
+	public static File chooseFile(int dialogType){
+		switch(dialogType){
+			case JFileChooser.SAVE_DIALOG:
+				if(fc.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
+					return fc.getSelectedFile();
+				}
+				break;
+			case JFileChooser.OPEN_DIALOG:
+				if(fc.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
+					return fc.getSelectedFile();
+				}
+				break;
+			default:
+		}
+		return null;
 	}
 }

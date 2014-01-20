@@ -1,10 +1,8 @@
 package nl.tudelft.excellence.application.table;
 
-import nl.tudelft.excellence.spreadsheet.SpreadSheet;
-
 import javax.swing.*;
 import javax.swing.table.TableModel;
-import java.awt.Container;
+import java.awt.*;
 
 public class MainTable extends JTable {
 
@@ -21,6 +19,14 @@ public class MainTable extends JTable {
 
 	    container.add(scrollPane);
 
-	    this.setDefaultEditor(Object.class, new MainCellEditor(SpreadSheet.current));
+	    this.setDefaultEditor(Object.class, new MainCellEditor());
     }
+
+	public void updateSpreadSheet(){
+		if(this.dataModel instanceof MainDataModel){
+			MainDataModel model = ((MainDataModel) this.dataModel);
+			model.updateSpreadSheet();
+			model.fireTableDataChanged();
+		}
+	}
 }

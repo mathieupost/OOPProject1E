@@ -2,31 +2,28 @@ package nl.tudelft.excellence;
 
 import nl.tudelft.excellence.application.MainWindow;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
-import nl.tudelft.excellence.utilities.Utility;
 
 import javax.swing.*;
 
 public class Main {
     public static MainWindow app;
+	static{
+		System.setProperty("apple.laf.useScreenMenuBar", "true");
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Excellence");
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
-        String fileName = "";
-        if(args.length>0){
-            fileName = args[0];
-        } else {
-            System.out.println("Input file:");
-            fileName = Utility.askString();
-            if (fileName.equals("1")) fileName = "assets/spreadsheet.xml";
-			else if (fileName.equals("2")) fileName = "spreadsheet.xml";
-        }
-        SpreadSheet.current = SpreadSheet.openFile(fileName);
+        SpreadSheet.current = new SpreadSheet();
 
-
-        final String finalFileName = fileName;
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                app = new MainWindow(finalFileName);
+                app = new MainWindow();
                 app.setVisible(true);
             }
         });

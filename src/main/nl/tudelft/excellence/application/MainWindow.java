@@ -9,6 +9,7 @@ import nl.tudelft.excellence.utilities.Utility;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,17 +18,18 @@ import static javax.swing.JOptionPane.*;
 public class MainWindow extends JFrame{
     private static String fileName;
 	private final int MODIFIER = Utility.getOS().equals("MAC") ? ActionEvent.META_MASK : ActionEvent.CTRL_MASK;
-       public MainWindow(String fileName){
-           MainWindow.fileName = fileName;
-           System.setProperty("apple.laf.useScreenMenuBar", "true");
-           System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Excellence");
-           try {
-               UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-           } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-               e.printStackTrace();
-           }
-           buildUI();
-       }
+	private MainTable mainTable;
+	private static MainWindow current;
+
+	public MainWindow(){
+		this(null);
+	}
+
+	public MainWindow(String fileName){
+		current = this;
+		MainWindow.fileName = fileName;
+		buildUI();
+    }
 
     private void buildUI() {
         /** Menu Toolbar **/
@@ -39,11 +41,32 @@ public class MainWindow extends JFrame{
         JMenuItem fileNew = new JMenuItem("New");
         fileNew.setMnemonic(KeyEvent.VK_N);
         fileNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, MODIFIER));
-
+		fileNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(SpreadSheet.current!=null && SpreadSheet.current.hasUnsavedChanges()){
+					if(MainWindow.onCloseSpreadsheet()){
+						SpreadSheet.current = new SpreadSheet();
+						mainTable.updateSpreadSheet();
+						updateTitle();
+					}
+				}
+			}
+		});
 
         JMenuItem fileOpen = new JMenuItem("Open");
         fileOpen.setMnemonic(KeyEvent.VK_O);
         fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, MODIFIER));
+	    fileOpen.addActionListener(new ActionListener(){
+		    public void actionPerformed(ActionEvent event){
+				File file = Utility.chooseFile(JFileChooser.OPEN_DIALOG);
+			    if(file!=null){
+				    fileName = file.getAbsolutePath();
+					SpreadSheet.current = SpreadSheet.openFile(fileName);
+				    mainTable.updateSpreadSheet();
+				    updateTitle();
+			    }
+		    }
+	    });
 
         JMenuItem fileSave = new JMenuItem("Save");
         fileSave.setMnemonic(KeyEvent.VK_S);
@@ -51,6 +74,14 @@ public class MainWindow extends JFrame{
         fileSave.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
                 if(SpreadSheet.current!=null){
+	                if(fileName==null || fileName.length()==0){
+						File file = Utility.chooseFile(JFileChooser.SAVE_DIALOG);
+		                if(file!=null){
+			                fileName = file.getAbsolutePath();
+		                } else {
+			                return;
+		                }
+	                }
                     try {
 						if(SpreadSheet.current.saveToFile(fileName)){
 						    showMessageDialog(null, "Successfully saved '"+fileName+"'", "", PLAIN_MESSAGE);
@@ -64,21 +95,25 @@ public class MainWindow extends JFrame{
         
         JMenuItem fileSaveAs = new JMenuItem("Save As");
         fileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, MODIFIER + ActionEvent.SHIFT_MASK));
-        fileSaveAs.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent event){
-                if(SpreadSheet.current!=null){
-                	String newFileName = JOptionPane.showInputDialog(null, "Geef bestandsnaam op");
-                	fileName = newFileName;
-                    try {
-						if(SpreadSheet.current.saveToFile(fileName, true)){
-						    showMessageDialog(null, "Successfully saved '"+fileName+"'", "", PLAIN_MESSAGE);
-						} else {
-						    showMessageDialog(null, "An error occurred during saving, please try again.", "Save failed!", ERROR_MESSAGE);
-						}
-					} catch (SaveNotNeededException ignore) {}
-                	
-                }
-            }
+        fileSaveAs.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent event) {
+		        if (SpreadSheet.current != null) {
+			        File file = Utility.chooseFile(JFileChooser.SAVE_DIALOG);
+			        if(file!=null){
+				        fileName = file.getAbsolutePath();
+			        } else {
+				        return;
+			        }
+			        try {
+				        if (SpreadSheet.current.saveToFile(fileName, true)) {
+					        showMessageDialog(null, "Successfully saved '" + fileName + "'", "", PLAIN_MESSAGE);
+				        } else {
+					        showMessageDialog(null, "An error occurred during saving, please try again.", "Save failed!", ERROR_MESSAGE);
+				        }
+			        } catch (SaveNotNeededException ignore) {}
+
+		        }
+	        }
         });
 
         JMenuItem fileExit = new JMenuItem("Exit"/*, iconExit*/);
@@ -87,14 +122,16 @@ public class MainWindow extends JFrame{
         fileExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, MODIFIER));
 	    fileExit.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent event) {
-			    MainWindow.onExit();
+			    if(MainWindow.onCloseSpreadsheet())
+				    System.exit(0);
 		    }
 	    });
 
 	    this.addWindowListener(new WindowAdapter() {
 		    @Override
 		    public void windowClosing(WindowEvent e) {
-			    MainWindow.onExit();
+			    if(MainWindow.onCloseSpreadsheet())
+				    System.exit(0);
 		    }
 	    });
 
@@ -110,20 +147,20 @@ public class MainWindow extends JFrame{
         setJMenuBar(menuBar);
 
         /** Table - Body **/
-        MainTable mainTable = new MainTable(new MainDataModel(SpreadSheet.current), getContentPane());
+        mainTable = new MainTable(new MainDataModel(SpreadSheet.current), getContentPane());
 
         setIconImages(new ArrayList<>(Arrays.asList(new Image[]{new ImageIcon(getClass().getResource("excellence-icon-small.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-medium.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-large.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-256.png")).getImage()})));
-                setTitle("Excellence - Alpha 0.1");
+        updateTitle();
         setSize(750, 500);
         setLocationRelativeTo(null);
 	    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
-	private static void onExit(){
+	private static boolean onCloseSpreadsheet(){
 		if(SpreadSheet.current!=null && SpreadSheet.current.hasUnsavedChanges()){
 			Object[] options = {"Yes", "No", "Cancel"};
 			int n = showOptionDialog(null,
-					"Do you want to save changes you made to " + fileName.substring(fileName.lastIndexOf("/") + 1) + "?",
+					"Do you want to save changes"+(fileName==null || fileName.length()==0?"":" you made to " + fileName.substring(fileName.lastIndexOf("/") + 1)) + "?",
 					"Excellence",
 					JOptionPane.YES_NO_CANCEL_OPTION,
 					JOptionPane.WARNING_MESSAGE,
@@ -132,22 +169,39 @@ public class MainWindow extends JFrame{
 					options[2]);
 			switch(n){
 				case 0:
+					if(fileName==null || fileName.length()==0){
+						File file = Utility.chooseFile(JFileChooser.SAVE_DIALOG);
+						if(file!=null){
+							fileName = file.getAbsolutePath();
+						} else {
+							return false;
+						}
+					}
 					try {
 						if(SpreadSheet.current.saveToFile(fileName)){
 							showMessageDialog(null, "Successfully saved '"+fileName+"'", "", INFORMATION_MESSAGE);
-							System.exit(0);
+							return true;
 						} else {
 							showMessageDialog(null, "An error occurred during saving, please try again.", "Save failed!", ERROR_MESSAGE);
 						}
 					} catch (SaveNotNeededException ignore) {}
 					break;
 				case 1:
-					System.exit(0);
-					break;
+					return true;
 				default:
+					return false;
 			}
-		} else {
-			System.exit(0);
+		}
+		return true;
+	}
+
+	public static void updateTitle(){
+		boolean unsavedChanges = false;
+		if(current!=null){
+			if(SpreadSheet.current!=null && SpreadSheet.current.hasUnsavedChanges()){
+				unsavedChanges = true;
+			}
+			current.setTitle("Excellence "+(unsavedChanges?"*":""));
 		}
 	}
 }

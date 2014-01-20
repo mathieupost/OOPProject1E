@@ -1,4 +1,5 @@
 package nl.tudelft.excellence.spreadsheet;
+import nl.tudelft.excellence.application.MainWindow;
 import nl.tudelft.excellence.exceptions.SaveNotNeededException;
 import nl.tudelft.excellence.spreadsheet.cells.Cell;
 import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
@@ -6,11 +7,8 @@ import nl.tudelft.excellence.utilities.FileManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.NoSuchElementException;
-import java.util.SortedMap;
 
 
 public class SpreadSheet {
@@ -19,7 +17,14 @@ public class SpreadSheet {
 	public static SpreadSheet current;
 	private final SortedMap<CellCoord, Cell> sheet;
 	private boolean unsavedChanges = false;
-	
+
+	/**
+	 * Create a new empty SpreadSheet object
+	 */
+	public SpreadSheet(){
+		this(new TreeMap<CellCoord, Cell>());
+	}
+
 	/**
 	 * Create a new SpreadSheet object with sheet as (base) structure
 	 * @param sheet A Map of cell coordinates and cells that make up the spreadsheet.
@@ -87,7 +92,20 @@ public class SpreadSheet {
 		if(coord.isValid()){
 			synchronized(sheet){
 				sheet.put(coord, cell);
-				unsavedChanges = true;
+				setUnsavedChanges(true);
+			}
+		}
+	}
+
+	/**
+	 * Remove the Cell at the given CellCoord (synchronizes on sheet)
+	 * @param coord The Coordinate to of the Cell to remove
+	 */
+	public void removeCell(CellCoord coord){
+		if(coord.isValid()){
+			synchronized (sheet){
+				sheet.remove(coord);
+				setUnsavedChanges(true);
 			}
 		}
 	}
@@ -158,7 +176,7 @@ public class SpreadSheet {
 		}
 		;
 		
-		return !(unsavedChanges = !FileManager.saveToFile(file, this.serialize()));
+		return !(setUnsavedChanges(!FileManager.saveToFile(file, this.serialize())));
 	}
 	
 	/**
@@ -215,4 +233,15 @@ public class SpreadSheet {
     public boolean hasUnsavedChanges(){
     	return unsavedChanges;
     }
+
+	/**
+	 * Sets the unsaved changes and updates the Window Title, also returns the unsaved changes for chaining.
+	 * @param unsavedChanges Whether or not there are unsaved changes
+	 * @return Whether or not there are unsaved changes
+	 */
+	private boolean setUnsavedChanges(boolean unsavedChanges){
+		this.unsavedChanges = unsavedChanges;
+		MainWindow.updateTitle();
+		return this.unsavedChanges;
+	}
 }

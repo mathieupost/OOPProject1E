@@ -42,19 +42,23 @@ public class MainDataModel extends AbstractTableModel{
 		CellCoord coord = new CellCoord(columnIndex, rowIndex);
 		if(sheetNotNull() && coord.isValid() && aValue!=null && aValue instanceof String){
 			String data = (String) aValue;
-			Cell cell = sheet.getCell(coord), newCell;
-			if(cell==null || !cell.getRawData().equals(data)){
-				if (data.startsWith("=") && data.length()>1) {
-					sheet.putCell(coord, newCell = new FunctionCell(data));
-				} else {
-					try {
-						double number = Double.parseDouble(data);
-						sheet.putCell(coord, newCell = new NumberCell(number));
-					} catch (NumberFormatException e) {
-						sheet.putCell(coord, newCell = new StringCell(data));
+			if(data.length()==0){
+				sheet.removeCell(coord);
+			} else {
+				Cell cell = sheet.getCell(coord), newCell;
+				if(cell==null || !cell.getRawData().equals(data)){
+					if (data.startsWith("=") && data.length()>1) {
+						sheet.putCell(coord, newCell = new FunctionCell(data));
+					} else {
+						try {
+							double number = Double.parseDouble(data);
+							sheet.putCell(coord, newCell = new NumberCell(number));
+						} catch (NumberFormatException e) {
+							sheet.putCell(coord, newCell = new StringCell(data));
+						}
 					}
+					if(cell!=null) cell.notifyObservers(newCell);
 				}
-				if(cell!=null) cell.notifyObservers(newCell);
 			}
 		}
 	}
@@ -66,5 +70,9 @@ public class MainDataModel extends AbstractTableModel{
 	
 	private boolean sheetNotNull(){
 		return sheet!=null || (sheet = SpreadSheet.current)!=null;
+	}
+
+	public void updateSpreadSheet(){
+		sheet = SpreadSheet.current;
 	}
 }
