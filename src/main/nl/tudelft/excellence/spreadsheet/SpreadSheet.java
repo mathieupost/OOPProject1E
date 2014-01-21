@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 
 public class SpreadSheet {
 	public static final int MAX_ROWS = 25;
-	public static final int MAX_COLUMNS = 15;
+	public static final int MAX_COLUMNS = 50;
 	public static SpreadSheet current;
 	private final SortedMap<CellCoord, Cell> sheet;
 	private boolean unsavedChanges = false;

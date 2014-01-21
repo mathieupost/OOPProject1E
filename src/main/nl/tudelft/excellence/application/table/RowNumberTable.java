@@ -33,8 +33,8 @@ public class RowNumberTable extends JTable
 		TableColumn column = new TableColumn();
 		column.setHeaderValue(" ");
 		addColumn( column );
-		column.setCellRenderer(new RowNumberRenderer());
-
+		getTableHeader().setDefaultRenderer(new MainTableHeaderRenderer(false));
+		setDefaultRenderer(Object.class, new MainTableHeaderRenderer(true));
 		getColumnModel().getColumn(0).setPreferredWidth(50);
 		setPreferredScrollableViewportSize(getPreferredSize());
 	}
@@ -120,35 +120,30 @@ public class RowNumberTable extends JTable
 	/*
 	 *  Borrow the renderer from JDK1.4.2 table header
 	 */
-	private static class RowNumberRenderer extends DefaultTableCellRenderer
-	{
-		public RowNumberRenderer()
-		{
+	private static class RowNumberRenderer extends DefaultTableCellRenderer {
+		private JTable main;
+		public RowNumberRenderer(JTable main) {
+			this.main = main;
 			setHorizontalAlignment(JLabel.CENTER);
 		}
 
-		public Component getTableCellRendererComponent(
-			JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
-		{
-			if (table != null)
-			{
-				JTableHeader header = table.getTableHeader();
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
+			if (table != null && main!=null){
+				JTableHeader header = main.getTableHeader();
 
-				if (header != null)
-				{
-					setForeground(header.getForeground());
-					setBackground(header.getBackground());
+				if (header != null){
+					setForeground(Color.BLACK/*header.getForeground()*/);
+					setBackground(Color.WHITE/*header.getBackground()*/);
 					setFont(header.getFont());
 				}
 			}
 
-			if (isSelected)
-			{
+			/*if (isSelected) {
 				setFont( getFont().deriveFont(Font.BOLD) );
-			}
+			}*/
 
 			setText((value == null) ? "" : value.toString());
-			setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+			setBorder(null/*UIManager.getBorder("TableHeader.cellBorder")*/);
 
 			return this;
 		}

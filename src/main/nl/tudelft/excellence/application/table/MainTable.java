@@ -9,6 +9,9 @@ public class MainTable extends JTable {
     public MainTable(TableModel dataModel, Container container) {
         super(dataModel);
 
+	    this.setRowHeight(20);
+	    this.getTableHeader().setDefaultRenderer(new MainTableHeaderRenderer(false));
+
 	    JScrollPane scrollPane = new JScrollPane(this);
 	    JTable rowTable = new RowNumberTable(this);
 	    scrollPane.setRowHeaderView(rowTable);
