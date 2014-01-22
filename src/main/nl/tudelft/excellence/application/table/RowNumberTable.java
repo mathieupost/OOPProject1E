@@ -3,8 +3,6 @@ package nl.tudelft.excellence.application.table;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -88,9 +86,9 @@ public class RowNumberTable extends JTable
 	{
         return false;
 	}
-//
-//  Implement the ChangeListener
-//
+	//
+	//  Implement the ChangeListener
+	//
 	public void stateChanged(ChangeEvent e)
 	{
 		//  Keep the scrolling of the row table in sync with main table
@@ -99,9 +97,9 @@ public class RowNumberTable extends JTable
 		JScrollPane scrollPane = (JScrollPane)viewport.getParent();
 		scrollPane.getVerticalScrollBar().setValue(viewport.getViewPosition().y);
 	}
-//
-//  Implement the PropertyChangeListener
-//
+	//
+	//  Implement the PropertyChangeListener
+	//
 	public void propertyChange(PropertyChangeEvent e)
 	{
 		//  Keep the row table in sync with the main table
@@ -114,38 +112,6 @@ public class RowNumberTable extends JTable
 		if ("model".equals(e.getPropertyName()))
 		{
 			setModel( main.getModel() );
-		}
-	}
-
-	/*
-	 *  Borrow the renderer from JDK1.4.2 table header
-	 */
-	private static class RowNumberRenderer extends DefaultTableCellRenderer {
-		private JTable main;
-		public RowNumberRenderer(JTable main) {
-			this.main = main;
-			setHorizontalAlignment(JLabel.CENTER);
-		}
-
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
-			if (table != null && main!=null){
-				JTableHeader header = main.getTableHeader();
-
-				if (header != null){
-					setForeground(Color.BLACK/*header.getForeground()*/);
-					setBackground(Color.WHITE/*header.getBackground()*/);
-					setFont(header.getFont());
-				}
-			}
-
-			/*if (isSelected) {
-				setFont( getFont().deriveFont(Font.BOLD) );
-			}*/
-
-			setText((value == null) ? "" : value.toString());
-			setBorder(null/*UIManager.getBorder("TableHeader.cellBorder")*/);
-
-			return this;
 		}
 	}
 }

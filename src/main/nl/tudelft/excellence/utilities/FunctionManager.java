@@ -51,7 +51,7 @@ public class FunctionManager {
 		try{
 			functionName = functionString.substring(0, functionString.indexOf("("));
 		} catch(StringIndexOutOfBoundsException e){
-			throw new ParseArgumentsException("Error: No function or coordinate found after the '='");
+			throw new ParseArgumentsException("Error: No function or (valid) coordinate found after the '='");
 		}
 
 		String[] args;
@@ -124,8 +124,14 @@ public class FunctionManager {
 				case ';':
 					if (openBrackets == 0) {
 						if (previous == ':') {
-							Cell[] cells = SpreadSheet.current.getCells(res.get(res.size() - 1), arg);
+							String from = res.get(res.size() - 1);
+							Cell[] cells = SpreadSheet.current.getCells(from, arg);
+							if(cells==null)
+								throw new ParseArgumentsException("Error: Specified range '"+from+":"+arg+"' is invalid.");
 							for (int cell = 1; cell < cells.length; cell++) { // Skip first because it is already added
+								if(cells[cell]==null){
+									throw new ParseArgumentsException("Error: Not all Cells in range '"+from+":"+arg+"' are valid.");
+								}
 								res.add(cells[cell].getData());
 							}
 						} else
@@ -143,22 +149,23 @@ public class FunctionManager {
 		}
 		// add last arg
 		if (previous == ':') {
-			Cell[] cells = SpreadSheet.current.getCells(res.get(res.size() - 1), arg);
+			String from = res.get(res.size() - 1);
+			Cell[] cells = SpreadSheet.current.getCells(from, arg);
+			if(cells==null)
+				throw new ParseArgumentsException("Error: Specified range '"+from+":"+arg+"' is invalid.");
 			for (int cell = 1; cell < cells.length; cell++) { // Skip first because it is already added
+				if(cells[cell]==null){
+					throw new ParseArgumentsException("Error: Not all Cells in range '"+from+":"+arg+"' are valid.");
+				}
 				res.add(cells[cell].getData());
 			}
 		} else
 			res.add(arg);
 
-		String[] resArgs = new String[res.size()];
-		for (int i = 0; i < resArgs.length; i++) {
-			resArgs[i] = res.get(i);
-		}
-
 		if(openBrackets != 0) {
 			throw new ParseArgumentsException("Error: Check your brackets!");
 		}
 
-		return resArgs;
+		return res.toArray(new String[res.size()]);
 	}
 }

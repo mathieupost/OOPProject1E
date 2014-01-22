@@ -1,7 +1,6 @@
 package nl.tudelft.excellence.spreadsheet.cells;
 
 import nl.tudelft.excellence.utilities.FunctionManager;
-import nl.tudelft.excellence.utilities.Utility;
 
 public class FunctionCell extends Cell{
 
@@ -35,7 +34,6 @@ public class FunctionCell extends Cell{
 		try {
 			return FunctionManager.parseFunction(this.getRawData());
 		} catch (Exception e) {
-			//e.printStackTrace();
 			return e.getMessage();
 		}
 	}

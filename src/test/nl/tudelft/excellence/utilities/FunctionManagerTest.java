@@ -36,13 +36,15 @@ public class FunctionManagerTest {
 		assertEquals(new FunctionCell("=IF(B5;minder;fijn)").getData(), "fijn");
 
 		assertEquals(new FunctionCell("=B5").getData(), "false");
+
+		assertEquals(new FunctionCell("=ISEVEN(2)").getData(), "true");
 	}
 
 	@Test
 	public void testParseFunctionErrors(){
 		assertEquals(SpreadSheet.current.getCell(2, 2).getData(), "Error: Recursive Cell pointer");
 
-		assertEquals(new FunctionCell("=NotACoordinate").getData(), "Error: No function or coordinate found after the '='");
+		assertEquals(new FunctionCell("=NotACoordinate").getData(), "Error: No function or (valid) coordinate found after the '='");
 
 		assertEquals(new FunctionCell("=AA10").getData(), "#Cell 'AA10' is empty.");
 

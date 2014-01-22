@@ -1,8 +1,9 @@
 package nl.tudelft.excellence.spreadsheet.cells;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class NumberCellTest {
 
@@ -18,10 +19,10 @@ public class NumberCellTest {
 	
 	@Test
 	public void testEquals() {
-		assertEquals(c1.equals(c1),true);
-		assertEquals(c1.equals(null),false);
-		assertEquals(c1.equals(c2),false);
-		assertEquals(c1.equals(c3),true);
+		assertEquals(c1, c1);
+		assertNotEquals(c1, null);
+		assertNotEquals(c1, c2);
+		assertEquals(c1, c3);
 	}
 	
 	@Test
