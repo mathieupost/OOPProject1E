@@ -22,13 +22,7 @@ public class FunctionCell extends Cell{
             return false;
 
         FunctionCell that = (FunctionCell) other;
-        if(Utility.isNumber(this.getData()) && Utility.isNumber(that.getData())){
-            return Double.parseDouble(this.getData())==Double.parseDouble(that.getData());
-        } else if(Utility.isBoolean(this.getData()) && Utility.isBoolean(that.getData())){
-            return Boolean.parseBoolean(this.getData())==Boolean.parseBoolean(that.getData());
-        } else {
-            return this.getData().equals(that.getData());
-        }
+        return this.getRawData().equals(that.getRawData());
     }
 
     /**
