@@ -102,11 +102,9 @@ public class SpreadSheet {
 	 * @param coord The Coordinate to of the Cell to remove
 	 */
 	public void removeCell(CellCoord coord){
-		if(coord.isValid()){
-			synchronized (sheet){
-				sheet.remove(coord);
-				setUnsavedChanges(true);
-			}
+		synchronized (sheet){
+			sheet.remove(coord);
+			setUnsavedChanges(true);
 		}
 	}
 	
@@ -118,13 +116,13 @@ public class SpreadSheet {
 	public static SpreadSheet openFile(String fileName){
 		if(fileName==null){
 			//TODO Report error to user in a proper way. (FI: by throwing a (custom) exception)
-			System.out.println("File Name should not be null, what are you even trying to do?");
 			return null;
 		}
 		
 		File file = new File(fileName);
 		if(!file.exists() || !file.canRead()){
 			//TODO Report problem to the user.
+			return null;
 		}
 
 		return FileManager.parseXML(file);
@@ -154,7 +152,6 @@ public class SpreadSheet {
 		
 		if(fileName==null){
 			//TODO Report error to user in a proper way. (FI: by throwing a (custom) exception)
-			System.out.println("File Name should not be null, what are you even trying to do?");
 			return false;
 		}
 		
@@ -165,7 +162,6 @@ public class SpreadSheet {
 		try {
 			if(!file.exists() && !file.createNewFile()){
 				//TODO Report error to user in a proper way
-				System.out.println("bagger");
 				return false;
 			}
 		} catch(IOException ignore){}
@@ -210,23 +206,6 @@ public class SpreadSheet {
             }
         }
         return true;
-    }
-
-    public int getRowCount(){
-        try{
-            return sheet.lastKey().getRow();
-        } catch (NoSuchElementException e){
-            return 1;
-        }
-    }
-
-    public int getColumnCount(){
-        int count = 1;
-        for(CellCoord c: sheet.keySet()){
-            if(c.getColumn()>count)
-                count = c.getColumn();
-        }
-        return count;
     }
     
     public boolean hasUnsavedChanges(){
