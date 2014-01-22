@@ -28,7 +28,6 @@ public class IF extends StringFunction {
 		isLogicValue = logictest.equalsIgnoreCase("true") || logictest.equalsIgnoreCase("false");
 
 		this.logictest = logictest.replaceFirst("((!?=)|((<|>)=?))", "|$0|");
-		System.out.println("logictest = " + logictest);
 
 		if (strings.length >= 3) {
 			iftrue = strings[1];
