@@ -58,7 +58,7 @@ public class SpreadSheet {
 	}
 
 	public Cell[] getCells(String from, String to) {
-		ArrayList<Cell> cellArrayList = new ArrayList<>();
+		ArrayList<Cell> cellArrayList = new ArrayList<Cell>();
 		CellCoord fromCoord = new CellCoord(from);
 		CellCoord toCoord = new CellCoord(to);
 		if (fromCoord.isValid() && toCoord.isValid()) {
@@ -174,8 +174,7 @@ public class SpreadSheet {
 			//TODO Report problem to the user.
 			return false;
 		}
-		;
-		
+
 		return !(setUnsavedChanges(!FileManager.saveToFile(file, this.serialize())));
 	}
 	

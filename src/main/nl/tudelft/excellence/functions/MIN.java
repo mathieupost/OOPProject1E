@@ -14,11 +14,10 @@ public class MIN extends NumberFunction {
 	public MIN(String... values) throws IllegalFunctionArgumentsException{
 		super(MIN_ARGS, values);
 		input = new double[values.length];
-		for(int i = 0; i<values.length;i++){
-			try{
-				input[1] = Double.parseDouble(values[i]);
-			}
-			catch(NumberFormatException e){
+		for (String value : values) {
+			try {
+				input[1] = Double.parseDouble(value);
+			} catch (NumberFormatException e) {
 				throw new IllegalFunctionArgumentsException(e);
 			}
 		}
@@ -27,10 +26,10 @@ public class MIN extends NumberFunction {
 	@Override
 	public double execute() {
 		double min = 0;
-		for (int i = 0; i < input.length; i++){
-			if(input[i] < min)
-				min = input[i];
-			}
+		for (double anInput : input) {
+			if (anInput < min)
+				min = anInput;
+		}
 		return min;
 	}
 }

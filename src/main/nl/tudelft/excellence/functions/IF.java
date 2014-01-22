@@ -1,9 +1,6 @@
 package nl.tudelft.excellence.functions;
 
 import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
-import nl.tudelft.excellence.spreadsheet.SpreadSheet;
-import nl.tudelft.excellence.spreadsheet.cells.Cell;
-import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 import nl.tudelft.excellence.utilities.Utility;
 
 /**
@@ -14,8 +11,6 @@ import nl.tudelft.excellence.utilities.Utility;
  */
 public class IF extends StringFunction {
 	private String logictest;
-	private double a;
-	private double b;
 	private String iftrue;
 	private String iffalse;
 	private boolean isLogicValue;
@@ -50,9 +45,9 @@ public class IF extends StringFunction {
 			return (Boolean.parseBoolean(logictest))?iftrue:iffalse;
 		}
 		
-		String[] split = logictest.split("\\|");	
-		a = Double.parseDouble(Utility.getValue(split[0]));
-		b = Double.parseDouble(Utility.getValue(split[2]));
+		String[] split = logictest.split("\\|");
+		double a = Double.parseDouble(Utility.getValue(split[0]));
+		double b = Double.parseDouble(Utility.getValue(split[2]));
 		
 		if (split[1].equals("=")) {
 			if (a == b) {

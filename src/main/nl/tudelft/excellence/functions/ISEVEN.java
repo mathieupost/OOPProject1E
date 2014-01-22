@@ -24,6 +24,6 @@ public class ISEVEN extends BooleanFunction {
 
 	@Override
 	public boolean execute() {
-		return (int)result % 2 == 0? true : false;
+		return ((int) result) % 2 == 0;
 	}
 }

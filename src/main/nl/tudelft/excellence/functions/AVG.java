@@ -30,8 +30,8 @@ public class AVG extends NumberFunction{
 	@Override
 	public double execute() {
 		double avg = 0;
-		for (int i = 0; i < input.length; i++) {
-			avg += input[i];
+		for (double anInput : input) {
+			avg += anInput;
 		}
 		return avg / input.length;
 	}

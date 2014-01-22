@@ -16,18 +16,15 @@ public class COUNTA extends NumberFunction{
 		super(MIN_ARGS, strings);
 		
 		cells = new String[strings.length];
-		
-		for(int i = 0; i < strings.length; i++){
 
-			cells[i] = strings[i];
-		}
+		System.arraycopy(strings, 0, cells, 0, strings.length);
 	}
 
 	@Override
 	public double execute() {
 		double result = 0;
-		for(int i = 0; i < cells.length; i++){
-			if(cells[i] != null && cells[i].length() != 0){
+		for (String cell : cells) {
+			if (cell != null && cell.length() != 0) {
 				result++;
 			}
 		}

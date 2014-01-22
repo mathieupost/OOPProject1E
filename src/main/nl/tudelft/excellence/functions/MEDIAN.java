@@ -33,8 +33,8 @@ public class MEDIAN extends NumberFunction{
 		Arrays.sort(input);
 		double res = 0;
 		if(input.length %2==0){
-			int a = (int) input.length/2-1;
-			int b = (int) input.length/2;
+			int a = input.length/2-1;
+			int b = input.length/2;
 			res = (input[a]+input[b])/2;
 		}
 		else if(input.length %2 != 0){

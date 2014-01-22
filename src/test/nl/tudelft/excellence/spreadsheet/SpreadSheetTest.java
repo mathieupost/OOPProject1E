@@ -47,7 +47,7 @@ public class SpreadSheetTest {
 	}
 
 	/**
-	 * Test method for {@link nl.tudelft.excellence.spreadsheet.SpreadSheet#getCell(long, long)}.
+	 * Test method for {@link nl.tudelft.excellence.spreadsheet.SpreadSheet#getCell(int, int)}.
 	 */
 	@Test
 	public void testGetCellLongLong() {

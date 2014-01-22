@@ -14,21 +14,17 @@ public class COUNT extends NumberFunction {
 	public COUNT(String... strings) throws IllegalFunctionArgumentsException{
 		super(MIN_ARGS, strings);
 		input = new String[strings.length];
-		for (int i = 0; i < strings.length; i++) {
-			input[i] = strings[i];
-		}
+		System.arraycopy(strings, 0, input, 0, strings.length);
 	}
 
 	@Override
 	public double execute() {
 		double res = 0;
-		for(int i=0; i<input.length; i++){
-			try{
-				Double.parseDouble(input[i]);
+		for (String anInput : input) {
+			try {
+				Double.parseDouble(anInput);
 				res++;
-			}
-			catch(Exception e){
-			}
+			} catch (Exception ignored) {}
 		}
 		return res;
 	}

@@ -32,9 +32,9 @@ public class MAX extends NumberFunction{
 	@Override
 	public double execute() {
 		double res = 0;
-		for (int i = 0; i < input.length; i++) {
-			if (input[i] > res) {
-				res = input[i];
+		for (double anInput : input) {
+			if (anInput > res) {
+				res = anInput;
 			}
 		}
 		return res;

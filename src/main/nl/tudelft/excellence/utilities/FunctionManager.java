@@ -7,13 +7,13 @@ import nl.tudelft.excellence.functions.NumberFunction;
 import nl.tudelft.excellence.functions.StringFunction;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 import nl.tudelft.excellence.spreadsheet.cells.Cell;
+import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class FunctionManager {
-	private static final List<String> operators = Arrays.asList(new String[]{"+", "-", "*", "/", "^", "<", ">", "=", "!"});
 	static HashMap<String, Class<? extends Function>> functionList = new HashMap<String, Class<? extends Function>>();
 
 	static {
@@ -21,8 +21,8 @@ public class FunctionManager {
 	}
 
 	/**
-	 * @param name
-	 * @return
+	 * @param name The name of the function (Case-insensitive)
+	 * @return The Class<? extends Function> object or null if it doesn't exist
 	 */
 	public static Class<? extends Function> getFunctionByName(String name) {
 		return functionList.get(name.toUpperCase());
@@ -46,9 +46,28 @@ public class FunctionManager {
 		if (functionString.startsWith("="))
 			functionString = functionString.substring(1);
 
-		String functionName = functionString.substring(0, functionString.indexOf("("));
+		CellCoord coord = new CellCoord(functionString);
+		if(coord.isValid()){
+			Cell cell = SpreadSheet.current.getCell(coord);
+			if(cell!=null){
+				if (cell.getRawData().equalsIgnoreCase("="+functionString)) {
+					throw new ParseArgumentsException("Error: Recursive Cell pointer");
+				} else {
+					return cell.getData();
+				}
+			} else {
+				throw new ParseArgumentsException("#Cell '"+functionString+"' is empty.");
+			}
+		}
 
-		String[] args = new String[0];
+		String functionName;
+		try{
+			functionName = functionString.substring(0, functionString.indexOf("("));
+		} catch(StringIndexOutOfBoundsException e){
+			throw new ParseArgumentsException("Error: No function or coordinate found after the '='");
+		}
+
+		String[] args;
 		try {
 			args = parseArgs(functionString.substring(functionString.indexOf("(") + 1, functionString.lastIndexOf(")")));
 		} catch (StringIndexOutOfBoundsException e) {
@@ -87,11 +106,11 @@ public class FunctionManager {
 		}
 
 		System.out.println(functionString + " = " + res);
-		return res; //TODO return result
+		return res;
 	}
 
 	private static String[] parseArgs(String functionString) throws ParseArgumentsException{
-		ArrayList<String> res = new ArrayList<>();
+		ArrayList<String> res = new ArrayList<String>();
 		char[] functionStringChars = functionString.toCharArray();
 		int openBrackets = 0;
 		char previous = ' ';
@@ -155,36 +174,4 @@ public class FunctionManager {
 
 		return resArgs;
 	}
-
-	/**
-	 * Converts an expression from infix to postfix (or RPN) notation using the Shunting-Yard algorithm
-	 *
-	 * @param expression The expression to convert
-	 * @return The expression in postfix notation
-	 */
-
-	private static String infixToRPN(String expression) {
-		ArrayList<String> outQ = new ArrayList<>();
-		Stack<String> opStack = new Stack<>();
-		String[] input = expression.split("(?<!^)");
-
-		for (String token : input) {
-
-		}
-		return "";
-	}
-
-	private static String evaluate(String expr1, String expr2, char operand) {
-
-
-		switch (operand) {
-			case '+':
-		}
-		return "";
-	}
-
-	private static String prepareFunction(String function, char operator) {
-		return "";
-	}
-
 }

@@ -78,8 +78,7 @@ public class Utility {
 					functionList.put(c.getSimpleName(), c.asSubclass(Function.class));
 				}
 			}
-		} catch (ClassNotFoundException | IOException ignored) {
-		}
+		} catch (Exception ignored) {}
 		return functionList;
 	}
 

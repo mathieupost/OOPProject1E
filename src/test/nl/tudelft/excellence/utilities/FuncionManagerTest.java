@@ -18,8 +18,7 @@ public class FuncionManagerTest {
 		sheet.put(new CellCoord(2, 3), new NumberCell(1.0));
 		sheet.put(new CellCoord(2, 4), new NumberCell(1.0));
 		sheet.put(new CellCoord(2, 5), new FunctionCell("=IF(2=B2)"));
-		SpreadSheet s1 = new SpreadSheet(sheet);
-		SpreadSheet.current = s1;
+		SpreadSheet.current = new SpreadSheet(sheet);
 
 		Cell cell = new FunctionCell("=IF(B5;SUM(B1:B4);hoi)");
 		System.out.println("cellRawData = " + cell.getRawData());

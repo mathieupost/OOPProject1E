@@ -1,18 +1,14 @@
 package nl.tudelft.excellence.utilities;
-import nl.tudelft.excellence.spreadsheet.cells.*;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
-
+import nl.tudelft.excellence.spreadsheet.cells.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.TreeMap;
 
@@ -71,11 +67,11 @@ public class FileManager {
 
 			saxParser.parse(file, handler);
 
-		} catch (ParserConfigurationException | SAXException | IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-        return new SpreadSheet(grid);
+		return new SpreadSheet(grid);
 	}
 	
 	public static boolean saveToFile(File file, String content){
@@ -86,7 +82,7 @@ public class FileManager {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		writer.write(content);
 		writer.close();
 		return !writer.checkError();

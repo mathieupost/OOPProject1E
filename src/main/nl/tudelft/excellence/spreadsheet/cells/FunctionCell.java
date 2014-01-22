@@ -47,7 +47,7 @@ public class FunctionCell extends Cell implements Observer {
 		try {
 			return FunctionManager.parseFunction(this.getRawData());
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return e.getMessage();
 		}
 	}
@@ -58,7 +58,7 @@ public class FunctionCell extends Cell implements Observer {
 	}
 
     private boolean isSame(String s1, String s2){
-        if(s1==s2)
+        if(s1.equals(s2))
             return true;
 
         if(s1==null || s2==null)

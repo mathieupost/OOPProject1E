@@ -28,8 +28,8 @@ public class PRODUCT extends NumberFunction {
 	@Override
 	public double execute() {
 		double product = 1;
-		for (int i = 0; i < input.length; i++){
-			product *= input[i];
+		for (double anInput : input) {
+			product *= anInput;
 		}
 		return product;
 	}

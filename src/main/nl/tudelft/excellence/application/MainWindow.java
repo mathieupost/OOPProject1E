@@ -22,12 +22,7 @@ public class MainWindow extends JFrame{
 	private static MainWindow current;
 
 	public MainWindow(){
-		this(null);
-	}
-
-	public MainWindow(String fileName){
 		current = this;
-		MainWindow.fileName = fileName;
 		buildUI();
     }
 
@@ -149,7 +144,7 @@ public class MainWindow extends JFrame{
         /** Table - Body **/
         mainTable = new MainTable(new MainDataModel(SpreadSheet.current), getContentPane());
 
-        setIconImages(new ArrayList<>(Arrays.asList(new Image[]{new ImageIcon(getClass().getResource("excellence-icon-small.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-medium.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-large.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-256.png")).getImage()})));
+        setIconImages(new ArrayList<Image>(Arrays.asList(new Image[]{new ImageIcon(getClass().getResource("excellence-icon-small.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-medium.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-large.png")).getImage(), new ImageIcon(getClass().getResource("excellence-icon-256.png")).getImage()})));
         updateTitle();
         setSize(750, 500);
         setLocationRelativeTo(null);

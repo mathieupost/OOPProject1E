@@ -14,7 +14,7 @@ public class CellCoordTest {
     }
 
 	/**
-	 * Test method for {@link nl.tudelft.excellence.spreadsheet.cells.CellCoord#CellCoord(long, long)}.
+	 * Test method for {@link nl.tudelft.excellence.spreadsheet.cells.CellCoord#CellCoord(int, int)}.
 	 */
 	@Test
 	public void testCellCoordLongLong() {

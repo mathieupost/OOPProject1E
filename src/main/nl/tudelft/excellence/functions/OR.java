@@ -29,8 +29,8 @@ public class OR extends BooleanFunction{
 	@Override
 	public boolean execute() {
 		boolean result = false;
-		for(int i = 0; i < input.length; i++){
-			if(input[i] == true){
+		for (boolean anInput : input) {
+			if (anInput) {
 				result = true;
 			}
 		}
