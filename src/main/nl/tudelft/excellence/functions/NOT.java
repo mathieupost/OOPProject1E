@@ -13,12 +13,9 @@ public class NOT extends BooleanFunction {
 	
 	public NOT(String value)throws IllegalFunctionArgumentsException{
 		super(MIN_ARGS, value);
-		try{
-			input = Boolean.parseBoolean(value);
-		}
-		catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException(e);
-		}
+		
+		input = Boolean.parseBoolean(value);	
+
 	}
 
 

@@ -1,6 +1,7 @@
 package nl.tudelft.excellence.functions;
 
 import static org.junit.Assert.*;
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
 
 import org.junit.Test;
 
@@ -14,6 +15,16 @@ public class SumTest {
 		assertEquals(test.execute(),15,0);
 		assertEquals(test2.execute(),-1,0);
 		assertEquals(test3.execute(),-6,0);
+	}
+	
+	@Test
+	public void test2(){
+		try{
+			SUM test = new SUM("NotADouble");
+			fail();
+		} catch(IllegalFunctionArgumentsException ignore){}
+		
+		
 	}
 
 }
