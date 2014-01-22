@@ -1,5 +1,8 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+import nl.tudelft.excellence.utilities.Utility;
+
 /**
  * Converts a String into a logical condition and tests that condition
  * Returns a given String if the test returns true, returns another given String if the test returns false
@@ -8,19 +11,32 @@ package nl.tudelft.excellence.functions;
  */
 public class IF extends StringFunction {
 	private String logictest;
-	private double a;
-	private double b;
 	private String iftrue;
 	private String iffalse;
 	private boolean isLogicValue;
+	
+	final static int MIN_ARGS = 1;
 
-	public IF(String logictest, String iftrue1, String iffalse1) {
-		logictest = logictest.trim();
+	public IF(String...strings) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, strings);
+
+		if (strings.length == 2) {
+			throw new IllegalFunctionArgumentsException("This function needs 1 argument or 3 or more arguments");
+		}
+
+		logictest = Utility.getValue(strings[0].trim());
 		isLogicValue = logictest.equalsIgnoreCase("true") || logictest.equalsIgnoreCase("false");
-			
-		this.logictest = logictest.replaceFirst("((!?=)|((<|>)=?))", "|$0|");;
-		iftrue = iftrue1;
-		iffalse = iffalse1;
+
+		this.logictest = logictest.replaceFirst("((!?=)|((<|>)=?))", "|$0|");
+		System.out.println("logictest = " + logictest);
+
+		if (strings.length >= 3) {
+			iftrue = strings[1];
+			iffalse = strings[2];
+		} else {
+			iftrue = "true";
+			iffalse = "false";
+		}
 	}
 
 	@Override
@@ -30,8 +46,8 @@ public class IF extends StringFunction {
 		}
 		
 		String[] split = logictest.split("\\|");
-		a = Double.parseDouble(split[0]);
-		b = Double.parseDouble(split[2]);
+		double a = Double.parseDouble(Utility.getValue(split[0]));
+		double b = Double.parseDouble(Utility.getValue(split[2]));
 		
 		if (split[1].equals("=")) {
 			if (a == b) {

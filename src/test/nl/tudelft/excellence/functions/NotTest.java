@@ -8,13 +8,13 @@ public class NotTest {
 
 	@Test
 	public void testNot() {
-		NOT a = new NOT(true);
+		NOT a = new NOT("true");
 		assertEquals(a.execute(), false);
 	}
 	
 	@Test
 	public void testNot2(){
-		NOT b = new NOT(false);
+		NOT b = new NOT("false");
 		assertEquals(b.execute(), true);
 	}
 

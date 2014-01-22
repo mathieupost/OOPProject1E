@@ -1,27 +1,36 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 /**
  * Returns true, when 1 or more input values is true, and returns false when all input is false
  * <b>Syntax:</b> OR(boolean a[, boolean b, boolean c...])
  */
 
 public class OR extends BooleanFunction{
+	final static int MIN_ARGS = 1;
 	
-	private boolean[] values;
+	private boolean[] input;
 	
-	public OR(boolean a, boolean...bs){
-		values = new boolean[bs.length + 1];
-		values[0] = a;
-		for(int i = 0; i < bs.length; i++){
-			values[i+1] = bs[i];
+	public OR(String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, values);
+		
+		input = new boolean[values.length];
+		
+		for(int i = 0; i < values.length; i++){
+			try{
+				input[i] = Boolean.parseBoolean(values[i]);
+			}catch(NumberFormatException e){
+				throw new IllegalFunctionArgumentsException(e);
+			}
 		}
 	}
 
 	@Override
 	public boolean execute() {
 		boolean result = false;
-		for(int i = 0; i < values.length; i++){
-			if(values[i] == true){
+		for (boolean anInput : input) {
+			if (anInput) {
 				result = true;
 			}
 		}

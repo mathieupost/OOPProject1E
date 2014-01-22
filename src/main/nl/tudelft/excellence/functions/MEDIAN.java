@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 import java.util.Arrays;
 
 /**
@@ -11,11 +13,18 @@ public class MEDIAN extends NumberFunction{
 	
 	private double[] input;
 	
-	public MEDIAN(double a, double...ds ){
-		input = new double[ds.length+1];
-		input[0] = a;
-		for(int i = 0; i<ds.length;i++){
-			input[i+1] = ds[i];
+	final static int MIN_ARGS = 1;
+	
+	public MEDIAN(String...values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, values);
+		input = new double[values.length];
+		for(int i = 0; i<values.length;i++){
+			try{
+				input[i] = Double.parseDouble(values[i]);
+			}
+			catch(NumberFormatException e){
+				throw new IllegalFunctionArgumentsException(e);
+			}
 		}
 	}
 
@@ -24,8 +33,8 @@ public class MEDIAN extends NumberFunction{
 		Arrays.sort(input);
 		double res = 0;
 		if(input.length %2==0){
-			int a = (int) input.length/2-1;
-			int b = (int) input.length/2;
+			int a = input.length/2-1;
+			int b = input.length/2;
 			res = (input[a]+input[b])/2;
 		}
 		else if(input.length %2 != 0){

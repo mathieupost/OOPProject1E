@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+
 /**
  * Returns base raised to the power exp
  * 
@@ -13,10 +15,18 @@ public class POWER extends NumberFunction {
 
 private double base;
 private double exp;
+
+final static int MIN_ARGS = 2;
 	
-	public POWER(double a, double b) {
-		base = a;
-		exp = b;
+	public POWER(String...strings) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, strings);
+		try{
+			base = Double.parseDouble(strings[0]);
+			exp = Double.parseDouble(strings[1]);
+		}
+		catch(NumberFormatException e){
+			throw new IllegalFunctionArgumentsException(e);
+		}
 	}
 
 	public double execute() {
