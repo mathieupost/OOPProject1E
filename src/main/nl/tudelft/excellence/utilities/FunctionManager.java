@@ -92,7 +92,7 @@ public class FunctionManager {
 			throw new Exception("Error: " + e.getCause().getMessage() + " in: " + functionString);
 		}
 
-		System.out.println(functionString + " = " + res);
+		//System.out.println(functionString + " = " + res);
 		return res;
 	}
 
