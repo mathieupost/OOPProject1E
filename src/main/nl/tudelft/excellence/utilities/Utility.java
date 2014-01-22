@@ -13,56 +13,9 @@ import java.net.URL;
 import java.util.*;
 
 public class Utility {
-	private static Scanner sc = new Scanner(System.in);
 	private static final JFileChooser fc = new JFileChooser();
 	static{
 		fc.setFileFilter(new FileNameExtensionFilter("All Excellence files (*.xml, *.excellence)", "xml", "excellence"));
-	}
-
-	/**
-	 * Asks the user a String that has to be on of the possible options
-	 *
-	 * @param options The options the user is able to input
-	 * @return One of the String options chosen by the user
-	 */
-	public static String askString(String... options) {
-		String result = null;
-		List<String> optList = Arrays.asList(options);
-		String error = "Ongeldige invoer.";
-		if (optList.size() > 0) {
-			error += " De mogelijk opties zijn: (";
-			for (String opt : optList) {
-				error += opt + "/";
-			}
-			error = error.substring(0, error.length() - 1) + ")";
-		}
-		while (result == null) {
-			try {
-				result = sc.next();
-			} catch (InputMismatchException e) {
-				sc.nextLine();
-				System.out.println(error);
-				result = null;
-				continue;
-			} catch (NoSuchElementException e) {
-				return "";
-			}
-			if (optList.size() > 0 && !optList.contains(result)) {
-				System.out.println(error);
-				result = null;
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Confirm for instance if the user wants to proceed with something.
-	 * <b>Note:</b> This is the same as calling askString("y", "n") and checking if the answer is "y"
-	 *
-	 * @return Whether or not the user wants to proceed/agrees
-	 */
-	public static boolean askConfirmation() {
-		return askString("y", "n").equals("y");
 	}
 
 	/**
