@@ -40,13 +40,13 @@ public class CellCoord implements Comparable<CellCoord> {
 				valid = false;
 				return;
 			}
-			column += Math.pow(26, i)*(temp.charAt(i)-64);
+			column += Math.pow(26, (rowSplitIndex-1)-i)*(temp.charAt(i)-64);
 		}
 		
 		try{
 			row = Integer.parseInt(coord.substring(rowSplitIndex));
 		} catch (NumberFormatException ignored){}
-		if(row <= 0 || column <= 0){
+		if(row <= 0 || column <= 0 || row > SpreadSheet.MAX_ROWS || column > SpreadSheet.MAX_COLUMNS){
 			valid = false;
 		}
 	}

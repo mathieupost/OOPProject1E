@@ -29,9 +29,9 @@ public class CellCoordTest {
 	 */
 	@Test
 	public void testCellCoordString() {
-        c1 = new CellCoord("AA482");
-        c2 = new CellCoord("AA483").previousRow();
-        assertEquals(c1, c2);
+        c1 = new CellCoord("AB24");
+        c2 = new CellCoord("AB25").previousRow();
+		assertEquals(c1, c2);
 	}
 
 	/**

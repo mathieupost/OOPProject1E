@@ -98,9 +98,9 @@ public class FunctionManager {
 				res = stringFunction.execute();
 			}
 		} catch (InstantiationException e) {
-			throw new Exception("Error: This function does not exists: " + functionName + "\n", e);
+			throw new Exception("Error: This function does not exist: " + functionName + "\n", e);
 		} catch (NullPointerException e) {
-			throw new Exception("Error: This function does not exists: " + functionName + "\n", e);
+			throw new Exception("Error: This function does not exist: " + functionName + "\n", e);
 		} catch (InvocationTargetException e) {
 			throw new Exception("Error: " + e.getCause().getMessage() + " in: " + functionString);
 		}
