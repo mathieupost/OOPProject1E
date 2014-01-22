@@ -112,8 +112,8 @@ public class SpreadSheetTest {
 	public void testOpenFile() {
 		assertNull(SpreadSheet.openFile(null));
 		assertNull(SpreadSheet.openFile("C://windows/system32/doesnotexist.xml"));
-		s2 = SpreadSheet.openFile("assets/spreadsheet.xml");
-		assertEquals(s1.serialize(),
+		s2 = SpreadSheet.openFile("assets/testfile.xml");
+		assertEquals(s2.serialize(),
                 "<?xml version=\"1.0\"?>\n" +
                 "<SPREADSHEET>\n" +
                     "\t<CELL row=\"1\" column=\"1\">\n" +
@@ -126,7 +126,7 @@ public class SpreadSheetTest {
                         "\t\tTweede rij:\n" +
                     "\t</CELL>\n" +
                     "\t<CELL row=\"2\" column=\"2\">\n" +
-                        "\t\t25.0\n" +
+                        "\t\t=SUM(A2;10)\n" +
                     "\t</CELL>\n" +
                 "</SPREADSHEET>"
         );
