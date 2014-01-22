@@ -3,8 +3,12 @@ package nl.tudelft.excellence.functions;
 import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
 
 public abstract class NumberFunction extends Function {
-	public NumberFunction(int MIN_ARGS, String... values) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, values);
+	public NumberFunction(int MIN_ARGS, int MAX_ARGS, String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, MAX_ARGS, values);
+	}
+
+	public NumberFunction(int MIN_ARGS, String... values) throws  IllegalFunctionArgumentsException{
+		super(MIN_ARGS, 0, values);
 	}
 
 	/**

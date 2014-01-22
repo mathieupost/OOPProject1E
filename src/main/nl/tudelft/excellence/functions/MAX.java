@@ -3,12 +3,12 @@ package nl.tudelft.excellence.functions;
 import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
 
 /**
- * Calculates the maximum value of a given number of doubles
+ * Calculates the maximum value of a given number of doubles<br>
  * 
- * @param a
- *            the first double
- * @param values
- *            the rest of the doubles
+ * param a<br>
+ *            the first double<br>
+ * param values<br>
+ *            the rest of the doubles<br>
  * @return maximum of given doubles
  */
 public class MAX extends NumberFunction{
@@ -24,7 +24,7 @@ public class MAX extends NumberFunction{
 			try{
 				input[i] = Double.parseDouble(values[i]);
 			}catch(NumberFormatException e){
-				throw new IllegalFunctionArgumentsException(e);
+				throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[i]);
 			}
 		}
 	}

@@ -9,29 +9,26 @@ import java.math.BigDecimal;
  * <b>Syntax:</b> ROUNDUP(double x, double digits)
  */
 public class ROUNDUP extends NumberFunction {
-	final static int MIN_ARGS = 2;
-	
 	private BigDecimal a;
 	private int b;
-	
-	public ROUNDUP(String... digits) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, digits);
-		
+
+	final static int MIN_ARGS = 2;
+	final static int MAX_ARGS = 2;
+
+	public ROUNDUP(String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, MAX_ARGS, values);
+		int cur = 0;
 		try{
-			a = new BigDecimal(digits[0]);
-			b = Integer.parseInt(digits[1]);
+			a = new BigDecimal(values[0]);
+			cur++;
+			b = Integer.parseInt(values[1]);
 		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException(e);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[cur]);
 		}
 	}
 
 	@Override
 	public double execute() {
-		
-		a = a.setScale(b, BigDecimal.ROUND_UP);
-		
-		return a.doubleValue();
-		
-	
+		return a.setScale(b, BigDecimal.ROUND_UP).doubleValue();
 	}
 }

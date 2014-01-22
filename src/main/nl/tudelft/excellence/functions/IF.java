@@ -4,43 +4,54 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
 import nl.tudelft.excellence.utilities.Utility;
 
 /**
- * Converts a String into a logical condition and tests that condition
- * Returns a given String if the test returns true, returns another given String if the test returns false
- * @param iftrue String which is to be returned if the logical condition returns true
- * @param iffalse String which is to be returned if the logical condition returns false
+ * Converts a String into a logical condition and tests that condition<br>
+ * Returns a given String if the test returns true, returns another given String if the test returns false<br>
+ * param iftrue String which is to be returned if the logical condition returns true<br>
+ * param iffalse String which is to be returned if the logical condition returns false<br>
  */
 public class IF extends StringFunction {
 	private String logictest;
 	private String iftrue;
 	private String iffalse;
-	private boolean isLogicValue;
-	
+
 	final static int MIN_ARGS = 1;
+	final static int MAX_ARGS = 3;
 
-	public IF(String...strings) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, strings);
+	public IF(String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, MAX_ARGS, values);
 
-		if (strings.length == 2) {
-			throw new IllegalFunctionArgumentsException("This function needs 1 argument or 3 or more arguments");
+		if (values.length == 2) {
+			throw new IllegalFunctionArgumentsException("This function expects either 1 or 3 arguments");
 		}
 
-		logictest = Utility.getValue(strings[0].trim());
-		isLogicValue = logictest.equalsIgnoreCase("true") || logictest.equalsIgnoreCase("false");
+		logictest = Utility.getValue(values[0].trim());
 
 		this.logictest = logictest.replaceFirst("((!?=)|((<|>)=?))", "|$0|");
 
-		if (strings.length >= 3) {
-			iftrue = strings[1];
-			iffalse = strings[2];
+		if (values.length == 3) {
+			iftrue = values[1];
+			iffalse = values[2];
 		} else {
 			iftrue = "true";
 			iffalse = "false";
+		}
+
+		if(!Utility.isBoolean(logictest)){
+			String[] split = logictest.split("\\|");
+			int cur = 0;
+			try{
+				Double.parseDouble(Utility.getValue(split[0]));
+				cur = 2;
+				Double.parseDouble(Utility.getValue(split[2]));
+			} catch(NumberFormatException e){
+				throw new IllegalFunctionArgumentsException("Expected a number, but got: "+split[cur]);
+			}
 		}
 	}
 
 	@Override
 	public String execute() {
-		if(isLogicValue){
+		if(Utility.isBoolean(logictest)){
 			return (Boolean.parseBoolean(logictest))?iftrue:iffalse;
 		}
 		

@@ -8,13 +8,12 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  */
 public class COUNT extends NumberFunction {
 	final static int MIN_ARGS = 1;
-	
+
 	private String[] input;
 	
 	public COUNT(String... strings) throws IllegalFunctionArgumentsException{
 		super(MIN_ARGS, strings);
-		input = new String[strings.length];
-		System.arraycopy(strings, 0, input, 0, strings.length);
+		input = strings;
 	}
 
 	@Override

@@ -1,9 +1,10 @@
 package nl.tudelft.excellence.functions;
 
 import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
+import nl.tudelft.excellence.utilities.Utility;
 
 /**
- * Returns true, when 1 or more input values is true, and returns false when all input is false
+ * Returns true, when 1 or more input values is true, and returns false when all inputs are false
  * <b>Syntax:</b> OR(boolean a[, boolean b, boolean c...])
  */
 
@@ -18,11 +19,10 @@ public class OR extends BooleanFunction{
 		input = new boolean[values.length];
 		
 		for(int i = 0; i < values.length; i++){
-			try{
-				input[i] = Boolean.parseBoolean(values[i]);
-			}catch(NumberFormatException e){
-				throw new IllegalFunctionArgumentsException(e);
+			if(!Utility.isBoolean(values[i])){
+				throw new IllegalFunctionArgumentsException("Expected a boolean, but got: "+values[0]);
 			}
+			input[i] = Boolean.parseBoolean(values[i]);
 		}
 	}
 

@@ -12,10 +12,11 @@ public class PROPER extends StringFunction{
 	private String proper;
 	
 	final static int MIN_ARGS = 1;
+	final static int MAX_ARGS = 1;
 	
-	public PROPER(String input) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, input);
-		proper = input;
+	public PROPER(String... values) throws IllegalFunctionArgumentsException {
+		super(MIN_ARGS, MAX_ARGS, values);
+		proper = values[0];
 	}
 
 	@Override

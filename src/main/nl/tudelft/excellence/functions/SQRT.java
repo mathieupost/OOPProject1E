@@ -3,24 +3,24 @@ package nl.tudelft.excellence.functions;
 import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
 
 /**
- * Returns the square root of double x
+ * Returns the square root of double x<br>
  * 
- * @param x
- *            variable
+ * param x<br>
  * @return square root
  */
 public class SQRT extends NumberFunction {
-	final static int MIN_ARGS = 1;
-	
 	private double input;
 
-	public SQRT(String in) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, in);
+	final static int MIN_ARGS = 1;
+	final static int MAX_ARGS = 1;
+
+	public SQRT(String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, values);
 		
 		try{
-			input = Double.parseDouble(in);
+			input = Double.parseDouble(values[0]);
 		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException(e);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[0]);
 		}
 	}
 

@@ -9,7 +9,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
 
 public class AVG extends NumberFunction{
 	final static int MIN_ARGS = 2;
-	
+
 	private double[] input;
 	
 	public AVG(String... values) throws IllegalFunctionArgumentsException{
@@ -22,7 +22,7 @@ public class AVG extends NumberFunction{
 				input[i] = Double.parseDouble(values[i]);
 			}
 			catch(NumberFormatException e){
-				throw new IllegalFunctionArgumentsException(e);
+				throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[i]);
 			}
 		}
 	}

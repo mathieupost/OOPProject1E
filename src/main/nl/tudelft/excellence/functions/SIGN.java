@@ -12,20 +12,21 @@ public class SIGN extends NumberFunction{
 	private double sign;
 	
 	final static int MIN_ARGS = 1;
+	final static int MAX_ARGS = 1;
 	
-	public SIGN(String x) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, x);
+	public SIGN(String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, MAX_ARGS, values);
 		try{
-			sign = Double.parseDouble(x);
+			sign = Double.parseDouble(values[0]);
 		}
 		catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException(e);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[0]);
 		}
 	}
 
 	@Override
 	public double execute() {
-		return Double.compare(sign, 0);
+		return Integer.signum(Double.compare(sign, 0));
 	}
 
 }

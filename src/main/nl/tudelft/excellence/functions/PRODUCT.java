@@ -20,7 +20,7 @@ public class PRODUCT extends NumberFunction {
 			try{
 				input[i] = Double.parseDouble(values[i]);
 			}catch(NumberFormatException e){
-				throw new IllegalFunctionArgumentsException(e);
+				throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[i]);
 			}
 		}
 	}

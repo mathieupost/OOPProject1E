@@ -12,12 +12,9 @@ public class COUNTA extends NumberFunction{
 	
 	private String[] cells;
 	
-	public COUNTA(String...strings ) throws IllegalFunctionArgumentsException{
+	public COUNTA(String...strings) throws IllegalFunctionArgumentsException{
 		super(MIN_ARGS, strings);
-		
-		cells = new String[strings.length];
-
-		System.arraycopy(strings, 0, cells, 0, strings.length);
+		cells = strings;
 	}
 
 	@Override

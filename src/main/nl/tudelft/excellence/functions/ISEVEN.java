@@ -8,16 +8,17 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  */
 public class ISEVEN extends BooleanFunction {
 	final static int MIN_ARGS = 1;
+	final static int MAX_ARGS = 1;
 	
 	private double result;
 	
-	public ISEVEN(String value) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, value);
+	public ISEVEN(String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, MAX_ARGS, values);
 		
 		try{
-			result = Double.parseDouble(value);
+			result = Double.parseDouble(values[0]);
 		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException(e);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[0]);
 		}
 	
 		}

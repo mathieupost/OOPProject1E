@@ -12,9 +12,9 @@ public class ISNUMBER extends BooleanFunction{
 	
 	private String input;
 	
-	public ISNUMBER(String value) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, value);
-		input = value;
+	public ISNUMBER(String... values) throws IllegalFunctionArgumentsException{
+		super(MIN_ARGS, values);
+		input = values[0];
 		
 	}
 

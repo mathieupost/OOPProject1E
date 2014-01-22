@@ -14,70 +14,66 @@ public class COUNTIF extends NumberFunction{
 	private String operand;
 	
 	
-	public COUNTIF(String...strings){
-		super(MIN_ARGS, strings);
-		cells = new double[strings.length];
-		
+	public COUNTIF(String... values){
+		super(MIN_ARGS, values);
+		cells = new double[values.length-2];
+
+		int cur = 2;
 		try{
-			for(int i = 2; i < strings.length; i++){
-				cells[i] = Double.parseDouble(strings[i]);	
+			for(int i = 2; i < values.length; i++){
+				cur = i;
+				cells[i-2] = Double.parseDouble(values[i]);
 			}
-			
-			criteria = Double.parseDouble(strings[0]);
+			cur = 0;
+			criteria = Double.parseDouble(values[0]);
 		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException(e);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[cur]);
 		}
-		operand = strings[1];
+		operand = values[1];
+		if(!operand.matches("((!?=)|((<|>)=?))"))
+			throw new IllegalFunctionArgumentsException("Invalid operand supplied: " + operand);
 	}
 
 	@Override
 	public double execute() {
 		double res = 0;
-		//equalsmethode gebruiken of kan je het wel als getal zien. Ga nu uit van
-		//getal
 		if (operand.equals("=")) {
-            for (int i = 2; i < cells.length; i++) {
-                    if (cells[i] == criteria) {
-                            res++;
-                    }
-            }
+			for (double cell : cells) {
+				if (cell == criteria) {
+					res++;
+				}
+			}
+		} else if (operand.equals("!=")) {
+			for (double cell : cells) {
+				if (cell != criteria) {
+					res++;
+				}
+			}
+		} else if (operand.equals("<")) {
+			for (double cell : cells) {
+				if (cell < criteria) {
+					res++;
+				}
+			}
+		} else if (operand.equals(">")) {
+			for (double cell : cells) {
+				if (cell > criteria) {
+					res++;
+				}
+			}
+		} else if (operand.equals("<=")) {
+			for (double cell : cells) {
+				if (cell <= criteria) {
+					res++;
+				}
+			}
+		} else if (operand.equals(">=")) {
+			for (double cell : cells) {
+				if (cell >= criteria) {
+					res++;
+				}
+			}
 		}
-		if (operand.equals("!=")) {
-            for (int i = 2; i < cells.length; i++) {
-                    if (cells[i] != criteria) {
-                            res++;
-                    }
-            }
-		}
-		if (operand.equals("<")) {
-            for (int i = 2; i < cells.length; i++) {
-                    if (cells[i] < criteria) {
-                            res++;
-                    }
-            }
-		}
-		if (operand.equals(">")) {
-            for (int i = 2; i < cells.length; i++) {
-                    if (cells[i] > criteria) {
-                            res++;
-                    }
-            }
-		}
-		if (operand.equals("<=")) {
-            for (int i = 2; i < cells.length; i++) {
-                    if (cells[i] <= criteria) {
-                            res++;
-                    }
-            }
-		}
-		if (operand.equals(">=")) {
-            for (int i = 2; i < cells.length; i++) {
-                    if (cells[i] >= criteria) {
-                            res++;
-                    }
-            }
-		}
-		
 		
 		return res;
 	}
