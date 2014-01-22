@@ -1,5 +1,7 @@
 package nl.tudelft.excellence.spreadsheet.cells;
 
+import nl.tudelft.excellence.utilities.Utility;
+
 public abstract class Cell{
 	private CellType type;
 	private String rawData;
@@ -37,7 +39,7 @@ public abstract class Cell{
 	 * @return A String representation of this Cell
 	 */
 	public String serialize(){
-		return "\t" + rawData;
+		return "\t" + Utility.escapeXML(rawData) + "";
 	}
 
 	public abstract String getData();

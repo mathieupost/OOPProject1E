@@ -23,7 +23,7 @@ public class FileManager {
 
 			DefaultHandler handler = new DefaultHandler() {
 				boolean cell = false;
-				String data;
+				String data = "";
 				int row;
 				int column;
 
@@ -51,6 +51,7 @@ public class FileManager {
 								grid.put(coord, new StringCell(data));
 							}
 						}
+						data = "";
 						cell = false;
 					}
 				}
@@ -58,7 +59,7 @@ public class FileManager {
 				@Override
 				public void characters(char[] ch, int start, int length) throws SAXException {
 					if (cell) {
-						data = new String(ch, start, length).replaceAll("\n|\t", "");
+						data += new String(ch, start, length).replaceAll("\n|\t", "");
 					}
 				}
 

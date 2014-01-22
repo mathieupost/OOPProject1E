@@ -129,17 +129,10 @@ public class Utility {
 	public static String getOS() {
 		String os = System.getProperty("os.name").toLowerCase();
 
-		if(os.contains("mac")){
+		if(os.contains("os x")){
 			return "MAC";
-		}
-		else if(os.contains("win")){
+		} else if(os.contains("win")){
 			return "WIN";
-		}
-		else if(os.contains("nix") || os.contains("nux")){
-			return "LINUX/UNIX";
-		}
-		else if(os.contains("sunos")){
-			return "SOLARIS";
 		}
 		return "";
 	}
@@ -173,5 +166,14 @@ public class Utility {
 			default:
 		}
 		return null;
+	}
+
+	public static String escapeXML(String input){
+		return input
+				.replaceAll("&", "&amp;")
+				.replaceAll("<","&lt;")
+				.replaceAll(">", "&gt;")
+				.replaceAll("\'", "&apos;")
+				.replaceAll("\"", "&quot;");
 	}
 }

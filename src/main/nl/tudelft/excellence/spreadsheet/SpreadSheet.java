@@ -62,12 +62,12 @@ public class SpreadSheet {
 		CellCoord fromCoord = new CellCoord(from);
 		CellCoord toCoord = new CellCoord(to);
 		if (fromCoord.isValid() && toCoord.isValid()) {
-			int fromCollumn = fromCoord.getColumn();
+			int fromColumn = fromCoord.getColumn();
 			int fromRow = fromCoord.getRow();
 			int toCollumn = toCoord.getColumn();
 			int toRow = toCoord.getRow();
 
-			for (int col = fromCollumn; col <= toCollumn; col++) {
+			for (int col = fromColumn; col <= toCollumn; col++) {
 				for (int row = fromRow; row <= toRow; row++) {
 					cellArrayList.add(this.getCell(col, row));
 				}

@@ -31,10 +31,19 @@ public class UtilityTest {
 
 	@Test
 	public void testGetOS(){
-		//Force os.name to resemble Windows 8 to make this test Platform Independent
+		String tmp = System.getProperty("os.name"); //Backup current os.name
+		//Force os.name to resemble various OS's to make this test Platform Independent
 		System.setProperty("os.name", "Windows 8");
-
 		assertEquals(Utility.getOS(), "WIN");
 
+		System.setProperty("os.name", "MAC OS X");
+		assertEquals(Utility.getOS(), "MAC");
+
+		System.setProperty("os.name", tmp); //Restore os.name
+	}
+
+	@Test
+	public void testEscapeXML() {
+		assertEquals(Utility.escapeXML("< > & \' \""), "&lt; &gt; &amp; &apos; &quot;");
 	}
 }
