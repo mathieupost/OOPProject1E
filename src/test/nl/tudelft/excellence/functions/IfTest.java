@@ -1,10 +1,20 @@
 package nl.tudelft.excellence.functions;
 
-import static org.junit.Assert.*;
-
+import nl.tudelft.excellence.spreadsheet.SpreadSheet;
+import nl.tudelft.excellence.spreadsheet.cells.Cell;
+import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.TreeMap;
+
+import static org.junit.Assert.assertEquals;
+
 public class IfTest {
+	@BeforeClass
+	public static void setup() {
+		SpreadSheet.current = new SpreadSheet(new TreeMap<CellCoord, Cell>());
+	}
 
 	@Test
 	public void testIfEqualFalse() {

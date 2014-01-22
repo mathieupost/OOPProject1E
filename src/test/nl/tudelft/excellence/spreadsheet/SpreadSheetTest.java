@@ -95,28 +95,4 @@ public class SpreadSheetTest {
                 "</SPREADSHEET>"
         );
 	}
-
-	/**
-	 * Test method for {@link nl.tudelft.excellence.spreadsheet.SpreadSheet#toString()}.
-	 */
-	@Test
-	public void testToString() {
-        assertEquals(s1.toString(),
-                "SpreadSheet toString output:\n" +
-                "==============================================\n" +
-                "Coord:\t(1, 1)\n" +
-                "Content:'Eerste rij:'\n" +
-                "\n" +
-                "Coord:\t(2, 1)\n" +
-                "Content:'24.0'\n" +
-                "\n" +
-                "Coord:\t(1, 2)\n" +
-                "Content:'Tweede rij:'\n" +
-                "\n" +
-                "Coord:\t(2, 2)\n" +
-                "Content:'25.0'\n" +
-                "\n"
-        );
-	}
-
 }

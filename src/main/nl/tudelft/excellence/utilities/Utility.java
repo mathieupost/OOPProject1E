@@ -176,16 +176,16 @@ public class Utility {
 	public static String getOS() {
 		String os = System.getProperty("os.name").toLowerCase();
 
-		if(os.indexOf("mac") >= 0){
+		if(os.contains("mac")){
 			return "MAC";
 		}
-		else if(os.indexOf("win") >= 0){
+		else if(os.contains("win")){
 			return "WIN";
 		}
-		else if(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0){
+		else if(os.contains("nix") || os.contains("nux")){
 			return "LINUX/UNIX";
 		}
-		else if(os.indexOf("sunos") >= 0){
+		else if(os.contains("sunos")){
 			return "SOLARIS";
 		}
 		return "";
