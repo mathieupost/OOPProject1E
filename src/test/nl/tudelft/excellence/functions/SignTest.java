@@ -1,6 +1,7 @@
 package nl.tudelft.excellence.functions;
 
 import static org.junit.Assert.*;
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
 
 import org.junit.Test;
 
@@ -14,6 +15,16 @@ public class SignTest {
 		assertEquals(test.execute(),-1,0);
 		assertEquals(test2.execute(),0,0);
 		assertEquals(test3.execute(),1,0);
+	}
+	
+	@Test
+	public void test2(){
+		try{
+			SIGN test = new SIGN("");
+			fail();
+		} catch(IllegalFunctionArgumentsException ignore){}
+		
+		
 	}
 
 }

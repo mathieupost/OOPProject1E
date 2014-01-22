@@ -1,6 +1,7 @@
 package nl.tudelft.excellence.functions;
 
 import static org.junit.Assert.*;
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
 
 import org.junit.Test;
 
@@ -14,6 +15,16 @@ public class SqrtTest {
 		assertEquals(test.execute(),Math.sqrt(-10),0);
 		assertEquals(test2.execute(),Math.sqrt(0),0);
 		assertEquals(test3.execute(),Math.sqrt(9999),0);
+	}
+	
+	@Test
+	public void test2(){
+		try{
+			SQRT test = new SQRT("");
+			fail();
+		} catch(IllegalFunctionArgumentsException ignore){}
+		
+		
 	}
 
 }

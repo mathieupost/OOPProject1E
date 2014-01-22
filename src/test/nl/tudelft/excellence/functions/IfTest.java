@@ -1,14 +1,17 @@
 package nl.tudelft.excellence.functions;
 
+import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 import nl.tudelft.excellence.spreadsheet.cells.Cell;
 import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class IfTest {
 	@BeforeClass
@@ -60,8 +63,8 @@ public class IfTest {
 	
 	@Test
 	public void testIfBiggerEqualFalse() {
-		IF i = new IF("8 >= 5", "ja", "nee");
-		assertEquals(i.execute(), "ja");
+		IF i = new IF("5 >= 8", "ja", "nee");
+		assertEquals(i.execute(), "nee");
 	}
 	
 	@Test
@@ -74,6 +77,28 @@ public class IfTest {
 	public void testIfNotEqualsTrue() {
 		IF i = new IF("8 != 5", "ja", "nee");
 		assertEquals(i.execute(), "ja");
+	}
+	
+	@Test
+	public void testIfSmallerEqualTrue(){
+		IF i = new IF("8 <= 10", "ja", "nee");
+		assertEquals(i.execute(), "ja");
+	}
+	
+	@Test
+	public void testIfSmallerEqualFalse(){
+		IF i = new IF("18 <= 10", "ja", "nee");
+		assertEquals(i.execute(), "nee");
+	}
+	
+	
+	@Test
+	public void test2(){
+		try{
+			IF test = new IF("2", "ja");
+			fail();
+		} catch(IllegalFunctionArgumentsException ignore){}
+		
 	}
 
 }
