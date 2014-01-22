@@ -45,21 +45,21 @@ public class MainDataModel extends AbstractTableModel{
 			if(data.length()==0){
 				sheet.removeCell(coord);
 			} else {
-				Cell cell = sheet.getCell(coord), newCell;
+				Cell cell = sheet.getCell(coord);
 				if(cell==null || !cell.getRawData().equals(data)){
 					if (data.startsWith("=") && data.length()>1) {
-						sheet.putCell(coord, newCell = new FunctionCell(data));
+						sheet.putCell(coord, new FunctionCell(data));
 					} else {
 						try {
 							double number = Double.parseDouble(data);
-							sheet.putCell(coord, newCell = new NumberCell(number));
+							sheet.putCell(coord, new NumberCell(number));
 						} catch (NumberFormatException e) {
-							sheet.putCell(coord, newCell = new StringCell(data));
+							sheet.putCell(coord, new StringCell(data));
 						}
 					}
-					if(cell!=null) cell.notifyObservers(newCell);
 				}
 			}
+			this.fireTableDataChanged();
 		}
 	}
 	

@@ -1,8 +1,6 @@
 package nl.tudelft.excellence.spreadsheet.cells;
 
-import java.util.Observable;
-
-public abstract class Cell extends Observable{
+public abstract class Cell{
 	private CellType type;
 	private String rawData;
 	
