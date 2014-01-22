@@ -9,9 +9,9 @@ import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 import nl.tudelft.excellence.spreadsheet.cells.Cell;
 import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FunctionManager {
 	static HashMap<String, Class<? extends Function>> functionList = new HashMap<String, Class<? extends Function>>();
@@ -26,19 +26,6 @@ public class FunctionManager {
 	 */
 	public static Class<? extends Function> getFunctionByName(String name) {
 		return functionList.get(name.toUpperCase());
-	}
-
-	public static Constructor<? extends Function> getConstructor(String functionName, Class<?>... args) {
-		Class<? extends Function> clazz = getFunctionByName(functionName);
-		if (clazz == null) {
-			return null;
-		}
-
-		try {
-			return clazz.getConstructor(args);
-		} catch (NoSuchMethodException e) {
-			return null;
-		}
 	}
 
 	public static String parseFunction(String functionString) throws Exception {
@@ -98,9 +85,9 @@ public class FunctionManager {
 				res = stringFunction.execute();
 			}
 		} catch (InstantiationException e) {
-			throw new Exception("Error: This function does not exist: " + functionName + "\n", e);
+			throw new Exception("Error: This function does not exist: " + functionName, e);
 		} catch (NullPointerException e) {
-			throw new Exception("Error: This function does not exist: " + functionName + "\n", e);
+			throw new Exception("Error: This function does not exist: " + functionName, e);
 		} catch (InvocationTargetException e) {
 			throw new Exception("Error: " + e.getCause().getMessage() + " in: " + functionString);
 		}
