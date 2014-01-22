@@ -20,7 +20,7 @@ public class SignTest {
 	@Test
 	public void test2(){
 		try{
-			SIGN test = new SIGN("");
+			new SIGN("");
 			fail();
 		} catch(IllegalFunctionArgumentsException ignore){}
 		

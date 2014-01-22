@@ -20,7 +20,7 @@ public class SqrtTest {
 	@Test
 	public void test2(){
 		try{
-			SQRT test = new SQRT("");
+			new SQRT("");
 			fail();
 		} catch(IllegalFunctionArgumentsException ignore){}
 		

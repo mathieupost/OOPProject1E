@@ -22,7 +22,7 @@ public class IntTest {
 	@Test
 	public void test(){
 		try{
-			INT test = new INT("");
+			new INT("");
 			fail();
 		} catch(IllegalFunctionArgumentsException ignore){}
 		

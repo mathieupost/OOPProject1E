@@ -95,7 +95,7 @@ public class IfTest {
 	@Test
 	public void test2(){
 		try{
-			IF test = new IF("2", "ja");
+			new IF("2", "ja");
 			fail();
 		} catch(IllegalFunctionArgumentsException ignore){}
 		

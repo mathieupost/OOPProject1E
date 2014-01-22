@@ -20,7 +20,7 @@ public class SumTest {
 	@Test
 	public void test2(){
 		try{
-			SUM test = new SUM("NotADouble");
+			new SUM("NotADouble");
 			fail();
 		} catch(IllegalFunctionArgumentsException ignore){}
 		
