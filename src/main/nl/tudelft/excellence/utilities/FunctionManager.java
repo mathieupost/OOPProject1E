@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FunctionManager {
-	static HashMap<String, Class<? extends Function>> functionList = new HashMap<String, Class<? extends Function>>();
-	static ArrayList<FunctionCell> recursionDetectList = new ArrayList<FunctionCell>();
+	private static final HashMap<String, Class<? extends Function>> functionList;
+	private static final ArrayList<FunctionCell> recursionDetectList = new ArrayList<FunctionCell>();
 
 	static {
 		functionList = Utility.getFunctions();
@@ -83,7 +83,7 @@ public class FunctionManager {
 				if (cell != null){
 					FunctionCell fCell = null;
 					if(cell instanceof FunctionCell){
-					fCell = (FunctionCell) cell;
+					    fCell = (FunctionCell) cell;
 						if(!recursionDetectList.contains(fCell)) {
 							recursionDetectList.add(fCell);
 						} else {
@@ -157,11 +157,26 @@ public class FunctionManager {
 							Cell[] cells = SpreadSheet.current.getCells(from, arg);
 							if(cells==null)
 								throw new ParseArgumentsException("Error: Specified range '"+from+":"+arg+"' is invalid.");
-							for (int cell = 1; cell < cells.length; cell++) { // Skip first because it is already added
-								if(cells[cell]==null){
-									throw new ParseArgumentsException("Error: Not all Cells in range '"+from+":"+arg+"' are valid.");
-								}
-								res.add(cells[cell].getData());
+
+                            FunctionCell fCell;
+                            Cell c;
+                            for (int cell = 1; cell < cells.length; cell++) { // Skip first because it is already added
+                                c = cells[cell];
+                                if(c==null){
+                                    throw new ParseArgumentsException("Error: Not all Cells in range '"+from+":"+arg+"' are valid.");
+                                }
+                                if(c instanceof FunctionCell){
+                                    fCell = (FunctionCell) c;
+                                    if(!recursionDetectList.contains(fCell)) {
+                                        recursionDetectList.add(fCell);
+                                    } else {
+                                        recursionDetectList.clear();
+                                        throw new ParseArgumentsException("Recursive Cell pointer in '"+fCell.getRawData()+"'");
+                                    }
+                                } else fCell = null;
+                                String data = c.getData();
+                                recursionDetectList.remove(fCell);
+								res.add(data);
 							}
 						} else
 							res.add(arg);
