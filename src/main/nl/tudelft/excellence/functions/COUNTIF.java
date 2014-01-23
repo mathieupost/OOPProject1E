@@ -27,7 +27,7 @@ public class COUNTIF extends NumberFunction{
 			cur = 0;
 			criteria = Double.parseDouble(values[0]);
 		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[cur]);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[cur]+"'");
 		}
 		operand = values[1];
 		if(!operand.matches("((!?=)|((<|>)=?))"))

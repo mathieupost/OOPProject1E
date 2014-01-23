@@ -26,7 +26,7 @@ public class POWER extends NumberFunction {
 			exp = Double.parseDouble(values[1]);
 		}
 		catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[cur]);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[cur]+"'");
 		}
 	}
 

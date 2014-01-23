@@ -22,7 +22,7 @@ public class MOD extends NumberFunction{
 			cur++;
 			value2 = Double.parseDouble(values[1]);
 		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[cur]);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[cur]+"'");
 		}
 	}
 

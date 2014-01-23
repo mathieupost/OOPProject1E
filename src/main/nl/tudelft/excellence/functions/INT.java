@@ -19,7 +19,7 @@ public class INT extends NumberFunction {
 		try{
 			result = Double.parseDouble(values[0]);
 		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[0]);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[0]+"'");
 		}
 	}
 

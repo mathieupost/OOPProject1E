@@ -23,7 +23,7 @@ public class ROUNDUP extends NumberFunction {
 			cur++;
 			b = Integer.parseInt(values[1]);
 		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[cur]);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[cur]+"'");
 		}
 	}
 

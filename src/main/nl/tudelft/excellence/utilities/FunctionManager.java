@@ -8,6 +8,7 @@ import nl.tudelft.excellence.functions.StringFunction;
 import nl.tudelft.excellence.spreadsheet.SpreadSheet;
 import nl.tudelft.excellence.spreadsheet.cells.Cell;
 import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
+import nl.tudelft.excellence.spreadsheet.cells.FunctionCell;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 
 public class FunctionManager {
 	static HashMap<String, Class<? extends Function>> functionList = new HashMap<String, Class<? extends Function>>();
+	static ArrayList<FunctionCell> recursionDetectList = new ArrayList<FunctionCell>();
 
 	static {
 		functionList = Utility.getFunctions();
@@ -40,7 +42,19 @@ public class FunctionManager {
 				if (cell.getRawData().equalsIgnoreCase("="+functionString)) {
 					throw new ParseArgumentsException("Error: Recursive Cell pointer");
 				} else {
-					return cell.getData();
+					FunctionCell fCell = null;
+					if(cell instanceof FunctionCell){
+						fCell = (FunctionCell) cell;
+						if(!recursionDetectList.contains(fCell)) {
+							recursionDetectList.add(fCell);
+						} else {
+							recursionDetectList.clear();
+							throw new ParseArgumentsException("Error: Recursive Cell pointer");
+						}
+					}
+					String data = cell.getData();
+					recursionDetectList.remove(fCell);
+					return data;
 				}
 			} else {
 				throw new ParseArgumentsException("#Cell '"+functionString+"' is empty.");
@@ -64,8 +78,23 @@ public class FunctionManager {
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].contains("("))
 				args[i] = parseFunction(args[i]);
-			else
-				args[i] = Utility.getValue(args[i]);
+			else {
+				Cell cell = SpreadSheet.current.getCell(new CellCoord(args[i]));
+				if (cell != null){
+					FunctionCell fCell = null;
+					if(cell instanceof FunctionCell){
+					fCell = (FunctionCell) cell;
+						if(!recursionDetectList.contains(fCell)) {
+							recursionDetectList.add(fCell);
+						} else {
+							recursionDetectList.clear();
+							throw new ParseArgumentsException("Recursive Cell pointer in '"+cell.getRawData()+"'");
+						}
+					}
+					args[i] = cell.getData();
+					recursionDetectList.remove(fCell);
+				}
+			}
 
 			if (args[i].toUpperCase().contains("ERROR"))
 				throw new ParseArgumentsException("A referenced cell contains an error");

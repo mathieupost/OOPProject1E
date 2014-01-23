@@ -23,7 +23,7 @@ public class MEDIAN extends NumberFunction{
 				input[i] = Double.parseDouble(values[i]);
 			}
 			catch(NumberFormatException e){
-				throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[i]);
+				throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[i]+"'");
 			}
 		}
 	}

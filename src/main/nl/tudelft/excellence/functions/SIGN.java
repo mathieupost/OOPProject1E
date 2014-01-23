@@ -20,7 +20,7 @@ public class SIGN extends NumberFunction{
 			sign = Double.parseDouble(values[0]);
 		}
 		catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: "+values[0]);
+			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[0]+"'");
 		}
 	}
 
