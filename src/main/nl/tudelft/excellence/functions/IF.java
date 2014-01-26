@@ -78,13 +78,13 @@ public class IF extends StringFunction {
 
         if (split[1].equals("=")) {
             if (notNumbers) {
-                return (first.equals(second)) ? iftrue : iffalse;
+                return (first.trim().equals(second.trim())) ? iftrue : iffalse;
             } else {
                 return (a == b) ? iftrue : iffalse;
             }
         } else if (split[1].equals("!=")) {
             if (notNumbers) {
-                return (!first.equals(second)) ? iftrue : iffalse;
+                return (!first.trim().equals(second.trim())) ? iftrue : iffalse;
             } else {
                 return (a != b) ? iftrue : iffalse;
             }
