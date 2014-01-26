@@ -1,8 +1,10 @@
 package nl.tudelft.excellence.spreadsheet.cells;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class StringCellTest {
 
@@ -18,15 +20,16 @@ public class StringCellTest {
 	
 	@Test
 	public void testEquals() {
-		assertEquals(c1.equals(c1),true);
-		assertEquals(c1.equals(null),false);
-		assertEquals(c1.equals(c2),false);
-		assertEquals(c1.equals(c3),true);
-	}
-	
-	@Test
+        assertTrue(c1.equals(c1));
+        assertTrue(c1.equals(c3));
+
+        assertFalse(c1.equals(null));
+        assertFalse(c1.equals(c2));
+    }
+
+    @Test
 	public void testGetData(){
-		assertEquals(c1.getData(),"This is a String");
-	}
+        assertEquals(c1.getData(), " This is a String");
+    }
 
 }

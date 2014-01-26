@@ -8,23 +8,23 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  */
 
 public class INT extends NumberFunction {
-	final static int MIN_ARGS = 1;
-	final static int MAX_ARGS = 1;
-	
-	private double result;
-	
-	public INT(String... values){
-		super(MIN_ARGS, MAX_ARGS, values);
-		
-		try{
-			result = Double.parseDouble(values[0]);
-		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[0]+"'");
-		}
-	}
+    final static int MIN_ARGS = 1;
+    final static int MAX_ARGS = 1;
 
-	@Override
-	public double execute() {
-		return (int)result;
-	}
+    private double result;
+
+    public INT(String... values) {
+        super(MIN_ARGS, MAX_ARGS, values);
+
+        try {
+            result = Double.parseDouble(values[0]);
+        } catch (NumberFormatException e) {
+            throw new IllegalFunctionArgumentsException("Expected a number, but got: '" + (values[0].startsWith(" ") ? values[0].substring(1) : values[0]) + "'");
+        }
+    }
+
+    @Override
+    public double execute() {
+        return (int) result;
+    }
 }

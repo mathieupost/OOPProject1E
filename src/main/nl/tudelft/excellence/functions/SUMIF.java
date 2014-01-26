@@ -33,10 +33,10 @@ public class SUMIF extends NumberFunction {
 			cur = 0;
 			criteria = Double.parseDouble(values[0]);
 		}catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[cur]+"'");
-		}
-		operand = values[1];
-		if(!operand.matches("((!?=)|((<|>)=?))"))
+            throw new IllegalFunctionArgumentsException("Expected a number, but got: '" + (values[cur].startsWith(" ") ? values[cur].substring(1) : values[cur]) + "'");
+        }
+        operand = values[1];
+        if(!operand.matches("((!?=)|((<|>)=?))"))
 			throw new IllegalFunctionArgumentsException("Invalid operand supplied: " + operand);
 	}
 

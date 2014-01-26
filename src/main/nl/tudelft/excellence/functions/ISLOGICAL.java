@@ -5,21 +5,21 @@ import nl.tudelft.excellence.utilities.Utility;
 
 /**
  * Checks if a given String is a representation of a logical value
- * <b>Syntax:</b> ISLOGICAL(String value) 
+ * <b>Syntax:</b> ISLOGICAL(String value)
  */
-public class ISLOGICAL extends BooleanFunction{
-	private String value;
-	
-	final static int MIN_ARGS = 1;
-	final static int MAX_ARGS = 1;
-	
-	public ISLOGICAL(String... values) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, MAX_ARGS, values);
-		value = values[0].trim();
-	}
+public class ISLOGICAL extends BooleanFunction {
+    private String value;
 
-	@Override
-	public boolean execute() {
-		return Utility.isBoolean(value);
-	}
+    final static int MIN_ARGS = 1;
+    final static int MAX_ARGS = 1;
+
+    public ISLOGICAL(String... values) throws IllegalFunctionArgumentsException {
+        super(MIN_ARGS, MAX_ARGS, values);
+        value = values[0];
+    }
+
+    @Override
+    public boolean execute() {
+        return Utility.isBoolean(value);
+    }
 }

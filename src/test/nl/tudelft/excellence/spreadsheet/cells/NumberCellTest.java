@@ -27,11 +27,11 @@ public class NumberCellTest {
 	
 	@Test
 	public void testGetData() {
-		assertEquals(c1.getData(),"12.0");
-	}
-	
-	@Test
-	public void testGetNumber() {
+        assertEquals(c1.getData(), " 12.0");
+    }
+
+    @Test
+    public void testGetNumber() {
 		assertEquals(c1.getNumber(),12.0,0);
 	}
 

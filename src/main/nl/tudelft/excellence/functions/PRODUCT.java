@@ -7,30 +7,30 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  * <b>Syntax:</b> PRODUCT(double a, double b, double... values)
  */
 public class PRODUCT extends NumberFunction {
-	final static int MIN_ARGS = 2;
-	
-	private double[] input;
-	
-	public PRODUCT(String... values) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, values);
-		
-		input = new double[values.length];
-	
-		for(int i = 0; i<values.length;i++){
-			try{
-				input[i] = Double.parseDouble(values[i]);
-			}catch(NumberFormatException e){
-				throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[i]+"'");
-			}
-		}
-	}
+    final static int MIN_ARGS = 2;
 
-	@Override
-	public double execute() {
-		double product = 1;
-		for (double anInput : input) {
-			product *= anInput;
-		}
-		return product;
-	}
+    private double[] input;
+
+    public PRODUCT(String... values) throws IllegalFunctionArgumentsException {
+        super(MIN_ARGS, values);
+
+        input = new double[values.length];
+
+        for (int i = 0; i < values.length; i++) {
+            try {
+                input[i] = Double.parseDouble(values[i]);
+            } catch (NumberFormatException e) {
+                throw new IllegalFunctionArgumentsException("Expected a number, but got: '" + (values[i].startsWith(" ") ? values[i].substring(1) : values[i]) + "'");
+            }
+        }
+    }
+
+    @Override
+    public double execute() {
+        double product = 1;
+        for (double anInput : input) {
+            product *= anInput;
+        }
+        return product;
+    }
 }

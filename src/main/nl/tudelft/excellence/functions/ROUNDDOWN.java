@@ -24,11 +24,11 @@ public class ROUNDDOWN extends NumberFunction {
 			cur++;
 			b = Integer.parseInt(values[1]);
 		} catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[cur]+"'");
-		}
-	}
+            throw new IllegalFunctionArgumentsException("Expected a number, but got: '" + (values[cur].startsWith(" ") ? values[cur].substring(1) : values[cur]) + "'");
+        }
+    }
 
-	@Override
+    @Override
 	public double execute() {
 		return a.setScale(b, BigDecimal.ROUND_DOWN).doubleValue();
 	}

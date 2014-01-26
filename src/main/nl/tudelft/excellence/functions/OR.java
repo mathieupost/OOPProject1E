@@ -20,14 +20,14 @@ public class OR extends BooleanFunction{
 		
 		for(int i = 0; i < values.length; i++){
 			if(!Utility.isBoolean(values[i])){
-				throw new IllegalFunctionArgumentsException("Expected a boolean, but got: "+values[0]);
-			}
-			input[i] = Boolean.parseBoolean(values[i]);
-		}
-	}
+                throw new IllegalFunctionArgumentsException("Expected a boolean, but got: '" + (values[i].startsWith(" ") ? values[i].substring(i) : values[i]) + "'");
+            }
+            input[i] = Boolean.parseBoolean(values[i].trim());
+        }
+    }
 
-	@Override
-	public boolean execute() {
+    @Override
+    public boolean execute() {
 		boolean result = false;
 		for (boolean anInput : input) {
 			if (anInput) {

@@ -20,11 +20,11 @@ public class SIGN extends NumberFunction{
 			sign = Double.parseDouble(values[0]);
 		}
 		catch(NumberFormatException e){
-			throw new IllegalFunctionArgumentsException("Expected a number, but got: '"+values[0]+"'");
-		}
-	}
+            throw new IllegalFunctionArgumentsException("Expected a number, but got: '" + (values[0].startsWith(" ") ? values[0].substring(1) : values[0]) + "'");
+        }
+    }
 
-	@Override
+    @Override
 	public double execute() {
 		return Integer.signum(Double.compare(sign, 0));
 	}
