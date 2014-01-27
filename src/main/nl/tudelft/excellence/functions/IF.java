@@ -11,6 +11,7 @@ import nl.tudelft.excellence.utilities.Utility;
  * param iffalse String which is to be returned if the logical condition returns false<br>
  */
 public class IF extends StringFunction {
+    public static final String[] aliases = new String[]{"ALS"};
     private String logictest;
     private String iftrue;
     private String iffalse;

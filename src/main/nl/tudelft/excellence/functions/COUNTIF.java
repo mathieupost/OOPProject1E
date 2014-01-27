@@ -9,6 +9,7 @@ import nl.tudelft.excellence.utilities.Utility;
  * <b>Syntax:</b> COUNTIF(double criterium, String criteria_operand, double...cells
  */
 public class COUNTIF extends NumberFunction {
+    public static final String[] aliases = new String[]{"AANTAL.ALS"};
     final static int MIN_ARGS = 2;
 
     private double[] cells;

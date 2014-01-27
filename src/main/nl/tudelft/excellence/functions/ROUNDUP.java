@@ -9,6 +9,7 @@ import java.math.BigDecimal;
  * <b>Syntax:</b> ROUNDUP(double x, double digits)
  */
 public class ROUNDUP extends NumberFunction {
+    public static final String[] aliases = new String[]{"AFRONDEN.NAAR.BOVEN"};
     private BigDecimal a;
     private int b;
 

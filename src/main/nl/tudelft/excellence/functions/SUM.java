@@ -7,6 +7,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  * <b>Syntax:</b> SUM(double a, double b, double... values)
  */
 public class SUM extends NumberFunction {
+    public static final String[] aliases = new String[]{"SOM"};
     private double[] input;
 
     final static int MIN_ARGS = 2;

@@ -10,6 +10,7 @@ import nl.tudelft.excellence.spreadsheet.cells.CellCoord;
  */
 
 public class COUNTA extends NumberFunction {
+    public static final String[] aliases = new String[]{"AANTALARG"};
     final static int MIN_ARGS = 1;
 
     private String[] cells;

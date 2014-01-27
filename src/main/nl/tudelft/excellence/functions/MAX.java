@@ -13,6 +13,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  * @return maximum of given doubles
  */
 public class MAX extends NumberFunction {
+    public static final String[] aliases = new String[]{};
     final static int MIN_ARGS = 1;
 
     private double[] input;

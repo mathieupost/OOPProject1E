@@ -8,6 +8,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  */
 
 public class INT extends NumberFunction {
+    public static final String[] aliases = new String[]{"INTEGER"};
     final static int MIN_ARGS = 1;
     final static int MAX_ARGS = 1;
 

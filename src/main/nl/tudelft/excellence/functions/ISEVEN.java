@@ -7,6 +7,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  * <b>Syntax:</b> ISEVEN(double value)
  */
 public class ISEVEN extends BooleanFunction {
+    public static final String[] aliases = new String[]{"IS.EVEN"};
     final static int MIN_ARGS = 1;
     final static int MAX_ARGS = 1;
 

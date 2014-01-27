@@ -8,7 +8,7 @@ import nl.tudelft.excellence.utilities.Utility;
  * <b>Syntax:</b> NOT(boolean value)
  */
 public class NOT extends BooleanFunction {
-
+    public static final String[] aliases = new String[]{"NIET"};
     boolean input;
     final static int MIN_ARGS = 1;
     final static int MAX_ARGS = 1;

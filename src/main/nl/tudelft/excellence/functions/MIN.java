@@ -7,7 +7,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  * <b>Syntax:</b> MIN(double a, double... values)
  */
 public class MIN extends NumberFunction {
-
+    public static final String[] aliases = new String[]{};
     private double[] input;
     final static int MIN_ARGS = 1;
 

@@ -8,6 +8,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  */
 
 public class MOD extends NumberFunction {
+    public static final String[] aliases = new String[]{"REST"};
     final static int MIN_ARGS = 2;
     final static int MAX_ARGS = 2;
 

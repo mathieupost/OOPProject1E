@@ -31,7 +31,16 @@ public class Utility {
         try {
             for (Class<?> c : getClassesInPackage("nl.tudelft.excellence.functions", ".*(Test|Function)")) {
                 if (Function.class.isAssignableFrom(c)) {
-                    functionList.put(c.getSimpleName(), c.asSubclass(Function.class));
+                    functionList.put(c.getSimpleName().toUpperCase(), c.asSubclass(Function.class));
+                    try {
+                        String[] aliases = (String[]) c.getDeclaredField("aliases").get(null);
+                        for (String alias : aliases) {
+                            if (!functionList.containsKey(alias.toUpperCase())) {
+                                functionList.put(alias.toUpperCase(), c.asSubclass(Function.class));
+                            }
+                        }
+                    } catch (Exception ignored) {
+                    }
                 }
             }
         } catch (Exception ignored) {

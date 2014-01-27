@@ -8,6 +8,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  */
 
 public class AVG extends NumberFunction {
+    public static final String[] aliases = new String[]{"AVERAGE", "GEMIDDELDE"};
     final static int MIN_ARGS = 2;
 
     private double[] input;

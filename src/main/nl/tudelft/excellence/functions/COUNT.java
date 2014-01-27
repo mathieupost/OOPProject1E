@@ -7,24 +7,26 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  * <b>Syntax:</b> COUNT(String a[, String b, String c...])
  */
 public class COUNT extends NumberFunction {
-	final static int MIN_ARGS = 1;
+    public static final String[] aliases = new String[]{"AANTAL"};
+    final static int MIN_ARGS = 1;
 
-	private String[] input;
-	
-	public COUNT(String... strings) throws IllegalFunctionArgumentsException{
-		super(MIN_ARGS, strings);
-		input = strings;
-	}
+    private String[] input;
 
-	@Override
-	public double execute() {
-		double res = 0;
-		for (String anInput : input) {
-			try {
-				Double.parseDouble(anInput);
-				res++;
-			} catch (Exception ignored) {}
-		}
-		return res;
-	}
+    public COUNT(String... strings) throws IllegalFunctionArgumentsException {
+        super(MIN_ARGS, strings);
+        input = strings;
+    }
+
+    @Override
+    public double execute() {
+        double res = 0;
+        for (String anInput : input) {
+            try {
+                Double.parseDouble(anInput);
+                res++;
+            } catch (Exception ignored) {
+            }
+        }
+        return res;
+    }
 }

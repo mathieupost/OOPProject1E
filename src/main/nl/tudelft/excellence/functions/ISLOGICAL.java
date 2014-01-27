@@ -8,6 +8,7 @@ import nl.tudelft.excellence.utilities.Utility;
  * <b>Syntax:</b> ISLOGICAL(String value)
  */
 public class ISLOGICAL extends BooleanFunction {
+    public static final String[] aliases = new String[]{"ISLOGISCH"};
     private String value;
 
     final static int MIN_ARGS = 1;

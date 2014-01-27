@@ -11,6 +11,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  * @return result
  */
 public class POWER extends NumberFunction {
+    public static final String[] aliases = new String[]{"MACHT"};
     private double base;
     private double exp;
 

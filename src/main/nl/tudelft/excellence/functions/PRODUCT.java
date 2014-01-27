@@ -7,6 +7,7 @@ import nl.tudelft.excellence.exceptions.IllegalFunctionArgumentsException;
  * <b>Syntax:</b> PRODUCT(double a, double b, double... values)
  */
 public class PRODUCT extends NumberFunction {
+    public static final String[] aliases = new String[]{};
     final static int MIN_ARGS = 2;
 
     private double[] input;

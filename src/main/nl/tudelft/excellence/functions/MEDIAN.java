@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 
 public class MEDIAN extends NumberFunction {
-
+    public static final String[] aliases = new String[]{"MEDIAAN"};
     private double[] input;
 
     final static int MIN_ARGS = 1;
